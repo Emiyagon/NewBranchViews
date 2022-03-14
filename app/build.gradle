@@ -1,0 +1,177 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
+    defaultConfig {
+        applicationId "com.illyasr.mydempviews"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+        multiDexEnabled true
+        flavorDimensions "cp"
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters  "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a"
+        }// "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"
+        packagingOptions {
+            //解决编译时com.android.builder.merge.DuplicateRelativeFileException: More than one file was found with OS independent path 'META-INF/rxjava.properties'这个错误
+            exclude 'META-INF/rxjava.properties'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    flavorDimensions 'cp'
+   /* productFlavors {
+        "honlin" {
+            dimension 'cp'
+//            applicationId "com.jixing.aimili"
+//            signingConfig signingConfigs.release
+            buildConfigField("String", "GUID", '""')
+            manifestPlaceholders = [
+                    app_name : "@string/app_name",
+                    app_icon : "@mipmap/ic_launcher",
+                    app_style: "@style/AppTheme",
+            ]
+        }
+
+    }*/
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+/**
+ * apk打包
+ */
+
+android.applicationVariants.all { variant ->
+    def buildType = variant.buildType.name
+    def fileName
+    def createTime = new Date().format("YYYY-MM-dd-HH-mm-ss", TimeZone.getTimeZone("GMT+08:00"))
+    def createTimeShort = new Date().format("YYYY-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
+
+    variant.outputs.all {
+
+//        if (buildType == "release")
+            variant.getPackageApplicationProvider().get().outputDirectory = new File(project.rootDir.absolutePath + "/apks/${buildType}/$createTimeShort")
+//                fileName = "channelCode_${variant.flavorName}_v${variant.versionName}_${createTime}_${buildType}.apk"
+            fileName = "${variant.flavorName}_v${createTime}.apk"
+            it.outputFileName = fileName
+
+
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'com.google.android.material:material:1.3.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation project(path: ':biliplayer')
+    api 'androidx.cardview:cardview:1.0.0'
+    //
+    api 'com.github.mcxtzhang:all-base-adapter:V1.8.0'
+    implementation 'com.jeremyliao:live-event-bus:1.4.0'
+    //申请权限
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
+    //androidx项目
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta05'
+    implementation 'com.github.everhad:AndroidRatingStar:v1.0.4'
+//    implementation 'com.github.donkingliang:LabelsView:1.6.1'
+    //  RichText 第三方库,用来显示富文本信息
+    implementation('com.zzhoujay.richtext:richtext:3.0.7') {
+        exclude group: 'com.android.support'
+    }
+    implementation 'io.reactivex:rxjava:1.0.14'
+    implementation 'io.reactivex:rxandroid:1.0.1'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+    //chuck
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
+    implementation "com.github.bumptech.glide:glide:4.8.0"
+
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
+    implementation 'com.aliyun.dpa:oss-android-sdk:+'
+
+    //  微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
+    //权限申请适配
+    implementation 'com.lovedise:permissiongen:0.0.6'
+    implementation 'pub.devrel:easypermissions:1.0.1'
+    implementation 'com.yanzhenjie:permission:2.0.3'
+    //    implementation files('libs/alipaySdk-20180403.jar')
+
+    // lottie动画的实现
+    implementation 'com.airbnb.android:lottie:1.0.1'
+
+
+    //    implementation 'com.airbnb.android:lottie:2.0.0-beta4'
+
+    //    implementation files('libs/jpush-android-3.1.8.jar')
+    implementation files('libs/alipaySdk-15.6.2-20190416165100-noUtdid.aar')
+    //bugly 新版虫子显示
+    api 'cat.ereza:customactivityoncrash:2.2.0'
+
+    //liveEventBus
+    api 'com.jeremyliao:live-event-bus:1.4.0'
+    api 'com.larswerkman:HoloColorPicker:1.5'
+
+    // 强制更新
+    api 'com.allenliu.versionchecklib:library:2.2.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+//    implementation project(path: ':supertextview')
+    implementation 'com.github.chenBingX:SuperTextView:v3.2.5'
+    implementation project(path: ':biliplayer')
+//    implementation project(path: ':forempty')
+    api 'com.zhouyou:rxeasyhttp:2.1.5'
+    // 高德定位
+    implementation 'com.amap.api:3dmap:latest.integration' //定位功能
+    implementation 'com.amap.api:location:latest.integration' //搜索功能
+    implementation 'com.bigkoo:svprogresshud:1.0.6'
+
+    //微信分享
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    /*
+       zxing添加依赖
+   */
+//    api 'com.google.zxing:android-core:3.3.0'
+//    api 'com.google.zxing:core:3.3.2'
+    implementation 'com.google.zxing:core:3.4.1'
+
+    //xpopup
+    implementation 'com.github.li-xiaojun:XPopup:1.9.0'
+}
