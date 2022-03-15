@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_end"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/x15"
+    android:paddingRight="@dimen/x15"
+    tools:ignore="MissingDefaultResource">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:alpha="0.5"
+        android:background="@color/mfc"
+        android:gravity="start" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/x25"
+        android:text="到底啦"
+        android:textColor="@color/mfc"
+        android:textSize="@dimen/x25" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:alpha="0.5"
+        android:background="@color/mfc"
+        android:gravity="end" />
+
+</LinearLayout>

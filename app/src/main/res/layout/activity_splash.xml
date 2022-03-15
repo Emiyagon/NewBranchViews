@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/loading">
+
+
+
+
+        <com.illyasr.mydempviews.view.old.CountDownView
+            android:id="@+id/bar"
+            android:layout_width="@dimen/x90"
+            android:layout_height="@dimen/x90"
+            app:ringColor="@color/load_yellow"
+            app:ringWidth="5"
+            app:innerColor="@color/actionsheet_gray"
+            app:countdownTime="20"
+            app:progressTextColor="@color/actionsheet_red"
+            app:progressTextSize="@dimen/x27"
+            android:layout_alignParentRight="false"
+            android:layout_margin="@dimen/x20"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            />
+
+
+
+    </RelativeLayout>
+</layout>

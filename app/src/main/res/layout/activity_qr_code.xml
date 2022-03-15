@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:fitsSystemWindows="true"
+        android:background="@color/blue"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:textColor="@color/textBlack"
+            android:text="展示"
+            android:textSize="16sp"
+            android:padding="12dp" />
+        <androidx.core.widget.NestedScrollView
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="扫描图片"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    app:stv_corner="10dp"
+                    app:stv_solid="@color/colorAccent"
+                    app:stv_stroke_color="#FE4926"
+                    app:stv_stroke_width="2dp" />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="从相册选择"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    app:stv_corner="10dp"
+                    app:stv_solid="@color/colorAccent"
+                    app:stv_stroke_color="#FE4926"
+                    app:stv_stroke_width="2dp" />
+
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="11dp"
+                    android:gravity="center"
+                    android:text="扫描内容"
+                    android:textSize="18sp"
+                    app:stv_solid="#D9B0E2"
+                    app:stv_text_fill_color="@color/white"
+                    app:stv_text_stroke="true"
+                    app:stv_text_stroke_color="#461B50"
+                    app:stv_text_stroke_width="1dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    />
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_color"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="选择颜色"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:stv_corner="40dp"
+                        app:stv_solid="#0000"
+                        app:stv_stroke_color="#BDAB96"
+                        app:stv_stroke_width="5dp" />
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_logo"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="选择logo"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:stv_corner="40dp"
+                        app:stv_solid="#0000"
+                        app:stv_stroke_color="#BDAB96"
+                        app:stv_stroke_width="5dp" />
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/et"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text=""
+                    android:textSize="20sp"
+                    android:hint="请输入内容"
+                    android:layout_margin="17dp"
+                    />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="根据内容生成二维码(不带logo)"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    app:stv_corner="10dp"
+                    app:stv_solid="@color/colorAccent"
+                    app:stv_stroke_color="#FE4926"
+                    app:stv_stroke_width="2dp" />
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="根据内容生成二维码(带logo)"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    app:stv_corner="10dp"
+                    app:stv_solid="@color/colorAccent"
+                    app:stv_stroke_color="#FE4926"
+                    app:stv_stroke_width="2dp" />
+
+                <ImageView
+                    android:id="@+id/img_qr"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_margin="20dp"
+                    />
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>

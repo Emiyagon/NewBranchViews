@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    style="@style/linear_input"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        style="@style/text_input_label"
+                        android:text="手持弹幕:" />
+
+                    <EditText
+                        android:id="@+id/text"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="请输入手持弹幕"
+                        android:textColorHint="#eee"
+
+                        android:background="#999"
+                        android:gravity="start"
+                        android:padding="5dp"
+                        android:textColor="#fff"
+                        android:text=""
+
+                        />
+                    <!--         style="@style/text_input"   -->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_input"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            style="@style/text_input_label"
+                            android:text="速度:" />
+
+                        <TextView
+                            android:id="@+id/tv_speed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/noname"
+                            android:textSize="19sp"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/size_18sp"
+                            android:textColor="@color/bar_grey_90"
+                            android:text="选择"
+                            android:gravity="right"
+                            android:onClick="ItemClick"
+                            />
+
+                    </LinearLayout>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/speed"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_input"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/text_input_label"
+                        android:text="颜色:" />
+
+
+                    <TextView
+                        android:id="@+id/colorText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="点击选择"
+                        android:layout_margin="@dimen/x15"
+                        android:padding="15dp"
+                        android:textSize="@dimen/x29" />
+
+                </LinearLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/mButton"
+                    style="@style/button_submit">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:layout_gravity="center"
+                        android:text="完成" />
+                </FrameLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+</layout>

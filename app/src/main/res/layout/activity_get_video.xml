@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/tv_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/x20"
+            android:text="清除链接"
+            android:textColor="@color/bg_green"
+            android:padding="@dimen/x20"
+            android:layout_marginTop="@dimen/x200"
+            />
+
+
+        <EditText
+            android:id="@+id/et_hine"
+            android:hint="请输入需要解析的链接"
+            android:layout_marginTop="@dimen/x20"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:maxLines="1"
+            android:background="@color/mfc"
+            android:textColor="@color/textBlack"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:textSize="@dimen/x27"
+            />
+
+
+
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="开始获取"
+            android:layout_margin="40dp"
+            android:padding="20dp"
+            android:textColor="@color/textBlack"
+            android:textSize="24sp"
+            app:stv_corner="120dp"
+            app:stv_solid="@color/sakura" />
+
+
+        <ImageView
+            android:id="@+id/img_fmt"
+            android:layout_width="@dimen/x540"
+            android:layout_height="@dimen/x400" />
+
+    </LinearLayout>
+</layout>

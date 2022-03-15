@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+
+        android:fitsSystemWindows="true">
+
+        <!--        <include layout="@layout/item_text" />-->
+
+        <RelativeLayout
+            android:id="@+id/frame"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x600">
+
+            <com.illyasr.mydempviews.view.chart.ChartView
+                android:id="@+id/c1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:visibility="gone"
+                />
+            <com.illyasr.mydempviews.view.chart.ChartView
+                android:id="@+id/c2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:visibility="gone"
+                />
+            <com.illyasr.mydempviews.view.chart.ChartView
+                android:id="@+id/c3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:visibility="gone"
+                />
+            <com.illyasr.mydempviews.view.chart.ChartView
+                android:id="@+id/c4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:visibility="gone"
+                />
+
+            <com.illyasr.mydempviews.view.chart.WaveView
+                android:id="@+id/wave_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:grid_visible="false"
+                app:wave_background="#00000000"
+                app:wave_line_color="#FF4500"
+                />
+            <com.illyasr.mydempviews.view.chart.WaveView
+                android:id="@+id/wave_view1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:grid_visible="false"
+                app:wave_background="#00000000"
+                app:wave_line_color="#FF69B4"
+                />
+            <com.illyasr.mydempviews.view.chart.WaveView
+                android:id="@+id/wave_view2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:grid_visible="false"
+                app:wave_background="#00000000"
+                app:wave_line_color="#FFD700"
+                />
+            <com.illyasr.mydempviews.view.chart.WaveView
+                android:id="@+id/wave_view3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:grid_visible="false"
+                app:wave_background="#00000000"
+                app:wave_line_color="#00FF00"
+                />
+            <com.illyasr.mydempviews.view.chart.WaveView
+                android:id="@+id/wave_view4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:grid_visible="false"
+                app:wave_background="#00000000"
+                app:wave_line_color="#00FFFF"
+                />
+            <com.illyasr.mydempviews.view.chart.WaveView
+                android:id="@+id/wave_view5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:grid_visible="false"
+                app:wave_background="#00000000"
+                app:wave_line_color="#0000FF"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"
+            android:textSize="14sp"
+            android:text="停止计数"
+            android:layout_margin="@dimen/x10"
+            android:padding="@dimen/x10"
+            />
+    </LinearLayout>
+</layout>

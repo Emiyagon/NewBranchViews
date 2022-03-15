@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x96"
+        android:background="@color/colorWhite">
+        <!-- 透明view 占据状态栏 -->
+        <View
+            android:id="@+id/toolbar_status_height"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <FrameLayout
+            android:id="@+id/ll_lift_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_icon_back"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/x42"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginRight="@dimen/x28"
+                android:src="@mipmap/icon_back" />
+
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAllCaps="false"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/x38"
+            android:textStyle="bold"
+            tools:text="标题栏" />
+
+
+
+            <ImageView
+                android:id="@+id/iv_right_img"
+                android:layout_alignParentRight="true"
+
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/x40"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_marginRight="@dimen/x22" />
+
+
+
+        <TextView
+            android:id="@+id/tv_right_text"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:gravity="center"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/x30"
+            tools:text="侧面文字"
+            />
+    </RelativeLayout>
+
+</layout>
+

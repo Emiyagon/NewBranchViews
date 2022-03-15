@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:background="@color/transparent"
+        android:layout_height="match_parent">
+
+
+        <androidx.cardview.widget.CardView
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/x12"
+            app:cardElevation="3dp"
+            android:layout_width="@dimen/x700"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/x30">
+
+            <LinearLayout
+                android:padding="@dimen/x18"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="提示"
+                    android:textColor="@color/textGray"
+                    android:layout_margin="10dp"
+                    />
+
+                <EditText
+                    android:id="@+id/et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:hint="请输入"
+                    android:textSize="26sp"
+                    android:textColor="@color/tab_color_true"
+
+                    />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x1"
+                    android:background="@color/textGray"
+                    />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x80">
+
+                    <TextView
+                        android:id="@+id/enter"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/x34"
+                        android:text="确认"
+                        android:textColor="@color/blue" />
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/textGray"
+                        />
+                    <TextView
+                        android:id="@+id/dismiss"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/x34"
+                        android:text="取消"
+                        android:textColor="@color/colorRed" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:background="@drawable/white_corners"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_toast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="选择城市"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/x50"
+            android:gravity="center"
+            android:layout_margin="@dimen/x40"
+            android:background="@color/ucrop_color_statusbar"
+            />
+
+        <LinearLayout
+            android:padding="@dimen/x15"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x600"
+            android:orientation="horizontal"
+
+            >
+
+            <com.illyasr.mydempviews.view.ioswheel.LoopView
+                android:id="@+id/wleel_1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/x5"
+                app:awv_centerTextColor="@color/colorAccent"
+                app:awv_dividerLineColor="@color/textBlack"
+                app:awv_outerTextColor="@color/blue"
+                app:awv_textsize="20"
+                app:awv_itemsVisibleCount="6"
+                />
+            <com.illyasr.mydempviews.view.ioswheel.LoopView
+                android:id="@+id/wleel_2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/x5"
+                app:awv_centerTextColor="@color/colorAccent"
+                app:awv_dividerLineColor="@color/textBlack"
+                app:awv_outerTextColor="@color/blue"
+                app:awv_textsize="20"
+                app:awv_itemsVisibleCount="6"
+                />
+            <com.illyasr.mydempviews.view.ioswheel.LoopView
+                android:id="@+id/wleel_3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/x5"
+                app:awv_centerTextColor="@color/colorAccent"
+                app:awv_dividerLineColor="@color/textBlack"
+                app:awv_outerTextColor="@color/blue"
+                app:awv_textsize="20"
+                app:awv_itemsVisibleCount="6"
+                />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
