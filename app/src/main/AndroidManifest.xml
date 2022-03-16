@@ -40,6 +40,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".ui.activity.dy.DouYinActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.HealthyActivity"
             android:exported="false" />
         <activity

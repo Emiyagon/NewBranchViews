@@ -177,6 +177,12 @@ public class MyAlertDialog {
 
 	public void show() {
 		setLayout();
-		dialog.show();
+		if (!dialog.isShowing()){
+			dialog.show();
+		}
+	}
+
+	public boolean isShowing(){
+		return dialog.isShowing();
 	}
 }

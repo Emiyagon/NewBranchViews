@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
+
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_margin="@dimen/x40"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x130"
+            android:background="@drawable/corner_shapes"
+            android:textSize="@dimen/x28"
+            android:hint="请输入复制的链接(抖音中点击复制链接之后的)"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/textBlack"
+            android:text=""
+            />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_2"
+            android:layout_width="@dimen/x400"
+            android:layout_height="@dimen/x200"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="获取链接"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x40"
+            app:stv_corner="10dp"
+            app:stv_solid="#228609"
+            app:stv_stroke_color="#FE4926"
+            app:stv_stroke_width="5dp" />
+
+    </LinearLayout>
+</layout>

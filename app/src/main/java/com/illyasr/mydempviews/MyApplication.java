@@ -74,7 +74,7 @@ public class MyApplication extends MultiDexApplication {
         EasyHttp.getInstance()
                 .setCacheTime(-1)//-1表示永久缓存,单位:秒 ，Okhttp和自定义RxCache缓存都起作用
                 .debug("RxEasyHttp", true)
-                .addCommonHeaders(headers)//设置全局公共头
+//                .addCommonHeaders(headers)//设置全局公共头
                 .setReadTimeOut(60 * 1000)
                 .setWriteTimeOut(60 * 1000)
                 .setConnectTimeout(60 * 1000)

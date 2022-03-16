@@ -25,6 +25,7 @@ import com.illyasr.mydempviews.ui.activity.HeartActivity;
 import com.illyasr.mydempviews.ui.activity.MainActivityText;
 import com.illyasr.mydempviews.ui.activity.MyLocationActivity;
 import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
+import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
 import com.illyasr.mydempviews.ui.activity.qq.TensentActivity;
 import com.illyasr.mydempviews.util.AppUtils;
 import com.illyasr.mydempviews.util.Utils;
@@ -72,9 +73,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("获取定位",0));
         list.add(new TabBean("撩妹神器",1));
         list.add(new TabBean("SpView",2));
-        list.add(new TabBean("获取视频并且下载",3));
+        list.add(new TabBean("获取Bilibili视频并且下载",3));
+        list.add(new TabBean("获取抖音无水印视频",5));
         list.add(new TabBean("获取通讯录列表",4));
-        list.add(new TabBean("心电折线图(堆叠)",5));
+
         list.add(new TabBean("模拟qq侧滑菜单一",6));
         list.add(new TabBean("城市三级联动选择器",7));
         list.add(new TabBean("zxing二维码",8));
@@ -85,7 +87,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         adapter = new MainAdapter(this,list);
         mBindingView.rvAlbums.setAdapter(adapter);
         adapter.setOnRem((pos, type) -> {
-            switch (pos) {
+            switch (type) {
                 case 0:// 获取定位
                     startActivity(new Intent(MainActivity.this, MyLocationActivity.class));
                     break;
@@ -108,10 +110,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     }
                     break;
                 case 3:
-
                     // 从API11开始android推荐使用android.content.ClipboardManager
                     // 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。
-                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                     // 将文本内容放到系统剪贴板里。
 //                    cm.setText(videoUrl2);
                     startActivity(new Intent(MainActivity.this, GetVideoActivity.class));
@@ -120,6 +121,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     startActivity(new Intent(MainActivity.this, PhoneActivity.class));
                     break;
                 case 5:
+                    startActivity(new Intent(MainActivity.this, DouYinActivity.class));
                     break;
                 case 6:
                     startActivity(new Intent(MainActivity.this, TensentActivity.class));
