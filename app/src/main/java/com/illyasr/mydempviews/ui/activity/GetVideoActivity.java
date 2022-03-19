@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.SyncStateContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -38,11 +39,13 @@ import com.illyasr.mydempviews.databinding.DialogShowBinding;
 import com.illyasr.mydempviews.http.BaseResponse;
 import com.illyasr.mydempviews.http.UserApi;
 import com.illyasr.mydempviews.manager.AndroidDownloadManager;
+import com.illyasr.mydempviews.ui.activity.dy.CommonUtils;
 import com.illyasr.mydempviews.util.DonwloadSaveImg;
 import com.illyasr.mydempviews.util.FileUtils;
 import com.illyasr.mydempviews.util.GlideUtil;
 import com.illyasr.mydempviews.util.ImageUtil;
 import com.illyasr.mydempviews.util.ImgDonwload;
+import com.illyasr.mydempviews.util.UrlUtil;
 import com.illyasr.mydempviews.view.ActionSheetDialog;
 import com.illyasr.mydempviews.view.ComClickDialog;
 import com.illyasr.mydempviews.view.MyAlertDialog;
@@ -110,12 +113,7 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
         checkPermission();
 
 
-        mBindingView.imgFmt.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
-            }
-        });
+        mBindingView.imgFmt.setOnLongClickListener(v -> false);
 
         mBindingView.etHine.setText("https://www.bilibili.com/video/BV1KV411x7y1");
         mBindingView.tvClean.setOnClickListener(v -> mBindingView.etHine.setText(""));
@@ -166,7 +164,11 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
             }).show();
         });
         mBindingView.stv0.setOnClickListener(v -> {
-            if ( ! mBindingView.etHine.getText().toString().startsWith("http")){
+            if (TextUtils.isEmpty(mBindingView.etHine.getText().toString())){
+                bean = null;
+                return;
+            }
+            if ( ! mBindingView.etHine.getText().toString().replace(" ","").startsWith("http")){
                 Toast.makeText(MyApplication.getInstance(),"请输入正确的链接!",Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -179,59 +181,74 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                 return;
             }
 
-            showDialog("");
-            //  https://parse.bqrdh.com/api/video/parser?t=1625293799417
-            Map<String, Object> map = new HashMap<>();
-            map.put("url", mBindingView.etHine.getText().toString().trim());
+            String url = mBindingView.etHine.getText().toString().trim().replace(" ","");
+            if (UrlUtil.isLongUrl(url)){
+                OnHttp(url);
+            }else {
+                CommonUtils.redirectUrl(url, s -> {
+                    OnHttp(s);
+                });
+            }
 
-            UserApi.getVideos(map, new Observer<VideoBean>() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
 
-                }
 
-                @Override
-                public void onNext(@NonNull VideoBean it) {
-                    dismissDialog();
+        });
+    }
+
+
+    private void OnHttp(String url){
+        showDialog("");
+        //  https://parse.bqrdh.com/api/video/parser?t=1625293799417
+        Map<String, Object> map = new HashMap<>();
+        map.put("url", url);
+        UserApi.getVideos(map, new Observer<VideoBean>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull VideoBean it) {
+                dismissDialog();
 //                    bean = gson.fromJson(it.getData(), VideoBean.class);
-                    bean = it;
-                    if (bean.isSuccess() || bean.getCode() == 0) {
-                        GlideUtil.putHttpImg(bean.getCoverPic(), mBindingView.imgFmt);
-                        comClickDialog = new ComClickDialog(GetVideoActivity.this, R.layout.dialog_show) {
-                            DialogShowBinding showBinding;
+                bean = it;
+                if (bean.isSuccess() || bean.getCode() == 0) {
+                    GlideUtil.putHttpImg(bean.getCoverPic(), mBindingView.imgFmt);
+                    comClickDialog = new ComClickDialog(GetVideoActivity.this, R.layout.dialog_show) {
+                        DialogShowBinding showBinding;
 
-                            @Override
-                            public void initView() {
-                                showBinding = DataBindingUtil.bind(getContentView());
-                            }
-
-                            @Override
-                            public void initEvent() {
-                                showBinding.dismiss.setOnClickListener(v1 -> dismiss());
-                                showBinding.download.setOnClickListener(v12 -> {
-                                    dismiss();
-                                    OnList(bean);
-                                });
-                            }
-                        };
-                        if (!comClickDialog.isShowing()) {
-                            comClickDialog.show();
+                        @Override
+                        public void initView() {
+                            showBinding = DataBindingUtil.bind(getContentView());
                         }
+
+                        @Override
+                        public void initEvent() {
+                            showBinding.dismiss.setOnClickListener(v1 -> dismiss());
+                            showBinding.download.setOnClickListener(v12 -> {
+                                dismiss();
+                                OnList(bean);
+                            });
+                        }
+                    };
+                    if (!comClickDialog.isShowing()) {
+                        comClickDialog.show();
                     }
                 }
+            }
 
-                @Override
-                public void onError(@NonNull Throwable e) {
-                    dismissDialog();
+            @Override
+            public void onError(@NonNull Throwable e) {
+                dismissDialog();
 
-                    showToast("出现错误,信息="+e.getMessage());
-                }
+                showToast("出现错误,信息="+e.getMessage());
+            }
 
-                @Override
-                public void onComplete() {
+            @Override
+            public void onComplete() {
 
-                }
-            });
+            }
+        });
 
         /*    EasyHttp.post("api/video/parser?_t="+new Date().getTime())
                     .cacheTime(300)//缓存300s 单位s
@@ -281,7 +298,6 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                             }
                         }
                     });*/
-        });
     }
 
     private ProgressDialog dialog;

@@ -14,6 +14,12 @@ import io.reactivex.disposables.Disposable;
 public class BasePresenter  {
     public Context mContext;
     public View mView;
+    /**
+     //这是示例数据
+     public MutableLiveData<Boolean> its = new MutableLiveData<>();
+     public ObservableField<String> psw = new ObservableField<>();
+     // 如果需要在xml里面双向绑定, 以前写法是 @{vm.XXX},改成 @={vm.XXX} 就可以双向绑定了,不仅这个,其他的ObservableField<> 也是这种写法
+     */
 
 
 

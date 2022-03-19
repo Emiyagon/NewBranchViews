@@ -19,7 +19,7 @@ import com.illyasr.mydempviews.R;
 
 public class GlideUtil {
 
-    public static final int ERROR_PIC = R.mipmap.touxiang;
+    public static final int ERROR_PIC = R.drawable.ic_false;
 
     public static void putImg(Context context, Object bitmap, ImageView imageView) {
         Glide.with(context).load(bitmap).into(imageView);
