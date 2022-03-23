@@ -1,20 +1,14 @@
 apply plugin: 'com.android.library'
-/**
- *  https://github.com/LuckSiege/PictureSelector
- *  3.0正式版,这个版本改动比较大,暂时不推荐升级
- *  目前代码里面的是2.6版本,和1.0版本比起来改动不大
- */
+
 android {
-//    compileSdkVersion 23
-//    buildToolsVersion "25.0.0"
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
 
     }
     buildTypes {
@@ -23,13 +17,35 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.github.bumptech.glide:glide:4.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    api 'com.github.chrisbanes.photoview:library:1.2.4'
+    api 'io.reactivex.rxjava2:rxjava:2.0.5'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    api 'com.github.bumptech.glide:glide:4.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
+
+    implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0"
+    implementation "androidx.camera:camera-view:1.0.0-alpha30"
+    implementation "androidx.camera:camera-lifecycle:1.1.0-alpha10"
+
+    implementation "androidx.transition:transition:1.4.1"
+    implementation 'com.google.android.material:material:1.4.0'
+
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+//    api "androidx.activity:activity:1.4.0"
+//    api "androidx.fragment:fragment:1.3.6"
+//    implementation "androidx.concurrent:concurrent-futures:1.1.0"
+//    implementation "androidx.annotation:annotation-experimental:1.1.0"
+//    implementation "androidx.exifinterface:exifinterface:1.3.3"
 }

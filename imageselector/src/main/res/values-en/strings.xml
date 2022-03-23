@@ -16,6 +16,7 @@
     <string name="picture_audio_empty">You can use system recordings to record audio</string>
     <string name="picture_empty">you can use your camera to take photos or videos</string>
     <string name="picture_min_img_num">Picture Selection Cannot%1$sNumber</string>
+    <string name="picture_message_video_max_num">You can choose up to %1$s videos</string>
     <string name="gif_tag">gif</string>
     <string name="picture_audio">Access to system recording permission denied</string>
     <string name="picture_jurisdiction">Read memory card access denied</string>
@@ -36,4 +37,28 @@
     <string name="picture_quit_audio">Quit</string>
     <string name="picture_pause_audio">Pause</string>
     <string name="picture_error">The picture is corrupted</string>
+    <string name="picture_video_error">The video is corrupted</string>
+    <string name="picture_audio_error">The audio is corrupted</string>
+    <string name="picture_recording_time_is_short">time is too short</string>
+    <string name="picture_photo_pictures">Click on the photo</string>
+    <string name="picture_photo_recording">Long press camera</string>
+    <string name="picture_photo_camera">Click on the photo，Long press camera</string>
+    <string name="picture_preview_num">preview(%1$d)</string>
+    <string name="picture_send">complete</string>
+    <string name="picture_send_num">complete(%1$d/%2$d)</string>
+    <string name="picture_select">choose</string>
+    <string name="picture_camera_roll_num">%1$s (%2$d)</string>
+    <string name="picture_not_crop_data">No clipping data is available</string>
+    <string name="picture_editor"> editor</string>
+    <string name="picture_confirm">enter</string>
+    <string name="picture_know">i know</string>
+    <string name="picture_preview_image_num">%1$d/%2$d</string>
+    <string name="picture_go_setting">to setting</string>
+    <string name="picture_original_image">original image (%1$s)</string>
+    <string name="picture_default_original_image">original image</string>
+    <string name="picture_choose_max_seconds">You can only select videos within %1$ds</string>
+    <string name="picture_choose_min_seconds">Cannot select videos below %1$ds</string>
+    <string name="ucrop_label_edit_photo">cut</string>
+    <string name="ucrop_menu_crop">cut</string>
+    <string name="ucrop_label_original"> original proportion</string>
 </resources>

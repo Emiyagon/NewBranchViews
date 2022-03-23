@@ -1,6 +1,7 @@
 package com.illyasr.mydempviews.base;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -58,6 +59,10 @@ public abstract class BaseActivity<SV extends ViewDataBinding,E extends BasePres
     public static final String BASE_ADDRESS = AppUtils.getPackageName(MyApplication.getInstance()) + ".BaseActivity";
     protected SV mBindingView;
     protected E mPresenter;
+
+    public Context getContext() {
+        return this;
+    }
 
     @Override
     public void onBackPressed() {
@@ -210,7 +215,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding,E extends BasePres
             return false;
         }else{
             // 获取NetworkInfo对象
-            NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+            @SuppressLint("MissingPermission") NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
 
             if (networkInfo != null && networkInfo.length > 0){
                 for (int i = 0; i < networkInfo.length; i++){
@@ -236,7 +241,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding,E extends BasePres
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            @SuppressLint("MissingPermission") NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
             if (mNetworkInfo != null) {
                 return mNetworkInfo.isAvailable();
             }
@@ -250,7 +255,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding,E extends BasePres
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mWiFiNetworkInfo = mConnectivityManager
+            @SuppressLint("MissingPermission") NetworkInfo mWiFiNetworkInfo = mConnectivityManager
                     .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             if (mWiFiNetworkInfo != null) {
                 return mWiFiNetworkInfo.isAvailable();
@@ -265,7 +270,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding,E extends BasePres
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mMobileNetworkInfo = mConnectivityManager
+            @SuppressLint("MissingPermission") NetworkInfo mMobileNetworkInfo = mConnectivityManager
                     .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
             if (mMobileNetworkInfo != null) {
                 return mMobileNetworkInfo.isAvailable();
@@ -280,7 +285,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding,E extends BasePres
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            @SuppressLint("MissingPermission") NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
             if (mNetworkInfo != null && mNetworkInfo.isAvailable()) {
                 return mNetworkInfo.getType();
             }

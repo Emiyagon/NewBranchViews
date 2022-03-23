@@ -1,5 +1,7 @@
 package com.illyasr.mydempviews;
 
+import static com.zhouyou.http.EasyHttp.getContext;
+
 import android.Manifest;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -31,6 +33,8 @@ import com.illyasr.mydempviews.util.AppUtils;
 import com.illyasr.mydempviews.util.Utils;
 import com.illyasr.mydempviews.view.ComPopupDialog;
 import com.illyasr.mydempviews.view.dialog.CityDialog;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
 
     private MainAdapter adapter;
     private List<TabBean> list = new ArrayList<>();
+    private int tag;
+
     @Override
     protected int setLayoutId() {
         return R.layout.activity_main;
@@ -120,13 +126,35 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                 case 4:
                     startActivity(new Intent(MainActivity.this, PhoneActivity.class));
                     break;
-                case 5:
+                case 5://获取抖音无水印视频
                     startActivity(new Intent(MainActivity.this, DouYinActivity.class));
                     break;
                 case 6:
                     startActivity(new Intent(MainActivity.this, TensentActivity.class));
                     break;
                 case 7:
+                    tag++;
+                    if (tag%2==0){
+                       new XPopup.Builder(getContext())
+//                        .hasNavigationBar(false)
+//                        .hasStatusBar(false)
+//                                .isDestroyOnDismiss(true)
+//                                .isTouchThrough(true)
+//                        .dismissOnBackPressed(false)
+//                        .isViewMode(true)
+//                        .hasBlurBg(true)
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                                .asConfirm("哈哈", "床前明月光，疑是地上霜；举头望明月，低头思故乡。",
+                                        "取消", "确定",
+                                        new OnConfirmListener() {
+                                            @Override
+                                            public void onConfirm() {
+                                            }
+                                        }, null, false)
+                           .show();
+                        return;
+                    }
                     new CityDialog(this)
                             .setGetFinger(false)
                             .show();

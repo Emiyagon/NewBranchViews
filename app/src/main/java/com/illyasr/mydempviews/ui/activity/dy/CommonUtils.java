@@ -3,16 +3,25 @@ package com.illyasr.mydempviews.ui.activity.dy;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.zhouyou.http.EasyHttp;
+import com.zhouyou.http.cache.model.CacheMode;
+import com.zhouyou.http.callback.CallBack;
+import com.zhouyou.http.exception.ApiException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *  链接重定向工具类
+ */
 public class CommonUtils {
     public static String DOU_YIN_BASE_URL = "https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?item_ids=";
 
@@ -23,7 +32,64 @@ public class CommonUtils {
     public static String HUO_SHAN_DOMAIN = "huoshan";
 
     /**
-     *  短连接重定向
+     * 将长链接转为短链接(调用的新浪的短网址API)
+     * 目前用不到,问题不大,大概率最好用服务器返回的短连接是最好的,安全可靠
+     * @param url
+     * 需要转换的长链接url
+     * @return 返回转换后的短链接
+     */
+    public static String convertSinaShortUrl(String url) {
+        try {
+            // 调用新浪API
+
+//            HttpPost post = new HttpPost("http://api.t.sina.com.cn/short_url/shorten.json");
+            List params = new LinkedList();
+            // 必要的url长链接参数
+//            params.add(new BasicNameValuePair("url_long", url));
+            // 必要的新浪key
+//            params.add(new BasicNameValuePair("source", "3271760578"));
+//            post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+            EasyHttp.post("short_url/shorten.json")
+                    .cacheTime(300)//缓存300s 单位s
+                    .baseUrl("http://api.t.sina.com.cn/")
+                    .cacheKey("cachekey")//缓存key
+                    .cacheMode(CacheMode.CACHEANDREMOTE)//设置请求缓存模式
+                    .params("url_long",url)
+                    .params("source","3271760578")
+//                    .upJson(gson.toJson(map))
+                    .execute(new CallBack<String>() {
+                        @Override
+                        public void onStart() {
+
+                        }
+
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(ApiException e) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String s) {
+
+                        }
+                    });
+
+
+        } catch (Exception e) {
+
+        }
+
+        return "";
+    }
+
+    /**
+     *  短连接重定向为长链接
      * @param originUrl
      * @param onSuccessListener
      */

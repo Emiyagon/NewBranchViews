@@ -1,155 +1,346 @@
 package com.luck.picture.lib;
 
-import android.content.ContentResolver;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
-import android.widget.Toast;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.luck.picture.lib.compress.CompressConfig;
-import com.luck.picture.lib.compress.CompressImageOptions;
-import com.luck.picture.lib.compress.CompressInterface;
-import com.luck.picture.lib.compress.LubanOptions;
+import com.luck.picture.lib.app.PictureAppMaster;
+import com.luck.picture.lib.compress.Luban;
+import com.luck.picture.lib.compress.OnCompressListener;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.dialog.PictureDialog;
-import com.luck.picture.lib.entity.EventEntity;
+import com.luck.picture.lib.dialog.PictureCustomDialog;
+import com.luck.picture.lib.dialog.PictureLoadingDialog;
+import com.luck.picture.lib.engine.PictureSelectorEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
-import com.luck.picture.lib.rxbus2.RxBus;
+import com.luck.picture.lib.immersive.ImmersiveManage;
+import com.luck.picture.lib.immersive.NavBarUtils;
+import com.luck.picture.lib.io.ArrayPoolProvide;
+import com.luck.picture.lib.language.PictureLanguageUtils;
+import com.luck.picture.lib.listener.OnCallbackListener;
+import com.luck.picture.lib.model.IBridgeMediaLoader;
+import com.luck.picture.lib.model.LocalMediaLoader;
+import com.luck.picture.lib.model.LocalMediaPageLoader;
+import com.luck.picture.lib.permissions.PermissionChecker;
+import com.luck.picture.lib.style.PictureWindowAnimationStyle;
+import com.luck.picture.lib.thread.PictureThreadUtils;
+import com.luck.picture.lib.tools.AndroidQTransformUtils;
 import com.luck.picture.lib.tools.AttrsUtils;
-import com.luck.picture.lib.tools.DateUtils;
-import com.luck.picture.lib.tools.DoubleUtils;
-import com.luck.picture.lib.tools.PictureFileUtils;
+import com.luck.picture.lib.tools.CameraFileUtils;
+import com.luck.picture.lib.tools.SdkVersionUtils;
+import com.luck.picture.lib.tools.ToastUtils;
+import com.luck.picture.lib.tools.VoiceUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class PictureBaseActivity extends FragmentActivity {
-    protected Context mContext;
+
+/**
+ * @author：luck
+ * @data：2018/3/28 下午1:00
+ * @describe: BaseActivity
+ */
+public abstract class PictureBaseActivity extends AppCompatActivity {
     protected PictureSelectionConfig config;
-    protected int spanCount, maxSelectNum, minSelectNum,
-            selectionMode, mimeType, videoSecond, compressMaxKB, compressMode,
-            compressGrade, compressWidth, compressHeight,
-            recordVideoSecond, videoQuality;
-    protected boolean isGif, isCamera, enablePreview, isCompress,
-            enPreviewVideo, checkNumMode, openClickSound, numComplete, camera,
-            previewEggs, statusFont, previewStatusFont;
-    protected String cameraPath;
-    protected String originalPath, outputCameraPath;
-    protected PictureDialog dialog;
-    protected PictureDialog compressDialog;
-    protected List<LocalMedia> selectionMedias;
+    protected boolean openWhiteStatusBar, numComplete;
+    protected int colorPrimary, colorPrimaryDark;
+    protected PictureLoadingDialog mLoadingDialog;
+    protected List<LocalMedia> selectionMedias = new ArrayList<>();
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
+    protected View container;
+    /**
+     * if there more
+     */
+    protected boolean isHasMore = true;
+    /**
+     * page
+     */
+    protected int mPage = 1;
+    /**
+     * is onSaveInstanceState
+     */
+    protected boolean isOnSaveInstanceState;
 
+    /**
+     * Base LocalMedia Loader class
+     */
+    protected IBridgeMediaLoader mLoader;
 
+    /**
+     * Whether to use immersion, subclasses copy the method to determine whether to use immersion
+     *
+     * @return
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            config = savedInstanceState.getParcelable(PictureConfig.EXTRA_CONFIG);
-            cameraPath = savedInstanceState.getString(PictureConfig.BUNDLE_CAMERA_PATH);
-            originalPath = savedInstanceState.getString(PictureConfig.BUNDLE_ORIGINAL_PATH);
-
-        } else {
-            config = PictureSelectionConfig.getInstance();
-        }
-        int themeStyleId = config.themeStyleId;
-        setTheme(themeStyleId);
-        super.onCreate(savedInstanceState);
-        mContext = this;
-        initConfig();
+    public boolean isImmersive() {
+        return true;
     }
 
     /**
-     * 获取配置参数
+     * Whether to change the screen direction
+     *
+     * @return
      */
-    private void initConfig() {
-        camera = config.camera;
-        outputCameraPath = config.outputCameraPath;
-        statusFont = AttrsUtils.getTypeValueBoolean
-                (this, R.attr.picture_statusFontColor);
-        previewStatusFont = AttrsUtils.getTypeValueBoolean
-                (this, R.attr.picture_preview_statusFontColor);
-        mimeType = config.mimeType;
-        selectionMedias = config.selectionMedias;
-        if (selectionMedias == null) {
-            selectionMedias = new ArrayList<>();
-        }
-        selectionMode = config.selectionMode;
-        if (selectionMode == PictureConfig.SINGLE) {
-            selectionMedias = new ArrayList<>();
-        }
-        spanCount = config.imageSpanCount;
-        isGif = config.isGif;
-        isCamera = config.isCamera;
-        maxSelectNum = config.maxSelectNum;
-        minSelectNum = config.minSelectNum;
-        enablePreview = config.enablePreview;
-        enPreviewVideo = config.enPreviewVideo;
-        checkNumMode = config.checkNumMode = AttrsUtils.getTypeValueBoolean
-                (this, R.attr.picture_style_checkNumMode);
-        openClickSound = config.openClickSound;
-        videoSecond = config.videoSecond;
-        isCompress = config.isCompress;
-        numComplete = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_numComplete);
-        compressMaxKB = config.compressMaxkB;
-        compressMode = config.compressMode;
-        compressGrade = config.compressGrade;
-        compressWidth = config.compressWidth;
-        compressHeight = config.compressHeight;
-        recordVideoSecond = config.recordVideoSecond;
-        videoQuality = config.videoQuality;
-        previewEggs = config.previewEggs;
+    public boolean isRequestedOrientation() {
+        return true;
     }
 
+
+    public void immersive() {
+        ImmersiveManage.immersiveAboveAPI23(this
+                , colorPrimaryDark
+                , colorPrimary
+                , openWhiteStatusBar);
+    }
+
+
+    /**
+     * get Layout Resources Id
+     *
+     * @return
+     */
+    public abstract int getResourceId();
+
+    /**
+     * init Views
+     */
+    protected void initWidgets() {
+
+    }
+
+    /**
+     * init PictureSelector Style
+     */
+    protected void initPictureSelectorStyle() {
+
+    }
+
+    /**
+     * Set CompleteText
+     */
+    protected void initCompleteText(int startCount) {
+
+    }
+
+    /**
+     * Set CompleteText
+     */
+    protected void initCompleteText(List<LocalMedia> list) {
+
+    }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        config = PictureSelectionConfig.getInstance();
+        if (config.language != PictureConfig.UNKNOWN_LANGUAGE) {
+            PictureLanguageUtils.setAppLanguage(getContext(), config.language);
+        }
+        setTheme(config.themeStyleId == 0 ? R.style.picture_default_style : config.themeStyleId);
+        super.onCreate(savedInstanceState);
+        newCreateEngine();
+        newCreateResultCallbackListener();
+        if (isRequestedOrientation()) {
+            setNewRequestedOrientation();
+        }
+        initConfig();
+        if (isImmersive()) {
+            immersive();
+        }
+        if (PictureSelectionConfig.uiStyle != null) {
+            if (PictureSelectionConfig.uiStyle.picture_navBarColor != 0) {
+                NavBarUtils.setNavBarColor(this, PictureSelectionConfig.uiStyle.picture_navBarColor);
+            }
+        } else if (PictureSelectionConfig.style != null) {
+            if (PictureSelectionConfig.style.pictureNavBarColor != 0) {
+                NavBarUtils.setNavBarColor(this, PictureSelectionConfig.style.pictureNavBarColor);
+            }
+        }
+        int layoutResID = getResourceId();
+        if (layoutResID != 0) {
+            setContentView(layoutResID);
+        }
+        initLoader();
+        initWidgets();
+        initPictureSelectorStyle();
+        isOnSaveInstanceState = false;
+    }
+
+    /**
+     * init LocalMedia Loader
+     */
+    protected void initLoader() {
+        if (config.isPageStrategy) {
+            mLoader = new LocalMediaPageLoader(getContext(), config);
+        } else {
+            mLoader = new LocalMediaLoader(getContext(), config);
+        }
+    }
+
+    /**
+     * Get the image loading engine again, provided that the user implements the IApp interface in the Application
+     */
+    private void newCreateEngine() {
+        if (PictureSelectionConfig.imageEngine == null) {
+            PictureSelectorEngine baseEngine = PictureAppMaster.getInstance().getPictureSelectorEngine();
+            if (baseEngine != null) PictureSelectionConfig.imageEngine = baseEngine.createEngine();
+        }
+    }
+
+    /**
+     * Retrieve the result callback listener, provided that the user implements the IApp interface in the Application
+     */
+    private void newCreateResultCallbackListener() {
+        if (config.isCallbackMode) {
+            if (PictureSelectionConfig.listener == null) {
+                PictureSelectorEngine baseEngine = PictureAppMaster.getInstance().getPictureSelectorEngine();
+                if (baseEngine != null) {
+                    PictureSelectionConfig.listener = baseEngine.getResultCallbackListener();
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        if (config == null || config.language == PictureConfig.UNKNOWN_LANGUAGE) {
+            super.attachBaseContext(newBase);
+        } else {
+            super.attachBaseContext(PictureContextWrapper.wrap(newBase, config.language));
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (config.language != PictureConfig.UNKNOWN_LANGUAGE) {
+            PictureLanguageUtils.setAppLanguage(getContext(), config.language);
+        }
+    }
+
+    /**
+     * setNewRequestedOrientation
+     */
+    protected void setNewRequestedOrientation() {
+        if (config != null && !config.camera) {
+            setRequestedOrientation(config.requestedOrientation);
+        }
+    }
+
+    /**
+     * get Context
+     *
+     * @return this
+     */
+    protected Context getContext() {
+        return this;
+    }
+
+    /**
+     * init Config
+     */
+    private void initConfig() {
+        if (config.selectionMedias != null) {
+            selectionMedias.clear();
+            selectionMedias.addAll(config.selectionMedias);
+        }
+        if (PictureSelectionConfig.uiStyle != null) {
+            openWhiteStatusBar = PictureSelectionConfig.uiStyle.picture_statusBarChangeTextColor;
+            if (PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor != 0) {
+                colorPrimary = PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor;
+            }
+            if (PictureSelectionConfig.uiStyle.picture_statusBarBackgroundColor != 0) {
+                colorPrimaryDark = PictureSelectionConfig.uiStyle.picture_statusBarBackgroundColor;
+            }
+            numComplete = PictureSelectionConfig.uiStyle.picture_switchSelectTotalStyle;
+
+            config.checkNumMode = PictureSelectionConfig.uiStyle.picture_switchSelectNumberStyle;
+
+        } else if (PictureSelectionConfig.style != null) {
+            openWhiteStatusBar = PictureSelectionConfig.style.isChangeStatusBarFontColor;
+            if (PictureSelectionConfig.style.pictureTitleBarBackgroundColor != 0) {
+                colorPrimary = PictureSelectionConfig.style.pictureTitleBarBackgroundColor;
+            }
+            if (PictureSelectionConfig.style.pictureStatusBarColor != 0) {
+                colorPrimaryDark = PictureSelectionConfig.style.pictureStatusBarColor;
+            }
+            numComplete = PictureSelectionConfig.style.isOpenCompletedNumStyle;
+            config.checkNumMode = PictureSelectionConfig.style.isOpenCheckNumStyle;
+        } else {
+            openWhiteStatusBar = config.isChangeStatusBarFontColor;
+            if (!openWhiteStatusBar) {
+                openWhiteStatusBar = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_statusFontColor);
+            }
+
+            numComplete = config.isOpenStyleNumComplete;
+            if (!numComplete) {
+                numComplete = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_numComplete);
+            }
+
+            config.checkNumMode = config.isOpenStyleCheckNumMode;
+            if (!config.checkNumMode) {
+                config.checkNumMode = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_checkNumMode);
+            }
+
+            if (config.titleBarBackgroundColor != 0) {
+                colorPrimary = config.titleBarBackgroundColor;
+            } else {
+                colorPrimary = AttrsUtils.getTypeValueColor(this, R.attr.colorPrimary);
+            }
+
+            if (config.pictureStatusBarColor != 0) {
+                colorPrimaryDark = config.pictureStatusBarColor;
+            } else {
+                colorPrimaryDark = AttrsUtils.getTypeValueColor(this, R.attr.colorPrimaryDark);
+            }
+        }
+
+        if (config.openClickSound) {
+            VoiceUtils.getInstance().init(getContext());
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(PictureConfig.BUNDLE_CAMERA_PATH, cameraPath);
-        outState.putString(PictureConfig.BUNDLE_ORIGINAL_PATH, originalPath);
+        isOnSaveInstanceState = true;
         outState.putParcelable(PictureConfig.EXTRA_CONFIG, config);
-    }
-
-    protected void startActivity(Class clz, Bundle bundle) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            Intent intent = new Intent();
-            intent.setClass(this, clz);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-    }
-
-    protected void startActivity(Class clz, Bundle bundle, int requestCode) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            Intent intent = new Intent();
-            intent.setClass(this, clz);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, requestCode);
-        }
-    }
-
-    protected void showToast(String msg) {
-        Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
     }
 
     /**
      * loading dialog
      */
     protected void showPleaseDialog() {
-        if (!isFinishing()) {
-            dismissDialog();
-            dialog = new PictureDialog(this);
-            dialog.show();
+        try {
+            if (!isFinishing()) {
+                if (mLoadingDialog == null) {
+                    mLoadingDialog = new PictureLoadingDialog(getContext());
+                }
+                if (mLoadingDialog.isShowing()) {
+                    mLoadingDialog.dismiss();
+                }
+                mLoadingDialog.show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -157,39 +348,16 @@ public class PictureBaseActivity extends FragmentActivity {
      * dismiss dialog
      */
     protected void dismissDialog() {
-        try {
-            if (dialog != null && dialog.isShowing()) {
-                dialog.dismiss();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * compress loading dialog
-     */
-    protected void showCompressDialog() {
         if (!isFinishing()) {
-            dismissCompressDialog();
-            compressDialog = new PictureDialog(this);
-            compressDialog.show();
-        }
-    }
-
-    /**
-     * dismiss compress dialog
-     */
-    protected void dismissCompressDialog() {
-        try {
-            if (!isFinishing()
-                    && compressDialog != null
-                    && compressDialog.isShowing()) {
-                compressDialog.dismiss();
+            try {
+                if (mLoadingDialog != null
+                        && mLoadingDialog.isShowing()) {
+                    mLoadingDialog.dismiss();
+                }
+            } catch (Exception e) {
+                mLoadingDialog = null;
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -197,62 +365,73 @@ public class PictureBaseActivity extends FragmentActivity {
     /**
      * compressImage
      */
-    protected void compressImage(final List<LocalMedia> result) {
-        showCompressDialog();
-        CompressConfig compress_config = CompressConfig.ofDefaultConfig();
-        switch (compressMode) {
-            case PictureConfig.SYSTEM_COMPRESS_MODE:
-                // 系统自带压缩
-                compress_config.enablePixelCompress(true);
-                compress_config.enableQualityCompress(true);
-                compress_config.setMaxSize(compressMaxKB);
-                break;
-            case PictureConfig.LUBAN_COMPRESS_MODE:
-                // luban压缩
-                LubanOptions option = new LubanOptions.Builder()
-                        .setMaxHeight(compressHeight)
-                        .setMaxWidth(compressWidth)
-                        .setMaxSize(compressMaxKB)
-                        .setGrade(compressGrade)
-                        .create();
-                compress_config = CompressConfig.ofLuban(option);
-                break;
+    protected void compressImage(List<LocalMedia> result) {
+        if (PictureSelectionConfig.compressEngine != null) {
+            PictureSelectionConfig.compressEngine.onCompress(getContext(), result, new OnCallbackListener<List<LocalMedia>>() {
+                @Override
+                public void onCall(List<LocalMedia> result) {
+                    onResult(result);
+                }
+            });
+        } else {
+            showPleaseDialog();
+            compressToLuban(result);
         }
-
-        CompressImageOptions.compress(this, compress_config, result,
-                new CompressInterface.CompressListener() {
-                    @Override
-                    public void onCompressSuccess(List<LocalMedia> images) {
-                        RxBus.getDefault().post(new EventEntity(PictureConfig.CLOSE_PREVIEW_FLAG));
-                        onResult(images);
-                    }
-
-                    @Override
-                    public void onCompressError(List<LocalMedia> images, String msg) {
-                        RxBus.getDefault().post(new EventEntity(PictureConfig.CLOSE_PREVIEW_FLAG));
-                        onResult(result);
-                    }
-                }).compress();
     }
 
     /**
-     * 判断拍照 图片是否旋转
+     * compress
      *
-     * @param degree
-     * @param file
+     * @param result
      */
-    protected void rotateImage(int degree, File file) {
-        if (degree > 0) {
-            // 针对相片有旋转问题的处理方式
-            try {
-                BitmapFactory.Options opts = new BitmapFactory.Options();//获取缩略图显示到屏幕上
-                opts.inSampleSize = 2;
-                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
-                Bitmap bmp = PictureFileUtils.rotaingImageView(degree, bitmap);
-                PictureFileUtils.saveBitmapFile(bmp, file);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    private void compressToLuban(List<LocalMedia> result) {
+        if (config.synOrAsy) {
+            PictureThreadUtils.executeByIo(new PictureThreadUtils.SimpleTask<List<LocalMedia>>() {
+
+                @Override
+                public List<LocalMedia> doInBackground() throws Exception {
+                    return Luban.with(getContext())
+                            .loadMediaData(result)
+                            .isCamera(config.camera)
+                            .setTargetDir(config.compressSavePath)
+                            .setCompressQuality(config.compressQuality)
+                            .isAutoRotating(config.isAutoRotating)
+                            .setFocusAlpha(config.focusAlpha)
+                            .setNewCompressFileName(config.renameCompressFileName)
+                            .ignoreBy(config.minimumCompressSize).get();
+                }
+
+                @Override
+                public void onSuccess(List<LocalMedia> result) {
+                    PictureThreadUtils.cancel(PictureThreadUtils.getIoPool());
+                    onResult(result);
+                }
+            });
+        } else {
+            Luban.with(this)
+                    .loadMediaData(result)
+                    .ignoreBy(config.minimumCompressSize)
+                    .isCamera(config.camera)
+                    .setCompressQuality(config.compressQuality)
+                    .setTargetDir(config.compressSavePath)
+                    .isAutoRotating(config.isAutoRotating)
+                    .setFocusAlpha(config.focusAlpha)
+                    .setNewCompressFileName(config.renameCompressFileName)
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                        }
+
+                        @Override
+                        public void onSuccess(List<LocalMedia> list) {
+                            onResult(list);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            onResult(result);
+                        }
+                    }).launch();
         }
     }
 
@@ -263,7 +442,7 @@ public class PictureBaseActivity extends FragmentActivity {
      * @param result
      */
     protected void handlerResult(List<LocalMedia> result) {
-        if (isCompress) {
+        if (config.isCompress) {
             compressImage(result);
         } else {
             onResult(result);
@@ -272,7 +451,7 @@ public class PictureBaseActivity extends FragmentActivity {
 
 
     /**
-     * 如果没有任何相册，先创建一个最近相册出来
+     * If you don't have any albums, first create a camera film folder to come out
      *
      * @param folders
      */
@@ -280,35 +459,37 @@ public class PictureBaseActivity extends FragmentActivity {
         if (folders.size() == 0) {
             // 没有相册 先创建一个最近相册出来
             LocalMediaFolder newFolder = new LocalMediaFolder();
-            String folderName = mimeType == PictureMimeType.ofAudio() ?
+            String folderName = config.chooseMode == PictureMimeType.ofAudio() ?
                     getString(R.string.picture_all_audio) : getString(R.string.picture_camera_roll);
             newFolder.setName(folderName);
-            newFolder.setPath("");
             newFolder.setFirstImagePath("");
+            newFolder.setCameraFolder(true);
+            newFolder.setBucketId(-1);
+            newFolder.setChecked(true);
             folders.add(newFolder);
         }
     }
 
     /**
-     * 将图片插入到相机文件夹中
+     * Insert the image into the camera folder
      *
-     * @param path
+     * @param firstPath
+     * @param firstMimeType
      * @param imageFolders
      * @return
      */
-    protected LocalMediaFolder getImageFolder(String path, List<LocalMediaFolder> imageFolders) {
-        File imageFile = new File(path);
+    protected LocalMediaFolder getImageFolder(String firstPath, String realPath, String firstMimeType, List<LocalMediaFolder> imageFolders) {
+        File imageFile = new File(PictureMimeType.isContent(firstPath) ? realPath : firstPath);
         File folderFile = imageFile.getParentFile();
-
         for (LocalMediaFolder folder : imageFolders) {
-            if (folder.getName().equals(folderFile.getName())) {
+            if (folderFile != null && folder.getName().equals(folderFile.getName())) {
                 return folder;
             }
         }
         LocalMediaFolder newFolder = new LocalMediaFolder();
-        newFolder.setName(folderFile.getName());
-        newFolder.setPath(folderFile.getAbsolutePath());
-        newFolder.setFirstImagePath(path);
+        newFolder.setName(folderFile != null ? folderFile.getName() : "");
+        newFolder.setFirstImagePath(firstPath);
+        newFolder.setFirstMimeType(firstMimeType);
         imageFolders.add(newFolder);
         return newFolder;
     }
@@ -319,131 +500,383 @@ public class PictureBaseActivity extends FragmentActivity {
      * @param images
      */
     protected void onResult(List<LocalMedia> images) {
-        dismissCompressDialog();
-        if (camera
-                && selectionMode == PictureConfig.MULTIPLE
-                && selectionMedias != null) {
-            images.addAll(selectionMedias);
+        if (SdkVersionUtils.isQ() && config.isAndroidQTransform) {
+            onResultToAndroidAsy(images);
+        } else {
+            dismissDialog();
+            if (config.camera && config.selectionMode == PictureConfig.MULTIPLE) {
+                images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
+            }
+            if (config.isCheckOriginalImage) {
+                int size = images.size();
+                for (int i = 0; i < size; i++) {
+                    LocalMedia media = images.get(i);
+                    media.setOriginal(true);
+                    media.setOriginalPath(media.getPath());
+                }
+            }
+            if (PictureSelectionConfig.listener != null) {
+                PictureSelectionConfig.listener.onResult(images);
+            } else {
+                Intent intent = PictureSelector.putIntentResult(images);
+                setResult(RESULT_OK, intent);
+            }
+            exit();
         }
-        Intent intent = PictureSelector.putIntentResult(images);
-        setResult(RESULT_OK, intent);
-        closeActivity();
+    }
+
+    /**
+     * Android Q
+     *
+     * @param images
+     */
+    private void onResultToAndroidAsy(List<LocalMedia> images) {
+        int size = images.size();
+        boolean isNextCopyAndroidQToPath = false;
+        for (int i = 0; i < size; i++) {
+            LocalMedia media = images.get(i);
+            if (media == null || TextUtils.isEmpty(media.getPath())) {
+                continue;
+            }
+            if (config.isCheckOriginalImage || (!media.isCut() && !media.isCompressed() && !media.isToSandboxPath())) {
+                isNextCopyAndroidQToPath = true;
+                break;
+            }
+        }
+        if (isNextCopyAndroidQToPath) {
+            startThreadCopySandbox(images);
+        } else {
+            normalResult(images);
+        }
+    }
+
+    /**
+     * normal return result
+     *
+     * @param images
+     */
+    private void normalResult(List<LocalMedia> images) {
+        int size = images.size();
+        for (int i = 0; i < size; i++) {
+            LocalMedia media = images.get(i);
+            if (media == null || TextUtils.isEmpty(media.getPath())) {
+                continue;
+            }
+            if (media.isCut() && media.isCompressed()) {
+                media.setAndroidQToPath(media.getCompressPath());
+            }
+            if (config.isCheckOriginalImage) {
+                media.setOriginal(true);
+                media.setOriginalPath(media.getAndroidQToPath());
+            }
+        }
+        if (config.camera && config.selectionMode == PictureConfig.MULTIPLE) {
+            images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
+        }
+        if (PictureSelectionConfig.listener != null) {
+            PictureSelectionConfig.listener.onResult(images);
+        } else {
+            Intent intent = PictureSelector.putIntentResult(images);
+            setResult(RESULT_OK, intent);
+        }
+        exit();
+    }
+
+    /**
+     * start thread copy file to Sandbox
+     *
+     * @param images
+     */
+    private void startThreadCopySandbox(List<LocalMedia> images) {
+        showPleaseDialog();
+        PictureThreadUtils.executeByIo(new PictureThreadUtils.SimpleTask<List<LocalMedia>>() {
+            @Override
+            public List<LocalMedia> doInBackground() {
+                int size = images.size();
+                for (int i = 0; i < size; i++) {
+                    LocalMedia media = images.get(i);
+                    if (media == null || TextUtils.isEmpty(media.getPath())) {
+                        continue;
+                    }
+                    boolean isCopyAndroidQToPath = !media.isCut() && !media.isCompressed() && !media.isToSandboxPath();
+                    boolean isCopyPath = false;
+                    if (isCopyAndroidQToPath && PictureMimeType.isContent(media.getPath())) {
+                        if (!PictureMimeType.isHasHttp(media.getPath())) {
+                            String AndroidQToPath = AndroidQTransformUtils.copyPathToAndroidQ(getContext(), media.getId(),
+                                    media.getPath(), media.getWidth(), media.getHeight(), media.getMimeType(), config.cameraFileName);
+                            media.setAndroidQToPath(AndroidQToPath);
+                            isCopyPath = true;
+                        }
+                    } else if (media.isCut() && media.isCompressed()) {
+                        media.setAndroidQToPath(media.getCompressPath());
+                    }
+                    if (config.isCheckOriginalImage) {
+                        media.setOriginal(true);
+                        if (isCopyPath) {
+                            media.setOriginalPath(media.getAndroidQToPath());
+                        } else {
+                            String originalPath = AndroidQTransformUtils.copyPathToAndroidQ(getContext(), media.getId(),
+                                    media.getPath(), media.getWidth(), media.getHeight(), media.getMimeType(), config.cameraFileName);
+                            media.setOriginalPath(originalPath);
+                        }
+                    }
+                }
+                return images;
+            }
+
+            @Override
+            public void onSuccess(List<LocalMedia> images) {
+                PictureThreadUtils.cancel(PictureThreadUtils.getIoPool());
+                dismissDialog();
+                if (images != null) {
+                    if (config.camera && config.selectionMode == PictureConfig.MULTIPLE) {
+                        images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
+                    }
+                    if (PictureSelectionConfig.listener != null) {
+                        PictureSelectionConfig.listener.onResult(images);
+                    } else {
+                        Intent intent = PictureSelector.putIntentResult(images);
+                        setResult(RESULT_OK, intent);
+                    }
+                    exit();
+                }
+            }
+        });
     }
 
     /**
      * Close Activity
      */
-    protected void closeActivity() {
+    protected void exit() {
         finish();
-        overridePendingTransition(0, R.anim.a3);
+        if (config.camera) {
+            overridePendingTransition(0, R.anim.picture_anim_fade_out);
+            if (getContext() instanceof PictureSelectorCameraEmptyActivity
+                    || getContext() instanceof PictureCustomCameraActivity) {
+                releaseResultListener();
+            }
+        } else {
+            overridePendingTransition(0,
+                    PictureSelectionConfig.windowAnimationStyle.activityExitAnimation);
+            if (getContext() instanceof PictureSelectorActivity) {
+                releaseResultListener();
+                if (config.openClickSound) {
+                    VoiceUtils.getInstance().releaseSoundPool();
+                }
+            }
+        }
     }
 
     @Override
     protected void onDestroy() {
+        if (mLoadingDialog != null) {
+            mLoadingDialog.dismiss();
+            mLoadingDialog = null;
+        }
         super.onDestroy();
-        dismissCompressDialog();
-        dismissDialog();
+        mHandler.removeCallbacksAndMessages(null);
     }
 
 
     /**
-     * 获取DCIM文件下最新一条拍照记录
-     *
-     * @return
-     */
-    protected int getLastImageId(boolean eqVideo) {
-        try {
-            //selection: 指定查询条件
-            String absolutePath = PictureFileUtils.getDCIMCameraPath();
-            String ORDER_BY = MediaStore.Files.FileColumns._ID + " DESC";
-            String selection = eqVideo ? MediaStore.Video.Media.DATA + " like ?" :
-                    MediaStore.Images.Media.DATA + " like ?";
-            //定义selectionArgs：
-            String[] selectionArgs = {absolutePath + "%"};
-            Cursor imageCursor = this.getContentResolver().query(eqVideo ?
-                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                            : MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null,
-                    selection, selectionArgs, ORDER_BY);
-            if (imageCursor.moveToFirst()) {
-                int id = imageCursor.getInt(eqVideo ?
-                        imageCursor.getColumnIndex(MediaStore.Video.Media._ID)
-                        : imageCursor.getColumnIndex(MediaStore.Images.Media._ID));
-                long date = imageCursor.getLong(eqVideo ?
-                        imageCursor.getColumnIndex(MediaStore.Video.Media.DURATION)
-                        : imageCursor.getColumnIndex(MediaStore.Images.Media.DATE_ADDED));
-                int duration = DateUtils.dateDiffer(date);
-                imageCursor.close();
-                // DCIM文件下最近时间30s以内的图片，可以判定是最新生成的重复照片
-                return duration <= 30 ? id : -1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
-
-    /**
-     * 删除部分手机 拍照在DCIM也生成一张的问题
-     *
-     * @param id
-     * @param eqVideo
-     */
-    protected void removeImage(int id, boolean eqVideo) {
-        try {
-            ContentResolver cr = getContentResolver();
-            Uri uri = eqVideo ? MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                    : MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            String selection = eqVideo ? MediaStore.Video.Media._ID + "=?"
-                    : MediaStore.Images.Media._ID + "=?";
-            cr.delete(uri,
-                    selection,
-                    new String[]{Long.toString(id)});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 录音
+     * get audio path
      *
      * @param data
      */
-    protected void isAudio(Intent data) {
-        if (data != null && mimeType == PictureMimeType.ofAudio()) {
-            try {
-                Uri uri = data.getData();
-                String audioPath;
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-                    audioPath = uri.getPath();
+    protected String getAudioPath(Intent data) {
+        try {
+            Uri uri = data.getData();
+            if (uri == null) {
+                return "";
+            }
+            if (PictureMimeType.isContent(uri.toString())) {
+                return uri.toString();
+            } else {
+                return uri.getPath();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    /**
+     * Open Custom Camera
+     */
+    private void startCustomCamera() {
+        Intent intent = new Intent(this, PictureCustomCameraActivity.class);
+        startActivityForResult(intent, PictureConfig.REQUEST_CAMERA);
+        PictureWindowAnimationStyle windowAnimationStyle = PictureSelectionConfig.windowAnimationStyle;
+        overridePendingTransition(windowAnimationStyle.activityEnterAnimation, R.anim.picture_anim_fade_in);
+    }
+
+    /**
+     * start to camera、preview、crop
+     */
+    protected void startOpenCameraImage() {
+        if (config.isUseCustomCamera) {
+            startCustomCamera();
+        } else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                Uri imageUri = CameraFileUtils.createCameraOutImageUri(getContext(), config);
+                if (imageUri != null) {
+                    if (config.isCameraAroundState) {
+                        cameraIntent.putExtra(PictureConfig.CAMERA_FACING, PictureConfig.CAMERA_BEFORE);
+                    }
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(cameraIntent, PictureConfig.REQUEST_CAMERA);
                 } else {
-                    audioPath = getAudioFilePathFromUri(uri);
+                    ToastUtils.s(getContext(), "open is camera error，the uri is empty ");
+                    if (config.camera) {
+                        exit();
+                    }
                 }
-                PictureFileUtils.copyAudioFile(audioPath, cameraPath);
-            } catch (Exception e) {
-                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
+     * start to camera、video
+     */
+    protected void startOpenCameraVideo() {
+        if (config.isUseCustomCamera) {
+            startCustomCamera();
+        } else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                Uri videoUri = CameraFileUtils.createCameraOutVideoUri(getContext(), config);
+                if (videoUri != null) {
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+                    if (config.isCameraAroundState) {
+                        cameraIntent.putExtra(PictureConfig.CAMERA_FACING, PictureConfig.CAMERA_BEFORE);
+                    }
+                    cameraIntent.putExtra(PictureConfig.EXTRA_QUICK_CAPTURE, config.isQuickCapture);
+                    cameraIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, config.recordVideoSecond);
+                    cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, config.videoQuality);
+                    startActivityForResult(cameraIntent, PictureConfig.REQUEST_CAMERA);
+                } else {
+                    ToastUtils.s(getContext(), "open is camera error，the uri is empty ");
+                    if (config.camera) {
+                        exit();
+                    }
+                }
             }
         }
     }
 
     /**
-     * 获取刚录取的音频文件
-     *
-     * @param uri
-     * @return
+     * start to camera audio
      */
-    protected String getAudioFilePathFromUri(Uri uri) {
-        String path = "";
+    public void startOpenCameraAudio() {
         try {
-            Cursor cursor = getContentResolver()
-                    .query(uri, null, null, null, null);
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA);
-            path = cursor.getString(index);
+            if (PermissionChecker.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)) {
+                Intent cameraIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+                if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                    Uri audioUri = CameraFileUtils.createCameraOutAudioUri(getContext(), config);
+                    if (audioUri != null) {
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, audioUri);
+                        startActivityForResult(cameraIntent, PictureConfig.REQUEST_CAMERA);
+                    } else {
+                        ToastUtils.s(getContext(), "open is audio error，the uri is empty ");
+                        if (config.camera) {
+                            exit();
+                        }
+                    }
+                } else {
+                    ToastUtils.s(getContext(), "System recording is not supported");
+                }
+            } else {
+                PermissionChecker.requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO}, PictureConfig.APPLY_AUDIO_PERMISSIONS_CODE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            ToastUtils.s(getContext(), e.getMessage());
         }
-        return path;
+
+    }
+
+    /**
+     * Release listener
+     */
+    private void releaseResultListener() {
+        if (config != null) {
+            PictureSelectionConfig.destroy();
+            PictureThreadUtils.cancel(PictureThreadUtils.getIoPool());
+            ArrayPoolProvide.getInstance().clearMemory();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PictureConfig.APPLY_AUDIO_PERMISSIONS_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent cameraIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+                if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(cameraIntent, PictureConfig.REQUEST_CAMERA);
+                }
+            } else {
+                ToastUtils.s(getContext(), getString(R.string.picture_audio));
+            }
+        }
+    }
+
+    /**
+     * showPermissionsDialog
+     *
+     * @param isCamera
+     * @param permissions
+     * @param errorMsg
+     */
+    protected void showPermissionsDialog(boolean isCamera, String[] permissions, String errorMsg) {
+
+    }
+
+    /**
+     * Dialog
+     *
+     * @param content
+     */
+    protected void showPromptDialog(String content) {
+        if (!isFinishing()) {
+            if (PictureSelectionConfig.onChooseLimitCallback != null) {
+                PictureSelectionConfig.onChooseLimitCallback.onChooseLimit(getContext(), content);
+            } else {
+                PictureCustomDialog dialog = new PictureCustomDialog(getContext(), R.layout.picture_prompt_dialog);
+                TextView btnOk = dialog.findViewById(R.id.btnOk);
+                TextView tvContent = dialog.findViewById(R.id.tv_content);
+                tvContent.setText(content);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!isFinishing()) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        }
+    }
+
+
+    /**
+     * sort
+     *
+     * @param imageFolders
+     */
+    protected void sortFolder(List<LocalMediaFolder> imageFolders) {
+        Collections.sort(imageFolders, (lhs, rhs) -> {
+            if (lhs.getData() == null || rhs.getData() == null) {
+                return 0;
+            }
+            int lSize = lhs.getImageNum();
+            int rSize = rhs.getImageNum();
+            return Integer.compare(rSize, lSize);
+        });
     }
 }
