@@ -52,6 +52,9 @@ import java.util.List;
 public abstract class BaseActivity<SV extends ViewDataBinding,E extends BasePresenter> extends AppCompatActivity {
 
 //    protected abstract void OnBackInit();
+public interface OnClickText {
+    void onRightText();
+}
 
     private MyBaseActiviy_Broad oBaseActiviy_Broad;
     MProgressDialog progressDialog;

@@ -30,9 +30,19 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
+import com.illyasr.mydempviews.MyApplication;
 import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.databinding.ActivityBaseFullscreenBinding;
+import com.illyasr.mydempviews.receiver.NetWorkStateReceiver;
+import com.illyasr.mydempviews.util.GlideCacheUtil;
+import com.illyasr.mydempviews.util.GlideUtil;
+import com.illyasr.mydempviews.util.PhoneUtil;
+import com.illyasr.mydempviews.util.RxTimerUtil;
+import com.illyasr.mydempviews.util.ScreenUtil;
+import com.illyasr.mydempviews.util.SoftInputUtils;
 import com.illyasr.mydempviews.util.StatusUtils;
+import com.illyasr.mydempviews.util.TUtil;
 import com.illyasr.mydempviews.view.MProgressDialog;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
@@ -118,7 +128,8 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
         mBaseBinding.commonTitle.tvTitle.setText(title+"");
     }
 
-    public void setRightImg(Object img, BaseActivity.OnClickIt onClick) {
+    public void setRightImg(Object img, OnClickIt onClick) {
+
         mBaseBinding.commonTitle.imgRight.setVisibility(img==null?View.GONE: View.VISIBLE);
         GlideUtil.putHttpImg(img,mBaseBinding.commonTitle.imgRight);
         mBaseBinding.commonTitle.imgRight.setOnClickListener(v -> {
@@ -133,16 +144,6 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
         mBaseBinding.commonTitle.tvRight.setText(title+"");
         // OnClickText
         mBaseBinding.commonTitle.tvRight.setOnClickListener(v -> {
-            if (onClickIt != null) {
-                onClickIt.onRightText();
-            }
-        });
-    }
-    public void setRightTwoText(String title, BaseActivity.OnClickText onClickIt) {
-        mBaseBinding.commonTitle.tvRightTwo.setVisibility(TextUtils.isEmpty(title)?View.GONE:View.VISIBLE);
-        mBaseBinding.commonTitle.tvRightTwo.setText(title+"");
-        // OnClickText
-        mBaseBinding.commonTitle.tvRightTwo.setOnClickListener(v -> {
             if (onClickIt != null) {
                 onClickIt.onRightText();
             }
@@ -236,9 +237,9 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
 //                .titleBarMarginTop(toolbar)     //解决状态栏和布局重叠问题，任选其一,这个方法在我的手机上可以实现,但是明明设置了颜色却显示灰色
                 .fitsSystemWindows(true)    //解决状态栏和布局重叠问题,但是statuebar颜色总是和colorpramirydark一致,这个无法解决
                 .init();*/
-        ImmersionBar.with(this)
-                .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
-                .init();
+//        ImmersionBar.with(this)
+//                .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
+//                .init();
     }
 
 

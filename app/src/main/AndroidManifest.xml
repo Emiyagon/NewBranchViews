@@ -4,10 +4,6 @@
     package="com.illyasr.mydempviews">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 危险 -->
@@ -72,12 +68,14 @@
 
         <service android:name="com.amap.api.location.APSService" />
 
+        <activity android:name=".ui.activity.PlayActivity" />
         <activity android:name=".ui.activity.BarrageActivity" />
         <activity android:name=".ui.activity.MainActivityText" />
         <activity android:name=".ui.activity.MyLocationActivity" /> <!-- android:theme="@style/WelcomeTheme" -->
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -21,6 +21,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -39,10 +40,10 @@ import com.illyasr.mydempviews.view.ComPopupDialog;
 import com.illyasr.mydempviews.view.MyAlertDialog;
 import com.zhuosen.bilibili.biliplayer.zxing.CameraScan;
 import com.zhuosen.bilibili.biliplayer.zxing.CaptureActivity;
+import com.zhuosen.bilibili.biliplayer.zxing.bean.ZxingConfig;
+import com.zhuosen.bilibili.biliplayer.zxing.config.Constant;
 import com.zhuosen.bilibili.biliplayer.zxing.util.CodeUtils;
-import com.zhuosen.bilibili.biliplayer.zxing.util.LogUtils;
 
-import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -95,15 +96,18 @@ public class QrCodeActivity extends BaseActivity<ActivityQrCodeBinding, MainPres
 
 
         });
-
+        String[] messions = new String[]{
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+        };
         //跳转的默认扫码界面
         mBindingView.stv1.setOnClickListener(v -> {
-//            startActivityForResult(new Intent(this,CaptureActivity.class),REQUEST_CODE);
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this,R.anim.in,R.anim.out);
-            Intent intent = new Intent(this, CaptureActivity.class);
-            intent.putExtra(KEY_TITLE,"扫码");
-            intent.putExtra(KEY_IS_CONTINUOUS,isContinuousScan);
-            ActivityCompat.startActivityForResult(this,intent,REQUEST_CODE,optionsCompat.toBundle());
+            if (EasyPermissions.hasPermissions(this, messions)) {
+                sysCode();
+            } else {
+                EasyPermissions.requestPermissions(this, getResources().getString(R.string.toast_1), 100, messions);
+            }
+
         });
         //打开相册选择
         mBindingView.stv2.setOnClickListener(v -> {
@@ -200,6 +204,23 @@ public class QrCodeActivity extends BaseActivity<ActivityQrCodeBinding, MainPres
         });
 
     }
+    private static final int REQUEST_CODE_SCAN = 111;
+    private void sysCode() {
+        Intent intent = new Intent(QrCodeActivity.this, CaptureActivity.class);
+        ZxingConfig config = new ZxingConfig();
+        config.setPlayBeep(false);//是否播放扫描声音 默认为true
+        config.setShake(false);//是否震动  默认为true
+        config.setDecodeBarCode(false);//是否扫描条形码 默认为true
+        config.setReactColor(R.color.colorAccent);//设置扫描框四个角的颜色 默认为白色
+        config.setFrameLineColor(R.color.transparent);//设置扫描框边框颜色 默认无色
+        config.setScanLineColor(R.color.colorBg);//设置扫描线的颜色 默认白色
+        config.setFullScreenScan(false);//是否全屏扫描  默认为true  设为false则只会在扫描框中扫描
+        intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+        startActivityForResult(intent, REQUEST_CODE_SCAN);
+
+//        startActivityForResult(new Intent(this, CaptureActivity.class),REQUEST_CODE);
+    }
+
     @Override
     protected int setLayoutId() {
         return R.layout.activity_qr_code;
@@ -229,6 +250,12 @@ public class QrCodeActivity extends BaseActivity<ActivityQrCodeBinding, MainPres
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK ){
             switch (requestCode){
+                case REQUEST_CODE_SCAN://   二维码扫描结果
+                    String content = data.getStringExtra(Constant.CODED_CONTENT);
+//                    result.setText("扫描结果为：" + content);
+                    showToast(content+"");
+                    mBindingView.stv13.setText("结果="+content);
+                    break;
                 case REQUEST_CODE://   二维码扫描结果
 //                    Bundle bundle = data.getExtras();;
 //                    String resultStr = bundle.getString("result");

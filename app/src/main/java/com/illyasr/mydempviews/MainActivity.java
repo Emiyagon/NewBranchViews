@@ -26,6 +26,7 @@ import com.illyasr.mydempviews.ui.activity.HealthyActivity;
 import com.illyasr.mydempviews.ui.activity.HeartActivity;
 import com.illyasr.mydempviews.ui.activity.MainActivityText;
 import com.illyasr.mydempviews.ui.activity.MyLocationActivity;
+import com.illyasr.mydempviews.ui.activity.PlayActivity;
 import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
 import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
 import com.illyasr.mydempviews.ui.activity.qq.TensentActivity;
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("获取抖音无水印视频",5));
         list.add(new TabBean("获取通讯录列表",4));
 
-        list.add(new TabBean("模拟qq侧滑菜单一",6));
+        list.add(new TabBean("聚会神器",6));
         list.add(new TabBean("城市三级联动选择器",7));
         list.add(new TabBean("zxing二维码",8));
         list.add(new TabBean("健康",9));
@@ -132,7 +133,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     startActivity(new Intent(MainActivity.this, DouYinActivity.class));
                     break;
                 case 6:
-                    startActivity(new Intent(MainActivity.this, TensentActivity.class));
+//                    startActivity(new Intent(MainActivity.this, TensentActivity.class));
+                    startActivity(new Intent(MainActivity.this, PlayActivity.class));
                     break;
                 case 7:
                     tag++;

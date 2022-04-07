@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_2_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="炸弹数字"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:stv_corner="40dp"
+                app:stv_solid="#85219E" />
+
+            <!--        <com.coorchice.library.SuperTextView-->
+            <!--            android:id="@+id/stv_2_2"-->
+            <!--            android:layout_marginTop="@dimen/permission_dp_20"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:padding="10dp"-->
+            <!--            android:layout_marginLeft="10dp"-->
+            <!--            android:gravity="center"-->
+            <!--            android:text="炸弹数字"-->
+            <!--            android:textColor="@color/white"-->
+            <!--            android:textSize="24sp"-->
+            <!--            app:stv_corner="40dp"-->
+            <!--            app:stv_solid="#85219E" />-->
+
+            <com.illyasr.mydempviews.view.ioswheel.LoopView
+                android:id="@+id/wleel_2"
+                android:layout_width="150dp"
+                android:layout_height="250dp"
+                android:layout_margin="@dimen/x5"
+                app:awv_centerTextColor="@color/colorAccent"
+                app:awv_dividerLineColor="@color/textBlack"
+                app:awv_outerTextColor="@color/blue"
+                app:awv_textsize="20"
+                app:awv_itemsVisibleCount="6"
+                />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:stv_solid="#78C3ED"
+                app:stv_stroke_color="#5166ED"
+                app:stv_stroke_width="5dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
