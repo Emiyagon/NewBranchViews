@@ -29,8 +29,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseHolder> {
         this.layoutIds=layoutIds;
     }
 
-    public void setData(List<T> datas){
+    public BaseAdapter setData(List<T> datas){
         this.datas=datas;
+        return this;
     }
 
     public List<T> getData(){

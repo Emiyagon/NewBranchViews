@@ -29,6 +29,7 @@ import com.illyasr.mydempviews.ui.activity.MyLocationActivity;
 import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
 import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
 import com.illyasr.mydempviews.ui.activity.qq.TensentActivity;
+import com.illyasr.mydempviews.ui.activity.vr.VRSActivity;
 import com.illyasr.mydempviews.util.AppUtils;
 import com.illyasr.mydempviews.util.Utils;
 import com.illyasr.mydempviews.view.ComPopupDialog;
@@ -87,6 +88,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("城市三级联动选择器",7));
         list.add(new TabBean("zxing二维码",8));
         list.add(new TabBean("健康",9));
+        list.add(new TabBean("VR",10));
 
 
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
@@ -164,6 +166,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     break;
                 case 9:
                     startActivity(new Intent(MainActivity.this, HealthyActivity.class));
+                    break;
+                case 10:
+                    startActivity(new Intent(MainActivity.this, VRSActivity.class));
                     break;
                 default:
                     break;

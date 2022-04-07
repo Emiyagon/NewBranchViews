@@ -174,4 +174,7 @@ dependencies {
 
     //xpopup
     implementation 'com.github.li-xiaojun:XPopup:1.9.0'
+
+    //google VR
+    implementation 'com.google.vr:sdk-panowidget:1.40.0'
 }
