@@ -109,7 +109,6 @@ public class CommonUtils {
                     return "";
                 }
             }
-
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);

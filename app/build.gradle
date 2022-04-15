@@ -169,7 +169,7 @@ dependencies {
        zxing添加依赖
    */
 //    api 'com.google.zxing:android-core:3.3.0'
-    api 'com.google.zxing:core:3.4.1'
+//    api 'com.google.zxing:core:3.4.1'
     /*
     添加依赖
     扫码

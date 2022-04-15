@@ -20,6 +20,7 @@ public class PlayActivity extends BaseActivity<ActivityPlayBinding, MainPresent>
         mBindingView.wleel2.setListener((index, s) -> {
             mBindingView.stv21.setText(s + "--"+ (index+1));
             mBindingView.stv1.setText(MinesNum(index+1));
+            mBindingView.stv22.setText(canNum(index + 1));
         });
     }
 
@@ -32,6 +33,17 @@ public class PlayActivity extends BaseActivity<ActivityPlayBinding, MainPresent>
             }
         }
 
+        return sb.toString();
+    }
+
+    private String canNum(int cun) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 500; i++) {
+            if (i % cun != 0 || i / 10 != cun || i % 10 != cun // 到这里适配到100以内
+                    || i / 10 % 10 != cun || i / 100 != cun) {
+                sb.append(i + " ");
+            }
+        }
         return sb.toString();
     }
 

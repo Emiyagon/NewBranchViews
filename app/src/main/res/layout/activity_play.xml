@@ -68,7 +68,21 @@
                 android:text="10"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:stv_solid="#78C3ED"
+                app:stv_solid="#f00"
+                app:stv_stroke_color="#5166ED"
+                app:stv_stroke_width="5dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="24sp"
+                app:stv_solid="#feeeed"
                 app:stv_stroke_color="#5166ED"
                 app:stv_stroke_width="5dp" />
         </LinearLayout>
