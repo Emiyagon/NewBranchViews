@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+
+            android:layout_marginTop="40dp"/>
+        <com.necer.view.WeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <com.necer.calendar.Miui9Calendar
+            android:id="@+id/miui9Calendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            app:calendarHeight="300dp"
+            app:defaultCalendar="week"
+            app:showNumberBackground="true"
+            app:showHoliday="true"
+            app:showLunar="true"
+
+            >
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#999"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/logo"
+                        android:scaleType="centerInside"
+                        />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_today"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="今天"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:stv_corner="40dp"
+                        app:stv_solid="#85219E" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="跳转到..."
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:stv_solid="#78C3ED"
+                        app:stv_stroke_color="#5166ED"
+                        app:stv_stroke_width="5dp" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="折叠"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:stv_corner="10dp"
+                        app:stv_solid="#228609"
+                        app:stv_stroke_color="#FE4926"
+                        app:stv_stroke_width="5dp" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="800dp"
+                        android:src="@mipmap/img"
+                        android:scaleType="centerCrop"
+                        />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.necer.calendar.Miui9Calendar>
+
+
+    </LinearLayout>
+</layout>

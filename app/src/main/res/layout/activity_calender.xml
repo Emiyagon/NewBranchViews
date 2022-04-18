@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="日历."
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:id="@+id/tv1"
+            />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            app:tabIndicatorColor="@color/colorRed"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/colorRed"
+            app:tabTextAppearance="@style/TabText"
+            app:tabTextColor="@color/textGray"
+            app:tabMode="scrollable"
+            app:tabMaxWidth="200dp"
+            app:tabMinWidth="120dp"
+            />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+
+    </LinearLayout>
+</layout>

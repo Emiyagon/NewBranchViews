@@ -1,39 +1,27 @@
 package com.illyasr.mydempviews;
 
-import static com.zhouyou.http.EasyHttp.getContext;
-
 import android.Manifest;
-import android.content.ClipboardManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.KeyEvent;
 
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.illyasr.mydempviews.adapter.MainAdapter;
-import com.illyasr.mydempviews.base.ActivityCollector;
 import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.bean.TabBean;
 import com.illyasr.mydempviews.databinding.ActivityMainBinding;
-import com.illyasr.mydempviews.databinding.DialogCityBinding;
 import com.illyasr.mydempviews.phone.PhoneActivity;
+import com.illyasr.mydempviews.ui.activity.canender.CalenderActivity;
 import com.illyasr.mydempviews.ui.activity.GetVideoActivity;
 import com.illyasr.mydempviews.ui.activity.HealthyActivity;
-import com.illyasr.mydempviews.ui.activity.HeartActivity;
 import com.illyasr.mydempviews.ui.activity.MainActivityText;
 import com.illyasr.mydempviews.ui.activity.MyLocationActivity;
 import com.illyasr.mydempviews.ui.activity.PlayActivity;
 import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
 import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
-import com.illyasr.mydempviews.ui.activity.qq.TensentActivity;
 import com.illyasr.mydempviews.ui.activity.vr.VRSActivity;
-import com.illyasr.mydempviews.util.AppUtils;
-import com.illyasr.mydempviews.util.Utils;
-import com.illyasr.mydempviews.view.ComPopupDialog;
 import com.illyasr.mydempviews.view.dialog.CityDialog;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
@@ -90,6 +78,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("zxing二维码",8));
         list.add(new TabBean("健康",9));
         list.add(new TabBean("VR",10));
+        list.add(new TabBean("各种日历",11));
 
 
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
@@ -171,6 +160,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     break;
                 case 10:
                     startActivity(new Intent(MainActivity.this, VRSActivity.class));
+                    break;
+                case 11:
+                    startActivity(new Intent(MainActivity.this, CalenderActivity.class));
                     break;
                 default:
                     break;

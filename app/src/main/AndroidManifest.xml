@@ -43,6 +43,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".ui.activity.canender.CalenderActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.vr.VRSActivity"
             android:exported="false" />
         <activity
@@ -74,8 +77,8 @@
         <activity android:name=".ui.activity.MyLocationActivity" /> <!-- android:theme="@style/WelcomeTheme" -->
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

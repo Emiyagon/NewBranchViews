@@ -50,7 +50,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BaseFragment<SV extends ViewDataBinding,T extends BasePresenter> extends Fragment {
 
-  private static final String TAG = BaseFragment.class.getSimpleName();
+  public static final String TAG = BaseFragment.class.getSimpleName();
 
   private boolean isFragmentVisible;
   private boolean isReuseView;

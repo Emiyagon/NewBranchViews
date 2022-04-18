@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-   <!-- <declare-styleable name="androidWheelView">
+    <!-- <declare-styleable name="androidWheelView">
         <attr name="awv_textsize" format="integer" />
         <attr name="awv_lineSpace" format="float" />
         <attr name="awv_centerTextColor" format="integer" />
@@ -16,50 +16,47 @@
     </declare-styleable>-->
 
 
-
-        <declare-styleable name="RippleBackground">
-            <attr name="rb_color" format="color" />
-            <attr name="rb_strokeWidth" format="dimension"/>
-            <attr name="rb_radius" format="dimension"/>
-            <attr name="rb_duration" format="integer"/>
-            <attr name="rb_rippleAmount" format="integer"/>
-            <attr name="rb_scale" format="float"/>
-            <attr name="rb_type" format="enum">
-                <enum name="fillRipple" value="0"/>
-                <enum name="strokeRipple" value="1"/>
-            </attr>
-        </declare-styleable>
+    <declare-styleable name="RippleBackground">
+        <attr name="rb_color" format="color" />
+        <attr name="rb_strokeWidth" format="dimension" />
+        <attr name="rb_radius" format="dimension" />
+        <attr name="rb_duration" format="integer" />
+        <attr name="rb_rippleAmount" format="integer" />
+        <attr name="rb_scale" format="float" />
+        <attr name="rb_type" format="enum">
+            <enum name="fillRipple" value="0" />
+            <enum name="strokeRipple" value="1" />
+        </attr>
+    </declare-styleable>
     <!--
     圆形字体,不带计时器
     -->
     <declare-styleable name="CircleProgressbar">
-<!--          里面的颜色-->
+        <!--          里面的颜色-->
         <attr name="in_circle_color" format="color" />
-<!--          圈的颜色  -->
+        <!--          圈的颜色  -->
         <attr name="line_circle_color" format="color" />
-<!--        字体颜色-->
+        <!--        字体颜色-->
         <attr name="in_text_color" format="color" />
     </declare-styleable>
 
-<!--
+    <!--
 圆形进度条,带计时器
 -->
     <declare-styleable name="CountDownView">
         <!--圆环颜色-->
         <attr name="ringColor" format="color" />
-<!--        圆心颜色-->
+        <!--        圆心颜色-->
         <attr name="innerColor" format="color" />
         <!-- 进度文本的字体大小 -->
         <attr name="progressTextSize" format="dimension" />
         <!-- 圆环宽度 -->
         <attr name="ringWidth" format="float" />
         <!--进度文本颜色-->
-        <attr name="progressTextColor" format="color"/>
+        <attr name="progressTextColor" format="color" />
         <!--倒计时-->
-        <attr name="countdownTime" format="integer"/>
+        <attr name="countdownTime" format="integer" />
     </declare-styleable>
-
-
 
 
     <!--  仿淘宝头条  -->
@@ -80,7 +77,7 @@
         <!--背景网格图的颜色-->
         <attr name="grid_line_color" format="string" />
         <!--背景颜色，默认为黑-->
-        <attr name="wave_background" format="string"/>
+        <attr name="wave_background" format="string" />
         <!--背景网格是否可见-->
         <attr name="grid_visible" format="boolean" />
         <!--波形图绘制模式，常规和循环-->
@@ -93,19 +90,19 @@
 
     <!--    仿iOS滚轮  -->
     <declare-styleable name="LoopView">
-<!--        字体大小  -->
-        <attr name="awv_textsize" format="integer|dimension"/>
-<!--        线条宽度-->
+        <!--        字体大小  -->
+        <attr name="awv_textsize" format="integer|dimension" />
+        <!--        线条宽度-->
         <attr name="awv_lineSpace" format="float" />
         <!--        中间字体颜色-->
         <attr name="awv_centerTextColor" format="integer|reference|color" />
         <!--        选中之外字颜色-->
         <attr name="awv_outerTextColor" format="integer|reference|color" />
         <!--        线条颜色-->
-        <attr name="awv_dividerLineColor" format="integer|reference|color"  />
-<!--        可见数量 -->
+        <attr name="awv_dividerLineColor" format="integer|reference|color" />
+        <!--        可见数量 -->
         <attr name="awv_itemsVisibleCount" format="integer" />
-<!--        是否无限循环 -->
+        <!--        是否无限循环 -->
         <attr name="awv_isLoop" format="boolean" />
 
 
@@ -115,16 +112,20 @@
 
     <declare-styleable name="ClockView">
         <!-- 仪表盘自定义属性 -->
-        <attr name="color_dial_lower" format="color"/>
-        <attr name="color_dial_middle" format="color"/>
-        <attr name="color_dial_high" format="color"/>
-        <attr name="text_size_dial" format="dimension"/>
-        <attr name="stroke_width_dial" format="dimension"/>
-        <attr name="radius_circle_dial" format="dimension"/>
-        <attr name="text_title_dial" format="string"/>
-        <attr name="text_title_size" format="dimension"/>
-        <attr name="text_title_color" format="color"/>
-        <attr name="text_size_value" format="dimension"/>
-        <attr name="animator_play_time" format="integer"/>
+        <attr name="color_dial_lower" format="color" />
+        <attr name="color_dial_middle" format="color" />
+        <attr name="color_dial_high" format="color" />
+        <attr name="text_size_dial" format="dimension" />
+        <attr name="stroke_width_dial" format="dimension" />
+        <attr name="radius_circle_dial" format="dimension" />
+        <attr name="text_title_dial" format="string" />
+        <attr name="text_title_size" format="dimension" />
+        <attr name="text_title_color" format="color" />
+        <attr name="text_size_value" format="dimension" />
+        <attr name="animator_play_time" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
     </declare-styleable>
 </resources>

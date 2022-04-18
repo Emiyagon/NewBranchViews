@@ -58,6 +58,9 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 /**
@@ -155,8 +158,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 //    implementation project(path: ':supertextview')
     implementation 'com.github.chenBingX:SuperTextView:v3.2.5'
+    implementation project(path: ':ncalendar')
     implementation project(path: ':biliplayer')
-    implementation project(path: ':imageselector')
+//    implementation project(path: ':imageselector')
     api 'com.zhouyou:rxeasyhttp:2.1.5'
     // 高德定位
     implementation 'com.amap.api:3dmap:latest.integration' //定位功能
