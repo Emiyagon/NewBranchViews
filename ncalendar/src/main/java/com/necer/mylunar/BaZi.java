@@ -22,6 +22,8 @@ public class BaZi {
     final static String chineseNumber[] = {"正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊"};
    public final static String[] Gan = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
    public final static String[] Zhi = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
+    public final static String[] Five_Element_G = {"阳木","阴木","阳火","阴火","阳土","阴土","阳金","阴金","阳水","阴水"};// 对应天干
+    public final static String[] Five_Element_Z = {"阳水","阴土","阳木","阴木","阳土","阴火","阳火","阴土","阳金","阴金","阳土","阴水"};// 对应地支
     static SimpleDateFormat chineseDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     final static long[] lunarInfo = new long[]{0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
         0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
@@ -140,6 +142,51 @@ public class BaZi {
         h=Gan[(offset+hour)%10]+Zhi[hour];
         //在此处输出我们的年月日时的天干地支
         return y+","+m+","+d+","+h;
+    }
+
+    public String getFive(int hour) {
+        //1864年是甲子年，每隔六十年一个甲子
+        int idx = (year - 1864) % 60;
+        //没有过春节的话那么年还算上一年的，此处求的年份的干支
+        String yw = Five_Element_G[idx%10]+Five_Element_Z[idx%12];
+        String mw = "";
+        String dw="";
+        String hw="";
+
+        idx = idx % 5;
+        int idxm=0;
+        /**
+         * 年上起月
+         * 甲己之年丙作首，乙庚之岁戊为头，
+         * 丙辛必定寻庚起，丁壬壬位顺行流，
+         * 更有戊癸何方觅，甲寅之上好追求。
+         */
+        idxm=(idx+1)*2;
+        if(idxm==10) idxm=0;
+        //求的月份的干支
+        mw= Five_Element_G[(idxm+month-1)%10]+Five_Element_Z[(month+2-1)%12];
+
+        /*求出和1900年1月31日甲辰日相差的天数
+         * 甲辰日是第四十天
+         */
+        int offset = (int) ((cal.getTime().getTime() - baseDate.getTime()) / 86400000L);
+        offset=(offset+40)%60;
+        //求的日的干支
+        // 已知d=甲子 ,1和11都是甲  dw=
+        dw= Five_Element_G[offset%10]+Five_Element_Z[offset%12];
+
+        /**
+         * 日上起时
+         * 甲己还生甲，乙庚丙作初，
+         * 丙辛从戊起，丁壬庚子居，
+         * 戊癸何方发，壬子是真途。
+         */
+
+        offset=(offset % 5 )*2;
+        //求得时辰的干支
+        hw = Five_Element_G[(offset + hour) % 10] + Five_Element_Z[hour];
+        //在此处输出我们的年月日时的五行
+        return yw+","+mw+","+dw+","+hw;
     }
     public String getShichenFromDay(int offset){
        

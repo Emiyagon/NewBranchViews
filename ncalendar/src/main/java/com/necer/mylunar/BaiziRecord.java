@@ -12,6 +12,7 @@ class BaiziRecord {
     private String ganzimonth;
     private String ganziday;
     private String ganzitime;
+    private String wuxing;
     private String[] ganzhiString;
 
     public BaiziRecord(Calendar cal) {
@@ -19,6 +20,8 @@ class BaiziRecord {
         lunaryue = new Lunar(cal.getTimeInMillis());
         int time = cal.get(Calendar.HOUR_OF_DAY) / 2;
         String GanZhi = lunar.getYearGanZhi(time);//取八字
+        String fiveP = lunar.getFive(time);//取八字
+        wuxing=fiveP;
         String[] tempchar = GanZhi.split(",");
         //我修改原来的，用,分割
         ganziyear = lunaryue.getCyclicaYear();//年柱
@@ -55,6 +58,10 @@ class BaiziRecord {
 
     public String getGanziday() {
         return ganziday;
+    }
+
+    public String getWuxing() {
+        return wuxing;
     }
 
     public void setGanziday(String ganziday) {
