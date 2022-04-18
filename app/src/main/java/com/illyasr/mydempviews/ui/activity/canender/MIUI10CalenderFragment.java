@@ -45,9 +45,11 @@ public class MIUI10CalenderFragment extends BaseFragment<FragmentBaseMiui10Calen
             if (localDate != null) {
                 CalendarDate calendarDate = CalendarUtil.getCalendarDate(localDate);
                 Lunar lunar = calendarDate.lunar;
-                mBindingView.tvData.setText(localDate.toString("yyyy年MM月dd日"));
+                //  这里增加了五行,不然下面很挤
+                mBindingView.tvData.setText(localDate.toString("yyyy年MM月dd日")+"--"+new MyXuanri().getDateBaZiString(year,month,localDate.getDayOfMonth()));
                 mBindingView.tvDesc.setText(lunar.chineseEra+
-                        "年" + lunar.lunarMonthStr + lunar.lunarDayStr+new MyXuanri().getDateBaZiString(year,month,localDate.getDayOfMonth()));
+                        "年" + lunar.lunarMonthStr +
+                        lunar.lunarDayStr+new MyXuanri().getDateBaZiString(year,month,localDate.getDayOfMonth()));
             } else {
                 mBindingView.tvData.setText("");
                 mBindingView.tvDesc.setText("");
