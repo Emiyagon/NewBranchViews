@@ -1,0 +1,139 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.luck.picture.lib"
+5    android:versionCode="1"
+6    android:versionName="1.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml
+10        android:targetSdkVersion="32" />
+10-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml
+11
+12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+12-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:6:5-80
+12-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:6:22-77
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:7:5-81
+13-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:7:22-78
+14    <uses-permission android:name="android.permission.CAMERA" />
+14-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:8:5-65
+14-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:8:22-62
+15    <uses-permission
+15-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:9:5-10:47
+16        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+16-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:9:22-81
+17        tools:ignore="ProtectedPermissions" />
+17-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:10:9-44
+18    <uses-permission android:name="android.permission.INTERNET" />
+18-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:11:5-67
+18-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:11:22-64
+19    <uses-permission
+19-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:12:5-13:47
+20        android:name="android.permission.WRITE_SETTINGS"
+20-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:12:22-70
+21        tools:ignore="ProtectedPermissions" />
+21-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:13:9-44
+22    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+22-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:14:5-76
+22-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:14:22-73
+23    <uses-permission
+23-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:15:5-16:47
+24        android:name="android.permission.WRITE_MEDIA_STORAGE"
+24-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:15:22-75
+25        tools:ignore="ProtectedPermissions" />
+25-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:16:9-44
+26    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+26-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:17:5-79
+26-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:17:22-76
+27    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+27-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:18:5-71
+27-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:18:22-68
+28
+29    <application
+29-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:20:5-57:19
+30        android:allowBackup="true"
+30-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:21:9-35
+31        android:supportsRtl="true" >
+31-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:22:9-35
+32        <activity
+32-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:23:9-27:20
+33            android:name="com.luck.picture.lib.PictureSelectorCameraEmptyActivity"
+33-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:24:13-63
+34            android:configChanges="orientation|keyboardHidden|screenSize"
+34-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:25:13-74
+35            android:theme="@style/Picture.Theme.Translucent" >
+35-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:26:13-61
+36        </activity>
+37        <activity
+37-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:28:9-30:77
+38            android:name="com.luck.picture.lib.PictureCustomCameraActivity"
+38-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:29:13-56
+39            android:configChanges="orientation|keyboardHidden|screenSize" />
+39-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:30:13-74
+40        <activity
+40-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:31:9-35:55
+41            android:name="com.luck.picture.lib.PictureSelectorActivity"
+41-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:32:13-52
+42            android:screenOrientation="portrait"
+42-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:33:13-49
+43            android:theme="@style/activity.Theme"
+43-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:34:13-50
+44            android:windowSoftInputMode="adjustPan" />
+44-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:35:13-52
+45        <activity
+45-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:36:9-38:52
+46            android:name="com.luck.picture.lib.PictureBaseActivity"
+46-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:37:13-48
+47            android:screenOrientation="portrait" />
+47-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:38:13-49
+48        <activity
+48-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:39:9-41:52
+49            android:name="com.luck.picture.lib.PicturePreviewActivity"
+49-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:40:13-51
+50            android:screenOrientation="portrait" />
+50-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:41:13-49
+51        <activity
+51-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:42:9-45:50
+52            android:name="com.luck.picture.lib.PictureVideoPlayActivity"
+52-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:43:13-53
+53            android:configChanges="orientation|keyboardHidden|screenSize"
+53-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:44:13-74
+54            android:screenOrientation="sensor" />
+54-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:45:13-47
+55        <activity
+55-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:46:9-48:52
+56            android:name="com.luck.picture.lib.PictureExternalPreviewActivity"
+56-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:47:13-59
+57            android:screenOrientation="portrait" />
+57-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:48:13-49
+58        <activity
+58-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:49:9-52:72
+59            android:name="com.luck.picture.lib.PicturePlayAudioActivity"
+59-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:50:13-53
+60            android:screenOrientation="portrait"
+60-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:51:13-49
+61            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+61-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:52:13-69
+62        <activity
+62-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:53:9-136
+63            android:name="com.luck.picture.lib.PictureSelectorWeChatStyleActivity"
+63-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:53:19-69
+64            android:configChanges="orientation|keyboardHidden|screenSize" />
+64-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:53:73-134
+65        <activity
+65-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:54:9-143
+66            android:name="com.luck.picture.lib.PictureSelectorPreviewWeChatStyleActivity"
+66-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:54:19-76
+67            android:configChanges="orientation|keyboardHidden|screenSize" />
+67-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:54:80-141
+68        <activity android:name="com.yalantis.ucrop.UCropActivity" />
+68-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:55:9-69
+68-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:55:19-66
+69        <activity android:name="com.yalantis.ucrop.PictureMultiCuttingActivity" />
+69-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:56:9-83
+69-->/Users/qingshilin/myviews/imageselector/src/main/AndroidManifest.xml:56:19-80
+70    </application>
+71
+72</manifest>
