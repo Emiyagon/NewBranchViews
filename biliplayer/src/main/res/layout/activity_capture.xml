@@ -49,7 +49,7 @@
 
 
         <!-- 扫描取景框 -->
-        <com.zhuosen.bilibili.biliplayer.zxing.config.ViewfinderView
+        <com.illyasr.bilibili.biliplayer.zxing.config.ViewfinderView
             android:id="@+id/viewfinder_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"

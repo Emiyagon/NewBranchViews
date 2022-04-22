@@ -226,7 +226,12 @@ public class TimeDialog extends Dialog {
     public List<String> getNumberList(int index0, int index1) {
         List<String> list = new ArrayList<>();
         for (int i = index0; i <= index1; i++) {
-            list.add(i + "");
+            if (i<10){
+                list.add("0"+i );
+            }else {
+                list.add(i + "");
+            }
+
         }
         return list;
     }

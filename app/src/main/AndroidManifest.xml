@@ -43,6 +43,19 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".ui.activity.notify.NotifyDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.notify.NotifyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.bilibili.BiliBiliActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
             android:name=".ui.activity.canender.CalenderActivity"
             android:exported="false" />
         <activity
@@ -96,6 +109,8 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
+        <receiver android:name=".ui.activity.notify.NotificationReceiver" />
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_recover_screen"
@@ -19,7 +19,6 @@
         android:text="还原屏幕"
         android:textColor="@color/recover_screen_text"/>
 
-    <!--  全屏seekbar  -->
     <SeekBar
         android:id="@+id/danmaku_player_seek"
         android:layout_width="match_parent"
@@ -31,11 +30,10 @@
         android:minHeight="4dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="5dp"
         android:progressDrawable="@drawable/layer_seek_progress"
-        android:thumb="@mipmap/rabbit"
+        android:thumb="@drawable/shape_seek_ball"
         android:visibility="gone"/>
-<!--   android:thumb="@drawable/shape_seek_ball"  -->
+
     <LinearLayout
         android:id="@+id/ll_bottom_bar"
         android:layout_width="match_parent"
@@ -62,7 +60,6 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"/>
 
-        <!--  小屏seekbar  -->
         <SeekBar
             android:id="@+id/player_seek"
             android:layout_width="0dp"
@@ -72,8 +69,8 @@
             android:maxHeight="4dp"
             android:minHeight="4dp"
             android:progressDrawable="@drawable/layer_seek_progress"
-            android:thumb="@mipmap/rabbit"/>
-                <!--  android:thumb="@drawable/shape_seek_ball"   -->
+            android:thumb="@drawable/shape_seek_ball"/>
+
         <TextView
             android:id="@+id/tv_separator"
             android:layout_width="wrap_content"
@@ -96,7 +93,6 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"/>
 
-        <!--  弹幕输入框view  -->
         <TextView
             android:id="@+id/tv_open_edit_danmaku"
             android:layout_width="0dp"
@@ -113,7 +109,6 @@
             android:textSize="16sp"
             android:visibility="gone"/>
 
-        <!--  弹幕显示和隐藏按钮  -->
         <ImageView
             android:id="@+id/iv_danmaku_control"
             android:layout_width="wrap_content"

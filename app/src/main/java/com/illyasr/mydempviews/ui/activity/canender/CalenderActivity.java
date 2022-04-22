@@ -17,8 +17,11 @@ import com.illyasr.mydempviews.databinding.ActivityCalenderBinding;
 import com.illyasr.mydempviews.ui.activity.GetVideoActivity;
 import com.illyasr.mydempviews.util.DonwloadSaveImg;
 import com.illyasr.mydempviews.view.MyAlertDialog;
+import com.illyasr.mydempviews.view.spin.OnSpinMenuStateChangeListener;
+import com.illyasr.mydempviews.view.spin.SMItemLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,6 +33,7 @@ import java.util.List;
 public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, MainPresent> {
 
 
+    private  String[] strs = {"单纯月历","单纯周历","MIUI9日历","MIUI10日历","EMIUI日历","日历自定义显示选中图形","测试拉伸","仿钉钉(自定义)"};
     private List<Fragment> fragments = new ArrayList<>();
     @Override
     protected void initData() {
@@ -46,7 +50,7 @@ public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, Main
         mBindingView.tabLayout.setupWithViewPager(mBindingView.vp);
 
         mBindingView.tv1.setOnClickListener(v -> {
-            new MyAlertDialog(this).builder()
+          new MyAlertDialog(this).builder()
                     .setTitle("提示")
                     .setMsg("所有的日历都是一个viewgroup\n里面是可以放别的view的\n但是只能有一个子view\n" +
                             "猜测博主写这个其实是参照了scrollview\n具体写法源码可见,网站已经写在注释里面了\n" +
@@ -57,6 +61,29 @@ public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, Main
 
                     }).show();
         });
+
+
+        // 设置标题
+        mBindingView.spinMenu.setHintTextStrList(Arrays.asList(strs));
+        //设置启动手势开启菜单
+        mBindingView.spinMenu.setEnableGesture(true);
+
+        //设置页面适配器
+        mBindingView.spinMenu.setFragmentAdapter(new SelectorAdapter(getSupportFragmentManager(),fragments));
+
+        //设置菜单改变时的监听器
+        mBindingView.spinMenu.setOnSpinMenuStateChangeListener(new OnSpinMenuStateChangeListener() {
+            @Override
+            public void onMenuOpened() {
+                // 打开时
+            }
+
+            @Override
+            public void onMenuClosed() {
+                //关闭时
+            }
+        });
+
     }
 
     @Override
@@ -66,7 +93,6 @@ public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, Main
 
     class SelectorAdapter extends FragmentPagerAdapter {
         List<Fragment> list;
-        String[] strs = {"单纯月历","单纯周历","MIUI9日历","MIUI10日历","EMIUI日历","日历自定义显示选中图形","测试拉伸","仿钉钉(自定义)"};
         public SelectorAdapter(@NonNull FragmentManager fm,List<Fragment> list) {
             super(fm);
             this.list = list;

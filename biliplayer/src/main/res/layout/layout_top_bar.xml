@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/fullscreen_top_bar"
@@ -20,7 +20,7 @@
             android:padding="10dp"
             android:src="@mipmap/ic_return_back"/>
 
-        <com.zhuosen.bilibili.biliplayer.widgets.MarqueeTextView
+        <com.illyasr.bilibili.biliplayer.widgets.MarqueeTextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,40 +74,18 @@
 
     <FrameLayout
         android:id="@+id/window_top_bar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:visibility="visible">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
+        android:visibility="gone">
+
+        <ImageView
             android:id="@+id/iv_back_window"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/sel_item_background"
             android:padding="10dp"
             android:src="@mipmap/ic_return_back"/>
-            <!--  com.zhuosen.bilibili.biliplayer.widgets.MarqueeTextView  -->
-            <com.zhuosen.bilibili.biliplayer.widgets.MarqueeTextView
-                android:id="@+id/small_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="15dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:singleLine="true"
-
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                />
-        </LinearLayout>
-
     </FrameLayout>
 
     <RadioGroup

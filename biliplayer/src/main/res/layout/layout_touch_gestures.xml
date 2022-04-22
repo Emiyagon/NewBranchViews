@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content">
-
+<!--  声音/亮度/界面展示  -->
     <FrameLayout
         android:id="@+id/fl_touch_layout"
         android:layout_gravity="center"

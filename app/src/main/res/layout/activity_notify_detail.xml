@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <include
+            layout="@layout/title_view"
+            android:id="@+id/title" />
+
+      <androidx.core.widget.NestedScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+          <androidx.appcompat.widget.LinearLayoutCompat
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  >
+
+                  <TextView
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="match_parent"
+                      android:text="事件名"
+                      android:textColor="@color/textBlack"
+                      android:textSize="17sp"
+                      android:gravity="right|center_vertical"
+                      />
+
+                  <TextView
+                      android:id="@+id/tv_hd"
+                      android:layout_width="0dp"
+                      android:layout_weight="5"
+                      android:layout_height="match_parent"
+                      android:textColor="@color/textBlack"
+                      android:textSize="17sp"
+                      android:text=""
+                      android:hint="请输入事件"
+                      android:paddingLeft="20dp"
+                      android:background="@color/transparent"
+                      android:gravity="left|center_vertical"
+                      />
+              </LinearLayout>
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  >
+
+                  <TextView
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="match_parent"
+                      android:text="日期"
+                      android:textColor="@color/textBlack"
+                      android:textSize="17sp"
+                      android:gravity="right|center_vertical"
+                      />
+
+                  <TextView
+                      android:id="@+id/tv_time"
+                      android:layout_width="0dp"
+                      android:layout_weight="5"
+                      android:layout_height="match_parent"
+                      android:textColor="@color/textBlack"
+                      android:textSize="17sp"
+                      android:text=""
+                      android:hint="请选择时间"
+                      android:paddingLeft="20dp"
+                      android:background="@color/transparent"
+                      android:gravity="left|center_vertical"
+                      />
+              </LinearLayout>
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  >
+
+                  <TextView
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="match_parent"
+                      android:text="分类"
+                      android:textColor="@color/textBlack"
+                      android:textSize="17sp"
+                      android:gravity="right|center_vertical"
+                      />
+
+                  <TextView
+                      android:id="@+id/tv_reload"
+                      android:layout_width="0dp"
+                      android:layout_weight="5"
+                      android:layout_height="match_parent"
+                      android:textColor="@color/textBlack"
+                      android:textSize="17sp"
+                      android:text=""
+                      android:hint="请选择分类"
+                      android:paddingLeft="20dp"
+                      android:background="@color/transparent"
+                      android:gravity="left|center_vertical"
+                      />
+              </LinearLayout>
+
+          </androidx.appcompat.widget.LinearLayoutCompat>
+      </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>

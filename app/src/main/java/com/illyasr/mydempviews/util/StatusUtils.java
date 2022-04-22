@@ -28,8 +28,26 @@ public class StatusUtils {
             localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
         }
         StatusBarLightMode(activity,dark);
+        android7(activity);
     }
 
+
+    /**
+     *  适配android7 出现灰色遮罩的情况
+     *  果然傻逼ov就是脑残,问题一堆还不解决
+     * @param activity
+     */
+    public static void android7(Activity activity) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            try {
+                Class decorViewClazz = Class.forName("com.android.internal.policy.DecorView");
+                Field field = decorViewClazz.getDeclaredField("mSemiTransparentStatusBarColor");
+                field.setAccessible(true);
+                field.setInt(activity.getWindow().getDecorView(), Color.TRANSPARENT); //改为透明
+            } catch (Exception e) {}
+
+        }
+    }
 
     public static int StatusBarLightMode(Activity activity,boolean dark) {
         int result = 0;

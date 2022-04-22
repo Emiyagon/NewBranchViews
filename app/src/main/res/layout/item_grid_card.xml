@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/actionsheet_blue"
+            app:cardCornerRadius="10dp"
+            android:elevation="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_margin="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="28dp"
+                    android:text="题目"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:stv_corner="40dp"
+                    app:stv_isShowState="true"
+                    app:stv_solid="@color/transparent"
+                    app:stv_state_drawable="@drawable/emoji_bell"
+                    app:stv_state_drawable_height="25dp"
+                    app:stv_state_drawable_width="25dp"
+                    app:stv_state_drawable_mode="left"
+                    app:stv_state_drawable_padding_left="1dp" />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_type"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="28dp"
+                    android:text="还剩"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:stv_corner="40dp"
+                    app:stv_isShowState="true"
+                    app:stv_solid="@color/transparent"
+                    app:stv_state_drawable="@drawable/emoji_clock"
+                    app:stv_state_drawable_height="20dp"
+                    app:stv_state_drawable_width="20dp"
+                    app:stv_state_drawable_mode="left"
+                    app:stv_state_drawable_padding_left="1dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="35dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_num"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textSize="32sp"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="天"
+                        android:textSize="15sp"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:paddingLeft="35dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2012.07.25"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_s"
+                    android:paddingLeft="35dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="星期三"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</layout>

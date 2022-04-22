@@ -39,6 +39,7 @@ import com.illyasr.mydempviews.databinding.DialogShowBinding;
 import com.illyasr.mydempviews.http.BaseResponse;
 import com.illyasr.mydempviews.http.UserApi;
 import com.illyasr.mydempviews.manager.AndroidDownloadManager;
+import com.illyasr.mydempviews.ui.activity.bilibili.BiliBiliActivity;
 import com.illyasr.mydempviews.ui.activity.dy.CommonUtils;
 import com.illyasr.mydempviews.util.DonwloadSaveImg;
 import com.illyasr.mydempviews.util.FileUtils;
@@ -151,27 +152,25 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                     .setTitle("提示")
                     .setMsg("是否保存本图片")
                     .setPositiveButton("保存", v13 -> {
-
                         DonwloadSaveImg.donwloadImg(GetVideoActivity.this, bean.getCoverPic());
-                        new Thread(() -> {
-//                                ImgDonwload.saveImageToGallery(GetVideoActivity.this, bean.getCoverPic());
-
-                        }).start();
-
-
-                    }).setNegativeButton("不保存", v14 -> {
+                    }).setNegativeButton("取消", v14 -> {
                 //
-            }).show();
+            }) .setNegativeButton("直接观看视频", v1 -> {
+                BiliBiliActivity.getToPlayVideo(GetVideoActivity.this,
+                        bean.getResources().get(0).getOriginalUrl(), false);
+
+            })
+                    .show();
         });
         mBindingView.stv0.setOnClickListener(v -> {
             if (TextUtils.isEmpty(mBindingView.etHine.getText().toString())){
                 bean = null;
                 return;
             }
-            if ( ! mBindingView.etHine.getText().toString().replace(" ","").startsWith("http")){
-                Toast.makeText(MyApplication.getInstance(),"请输入正确的链接!",Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            if ( ! mBindingView.etHine.getText().toString().replace(" ","").startsWith("http")){
+//                Toast.makeText(MyApplication.getInstance(),"请输入正确的链接!",Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
 
             if (comClickDialog != null && bean != null) {
@@ -181,12 +180,14 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                 return;
             }
 
-            String url = mBindingView.etHine.getText().toString().trim().replace(" ","");
+            //  【八大胡同旧主，是男妓，撑起了妓院半边天！-哔哩哔哩】 https://b23.tv/98FKWNl
+            String s = mBindingView.etHine.getText().toString().trim().replace(" ","");
+            String url = s.substring(s.indexOf("http"));
             if (UrlUtil.isLongUrl(url)){
                 OnHttp(url);
             }else {
-                CommonUtils.redirectUrl(url, s -> {
-                    OnHttp(s);
+                CommonUtils.redirectUrl(url, x -> {
+                    OnHttp(x);
                 });
             }
 
@@ -336,7 +337,7 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                 }
 
 
-                EasyHttp.downLoad(bean.getResources().get(finalI).getOriginalUrl())
+               /* EasyHttp.downLoad(bean.getResources().get(finalI).getOriginalUrl())
 //                        .savePath("/sdcard/test/QQ")
                         .saveName(new Date().getTimezoneOffset()+"video.mp4")//不设置默认名字是时间戳生成的
                         .execute(new DownloadProgressCallBack<String>() {
@@ -347,28 +348,23 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                                 dialog.setProgress(progress);
                                 if (done) {//下载完成
                                 }
-
                             }
-
                             @Override
                             public void onStart() {
                                 //开始下载
                             }
-
                             @Override
                             public void onComplete(String path) {
                                 //下载完成，path：下载文件保存的完整路径
                                 showToast("下载完成,文件保存在"+path+"下");
-
                                 dialog.dismiss();
                             }
-
                             @Override
                             public void onError(ApiException e) {
                                 //下载失败
                                 dialog.dismiss();
                             }
-                        });
+                        });*/
 
 
 

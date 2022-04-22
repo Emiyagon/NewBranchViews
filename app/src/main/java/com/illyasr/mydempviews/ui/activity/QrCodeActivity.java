@@ -27,6 +27,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.illyasr.bilibili.biliplayer.zxing.CameraScan;
+import com.illyasr.bilibili.biliplayer.zxing.CaptureActivity;
+import com.illyasr.bilibili.biliplayer.zxing.bean.ZxingConfig;
+import com.illyasr.bilibili.biliplayer.zxing.config.Constant;
+import com.illyasr.bilibili.biliplayer.zxing.util.CodeUtils;
 import com.illyasr.mydempviews.MainPresent;
 import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.base.BaseActivity;
@@ -36,13 +41,7 @@ import com.illyasr.mydempviews.util.BitmapUtil;
 import com.illyasr.mydempviews.util.GlideUtil;
 import com.illyasr.mydempviews.view.ActionSheetDialog;
 import com.illyasr.mydempviews.view.ComClickDialog;
-import com.illyasr.mydempviews.view.ComPopupDialog;
 import com.illyasr.mydempviews.view.MyAlertDialog;
-import com.zhuosen.bilibili.biliplayer.zxing.CameraScan;
-import com.zhuosen.bilibili.biliplayer.zxing.CaptureActivity;
-import com.zhuosen.bilibili.biliplayer.zxing.bean.ZxingConfig;
-import com.zhuosen.bilibili.biliplayer.zxing.config.Constant;
-import com.zhuosen.bilibili.biliplayer.zxing.util.CodeUtils;
 
 
 import io.reactivex.BackpressureStrategy;

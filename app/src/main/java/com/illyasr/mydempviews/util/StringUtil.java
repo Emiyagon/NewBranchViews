@@ -259,5 +259,27 @@ textView.setText(spannableString);
     }
 
 
+    public static String returnWeekString(int w) {
+        String string = "星期";
+        if (w == 7) {
+            string = string + "日";
+        }else if (w == 1) {
+            string = string + "一";
+        }else if (w == 2) {
+            string = string + "二";
+        }else if (w == 3) {
+            string = string + "三";
+        }else if (w == 4) {
+            string = string + "四";
+        }else if (w == 5) {
+            string = string + "五";
+        }else if (w == 6) {
+            string = string + "六";
+        }
+
+        return string;
+    }
+
+
 
 }

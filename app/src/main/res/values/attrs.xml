@@ -128,4 +128,11 @@
         <attr name="fullscreenBackgroundColor" format="color" />
         <attr name="fullscreenTextColor" format="color" />
     </declare-styleable>
+
+    <!-- ThumbnailMenu -->
+    <declare-styleable name="SpinMenu">
+        <attr name="scale_ratio" format="float" />
+        <attr name="hint_text_color" format="color"/>
+        <attr name="hint_text_size" format="dimension"/>
+    </declare-styleable>
 </resources>

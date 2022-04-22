@@ -84,7 +84,7 @@ public static final String Base_html = MyApplication.isTestEnvironment?"https://
     /**
      *
      */
-    public static final String download_yyb = "https://a.app.qq.com/o/simple.jsp?pkgname=com.zhuosen.chaoqijiaoyu#opened";
+    public static final String download_yyb = "https://a.app.qq.com/o/simple.jsp?pkgname=%s";
 
 
     public static final String LOGIN_OUT_URL = "www.baidu.com";

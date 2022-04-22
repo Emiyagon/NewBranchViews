@@ -21,6 +21,7 @@ import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.bean.VideoBean;
 import com.illyasr.mydempviews.databinding.ActivityDouYinBinding;
 import com.illyasr.mydempviews.ui.activity.GetVideoActivity;
+import com.illyasr.mydempviews.ui.activity.bilibili.BiliBiliActivity;
 import com.illyasr.mydempviews.util.DonwloadSaveImg;
 import com.illyasr.mydempviews.util.FileUtils;
 import com.illyasr.mydempviews.view.ActionSheetDialog;
@@ -49,14 +50,15 @@ public class DouYinActivity extends BaseActivity<ActivityDouYinBinding, MainPres
             }
             EasyHttpP(s1.substring(s1.indexOf("http"),s1.lastIndexOf("/"))+"");
         });
+
+        mBindingView.tvClean.setOnClickListener(v -> {
+            mBindingView.etInput.setText("");
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        if (getClipboardContent(this).contains("http")){
-//            mBindingView.etInput.setText(getClipboardContent(this));
-//        }
         getPasteString();
     }
 
@@ -183,8 +185,9 @@ public class DouYinActivity extends BaseActivity<ActivityDouYinBinding, MainPres
                                                 }
                                             });
                                         })
-                                        .setNegativeButton("不下载", v14 -> {
-
+                                        .setNegativeButton("不下载,去播放", v14 -> {
+                                            //https://v.douyin.com/F18xkQH/
+                                            BiliBiliActivity.getToPlayVideo(DouYinActivity.this, dyDto.getVideoUrl(), false);
                                         });
                                 if (!dialog.isShowing()) {
                                     dialog.show();

@@ -1,6 +1,7 @@
 package com.illyasr.mydempviews.base;
 
-import static com.zhuosen.bilibili.biliplayer.utils.NetWorkUtils.isNetworkAvailable;
+
+import static com.illyasr.bilibili.biliplayer.utils.NetWorkUtils.isNetworkAvailable;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;

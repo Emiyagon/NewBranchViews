@@ -160,7 +160,7 @@ dependencies {
     implementation 'com.github.chenBingX:SuperTextView:v3.2.5'
     implementation project(path: ':ncalendar')
     implementation project(path: ':biliplayer')
-//    implementation project(path: ':imageselector')
+    implementation project(path: ':imageselector')
     api 'com.zhouyou:rxeasyhttp:2.1.5'
     // 高德定位
     implementation 'com.amap.api:3dmap:latest.integration' //定位功能
@@ -186,4 +186,9 @@ dependencies {
 
     //google VR
     implementation 'com.google.vr:sdk-panowidget:1.40.0'
+
+    // room数据库
+    implementation "androidx.room:room-runtime:2.2.0-alpha01"
+    annotationProcessor "androidx.room:room-compiler:2.2.0-alpha01" // For Kotlin use kapt instead of annotationProcessor
+
 }

@@ -16,6 +16,18 @@
         android:gravity="center"
         >
 
+
+
+        <TextView
+            android:id="@+id/tv_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/x20"
+            android:text="清除链接"
+            android:textColor="@color/bg_green"
+            android:padding="@dimen/x20"
+            android:layout_marginTop="@dimen/x200"
+            />
         <EditText
             android:id="@+id/et_input"
             android:layout_margin="@dimen/x40"
