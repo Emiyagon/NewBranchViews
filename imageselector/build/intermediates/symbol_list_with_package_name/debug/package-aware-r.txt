@@ -1912,6 +1912,7 @@ drawable ic_clock_black_24dp
 drawable ic_delete_photo
 drawable ic_failed
 drawable ic_keyboard_black_24dp
+drawable ic_let_go_delete
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle

@@ -44,7 +44,6 @@ public class HealthyActivity extends BaseActivity<ActivityHealthyBinding, MainPr
 
         mBindingView.tvWeight.setOnLongClickListener(v -> {
             new InputDialog(HealthyActivity.this,2)
-
                     .setOnDialogListener(new InputDialog.OnDialogListener() {
                         @Override
                         public void onEnter(String s) {

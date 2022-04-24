@@ -26,7 +26,6 @@ public class InputDialog extends Dialog {
     private OnDialogListener onDialogListener;
     public interface OnDialogListener {
         void onEnter(String s);
-
         void onDismiss();
     }
 

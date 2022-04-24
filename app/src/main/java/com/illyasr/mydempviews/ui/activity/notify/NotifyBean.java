@@ -17,26 +17,27 @@ import java.util.Date;
  * @version 1.0
  * @date 2022/4/22 10:35
  */
-@Entity(tableName = "CLOCK")
+//@Entity(tableName = "CLOCK")
 public class NotifyBean implements Serializable {
-    @PrimaryKey(autoGenerate = true)
+//    @PrimaryKey(autoGenerate = true)
     private int id;//自增id
-    @ColumnInfo(name = "clock_name")
+//    @ColumnInfo(name = "clock_name")
     private String name="靑シ菻";
-    @ColumnInfo(name = "clock_now")
+//    @ColumnInfo(name = "clock_now")
     private long nowDate=new Date().getTime();
-    @ColumnInfo(name = "clock_end")
+//    @ColumnInfo(name = "clock_end")
     private long EndDate;
-    @ColumnInfo(name = "clock_extra")
+//    @ColumnInfo(name = "clock_extra")
     private String extra="";
-    @ColumnInfo(name = "clock_title")
+//    @ColumnInfo(name = "clock_title")
     private String title="";
-    @ColumnInfo(name = "clock_pic")
+//    @ColumnInfo(name = "clock_pic")
     private Object picBg = MyNetPics.doubleMi;
 
+    public NotifyBean() {
+    }
 
-
-    public NotifyBean( String title, long nowDate, long endDate) {
+    public NotifyBean(String title, long nowDate, long endDate) {
         this.nowDate = nowDate;
         EndDate = endDate;
         this.title = title;
@@ -47,6 +48,22 @@ public class NotifyBean implements Serializable {
         EndDate = endDate;
         this.title = title;
         this.extra = extra;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Object getPicBg() {
+        return picBg;
+    }
+
+    public void setPicBg(Object picBg) {
+        this.picBg = picBg;
     }
 
     public String getName() {

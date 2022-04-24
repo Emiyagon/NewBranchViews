@@ -211,6 +211,7 @@ drawable ic_check
 drawable ic_checked
 drawable ic_delete_photo
 drawable ic_failed
+drawable ic_let_go_delete
 drawable ic_placeholder
 drawable ic_video_play
 drawable icon_audio

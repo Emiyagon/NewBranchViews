@@ -79,7 +79,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("获取Bilibili视频并且下载",3));
         list.add(new TabBean("获取抖音无水印视频",5));
         list.add(new TabBean("获取通讯录列表",4));
-
         list.add(new TabBean("聚会神器",6));
         list.add(new TabBean("城市三级联动选择器",7));
         list.add(new TabBean("zxing二维码",8));
@@ -87,8 +86,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("VR/图片选择器(相册+拍照+视频)",10));
         list.add(new TabBean("各种日历",11));
         list.add(new TabBean("倒计时",12));
-
-
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
         adapter = new MainAdapter(this,list);
         mBindingView.rvAlbums.setAdapter(adapter);
@@ -100,7 +97,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                 case 1:// 高能弹幕
                     startActivity(new Intent(MainActivity.this, MainActivityText.class));
                     break;
-                case 2:// 高能弹幕
+                case 2:// sptv
                     try {
 //                        startActivity(new Intent(MainActivity.this,Class.forName("com.coorchice.supertextview.MainActivity")));//
                         Intent intent=new Intent(Intent.ACTION_MAIN);
@@ -115,7 +112,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                         e.printStackTrace();
                     }
                     break;
-                case 3:
+                case 3://获取bilibili视频
                     // 从API11开始android推荐使用android.content.ClipboardManager
                     // 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。
 //                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -123,17 +120,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
 //                    cm.setText(videoUrl2);
                     startActivity(new Intent(MainActivity.this, GetVideoActivity.class));
                     break;
-                case 4:
+                case 4://通讯录
                     startActivity(new Intent(MainActivity.this, PhoneActivity.class));
                     break;
                 case 5://获取抖音无水印视频
                     startActivity(new Intent(MainActivity.this, DouYinActivity.class));
                     break;
-                case 6:
+                case 6://聚会神器
 //                    startActivity(new Intent(MainActivity.this, TensentActivity.class));
                     startActivity(new Intent(MainActivity.this, PlayActivity.class));
                     break;
-                case 7:
+                case 7://
                     tag++;
                     if (tag%2==0){
                        new XPopup.Builder(getContext())
@@ -160,13 +157,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                             .setGetFinger(false)
                             .show();
                     break;
-                case 8:
+                case 8://二维码相关
                     startActivity(new Intent(MainActivity.this, QrCodeActivity.class));
                     break;
-                case 9:
+                case 9://健康
                     startActivity(new Intent(MainActivity.this, HealthyActivity.class));
                     break;
-                case 10:
+                case 10://VR/图片选择器
 //                    startActivity(new Intent(MainActivity.this, VRSActivity.class));
                     int maxSelecNum = 9;
                     PictureSelector
@@ -205,10 +202,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                                 }
                             });
                     break;
-                case 11:
+                case 11://日历
                     startActivity(new Intent(MainActivity.this, CalenderActivity.class));
                     break;
-                case 12:
+                case 12://通知
                     startActivity(new Intent(MainActivity.this, NotifyActivity.class));
                     break;
                 default:

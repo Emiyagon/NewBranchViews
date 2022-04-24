@@ -40,12 +40,7 @@
                     android:textStyle="bold"
                     app:stv_corner="40dp"
                     app:stv_isShowState="true"
-                    app:stv_solid="@color/transparent"
-                    app:stv_state_drawable="@drawable/emoji_bell"
-                    app:stv_state_drawable_height="25dp"
-                    app:stv_state_drawable_width="25dp"
-                    app:stv_state_drawable_mode="left"
-                    app:stv_state_drawable_padding_left="1dp" />
+                    app:stv_solid="@color/transparent" />
 
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/stv_type"
@@ -56,16 +51,11 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="28dp"
                     android:text="还剩"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorRed"
                     android:textSize="13sp"
                     app:stv_corner="40dp"
                     app:stv_isShowState="true"
-                    app:stv_solid="@color/transparent"
-                    app:stv_state_drawable="@drawable/emoji_clock"
-                    app:stv_state_drawable_height="20dp"
-                    app:stv_state_drawable_width="20dp"
-                    app:stv_state_drawable_mode="left"
-                    app:stv_state_drawable_padding_left="1dp" />
+                    app:stv_solid="@color/transparent"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -90,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="天"
                         android:textSize="15sp"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/textBlack" />
                 </LinearLayout>
 
                 <TextView

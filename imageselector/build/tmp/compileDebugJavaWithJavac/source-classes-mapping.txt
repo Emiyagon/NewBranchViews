@@ -6,17 +6,14 @@ com/yalantis/ucrop/util/FastBitmapDrawable.java
  com.yalantis.ucrop.util.FastBitmapDrawable
 com/luck/picture/lib/listener/OnResultCallbackListener.java
  com.luck.picture.lib.listener.OnResultCallbackListener
-com/luck/picture/lib/PictureSelector.java
- com.luck.picture.lib.PictureSelector
+com/luck/picture/lib/io/ArrayPoolProvide.java
+ com.luck.picture.lib.io.ArrayPoolProvide
 com/luck/picture/lib/permissions/RxPermissionsFragment.java
  com.luck.picture.lib.permissions.RxPermissionsFragment
 com/luck/picture/lib/rxbus2/ThreadMode.java
  com.luck.picture.lib.rxbus2.ThreadMode
-com/luck/picture/lib/model/LocalMediaPageLoader.java
- com.luck.picture.lib.model.LocalMediaPageLoader
- com.luck.picture.lib.model.LocalMediaPageLoader$1
- com.luck.picture.lib.model.LocalMediaPageLoader$2
- com.luck.picture.lib.model.LocalMediaPageLoader$3
+com/luck/picture/lib/compress/Preconditions.java
+ com.luck.picture.lib.compress.Preconditions
 com/luck/picture/lib/io/IntegerArrayAdapter.java
  com.luck.picture.lib.io.IntegerArrayAdapter
 com/luck/picture/lib/tools/CameraFileUtils.java
@@ -59,8 +56,8 @@ com/yalantis/ucrop/callback/CropBoundsChangeListener.java
  com.yalantis.ucrop.callback.CropBoundsChangeListener
 com/luck/picture/lib/listener/OnQueryDataResultListener.java
  com.luck.picture.lib.listener.OnQueryDataResultListener
-com/luck/picture/lib/widget/FolderPopWindow.java
- com.luck.picture.lib.widget.FolderPopWindow
+com/luck/picture/lib/observable/ImagesObservable.java
+ com.luck.picture.lib.observable.ImagesObservable
 com/luck/picture/lib/language/LanguageConfig.java
  com.luck.picture.lib.language.LanguageConfig
 com/luck/picture/lib/widget/MyViewPageHelper.java
@@ -110,8 +107,9 @@ com/luck/picture/lib/compress/Checker.java
  com.luck.picture.lib.compress.Checker
 com/luck/picture/lib/tools/ValueOf.java
  com.luck.picture.lib.tools.ValueOf
-com/luck/picture/lib/manager/UCropManager.java
- com.luck.picture.lib.manager.UCropManager
+com/luck/picture/lib/io/GroupedLinkedMap.java
+ com.luck.picture.lib.io.GroupedLinkedMap
+ com.luck.picture.lib.io.GroupedLinkedMap$LinkedEntry
 com/luck/picture/lib/thread/PictureThreadUtils.java
  com.luck.picture.lib.thread.PictureThreadUtils
  com.luck.picture.lib.thread.PictureThreadUtils$1
@@ -135,13 +133,8 @@ com/luck/picture/lib/tools/AttrsUtils.java
  com.luck.picture.lib.tools.AttrsUtils
 com/luck/picture/lib/animators/AlphaInAnimationAdapter.java
  com.luck.picture.lib.animators.AlphaInAnimationAdapter
-com/luck/picture/lib/PictureBaseActivity.java
- com.luck.picture.lib.PictureBaseActivity
- com.luck.picture.lib.PictureBaseActivity$1
- com.luck.picture.lib.PictureBaseActivity$2
- com.luck.picture.lib.PictureBaseActivity$3
- com.luck.picture.lib.PictureBaseActivity$4
- com.luck.picture.lib.PictureBaseActivity$5
+com/luck/picture/lib/dialog/PictureIndeterminate.java
+ com.luck.picture.lib.dialog.PictureIndeterminate
 com/luck/picture/lib/compress/Luban.java
  com.luck.picture.lib.compress.Luban
  com.luck.picture.lib.compress.Luban$1
@@ -160,8 +153,8 @@ com/luck/picture/lib/model/SandboxFileLoader.java
  com.luck.picture.lib.model.SandboxFileLoader$1
 com/luck/picture/lib/listener/OnPermissionDialogOptionCallback.java
  com.luck.picture.lib.listener.OnPermissionDialogOptionCallback
-com/yalantis/ucrop/view/widget/AspectRatioTextView.java
- com.yalantis.ucrop.view.widget.AspectRatioTextView
+com/luck/picture/lib/tools/SdkVersionUtils.java
+ com.luck.picture.lib.tools.SdkVersionUtils
 com/yalantis/ucrop/task/BitmapLoadTask.java
  com.yalantis.ucrop.task.BitmapLoadTask
  com.yalantis.ucrop.task.BitmapLoadTask$BitmapWorkerResult
@@ -171,16 +164,13 @@ com/luck/picture/lib/widget/longimage/SkiaImageDecoder.java
  com.luck.picture.lib.widget.longimage.SkiaImageDecoder
 com/luck/picture/lib/config/PictureConfig.java
  com.luck.picture.lib.config.PictureConfig
-com/luck/picture/lib/adapter/PictureWeChatPreviewGalleryAdapter.java
- com.luck.picture.lib.adapter.PictureWeChatPreviewGalleryAdapter
- com.luck.picture.lib.adapter.PictureWeChatPreviewGalleryAdapter$OnItemClickListener
- com.luck.picture.lib.adapter.PictureWeChatPreviewGalleryAdapter$ViewHolder
+com/luck/picture/lib/camera/listener/CameraListener.java
+ com.luck.picture.lib.camera.listener.CameraListener
 com/luck/picture/lib/BuildConfig.java
  com.luck.picture.lib.BuildConfig
-com/luck/picture/lib/model/LocalMediaLoader.java
- com.luck.picture.lib.model.LocalMediaLoader
- com.luck.picture.lib.model.LocalMediaLoader$1
- com.luck.picture.lib.model.LocalMediaLoader$2
+com/luck/picture/lib/entity/LocalMediaFolder.java
+ com.luck.picture.lib.entity.LocalMediaFolder
+ com.luck.picture.lib.entity.LocalMediaFolder$1
 com/luck/picture/lib/listener/OnCustomCameraInterfaceListener.java
  com.luck.picture.lib.listener.OnCustomCameraInterfaceListener
 com/luck/picture/lib/immersive/RomUtils.java
@@ -214,9 +204,8 @@ com/luck/picture/lib/manager/PictureCacheManager.java
  com.luck.picture.lib.manager.PictureCacheManager$4
 com/luck/picture/lib/tools/LightStatusBarUtils.java
  com.luck.picture.lib.tools.LightStatusBarUtils
-com/yalantis/ucrop/UCrop.java
- com.yalantis.ucrop.UCrop
- com.yalantis.ucrop.UCrop$Options
+com/luck/picture/lib/permissions/Permission.java
+ com.luck.picture.lib.permissions.Permission
 com/luck/picture/lib/listener/OnCallbackListener.java
  com.luck.picture.lib.listener.OnCallbackListener
 com/luck/picture/lib/rxbus2/Subscribe.java
@@ -233,8 +222,8 @@ com/yalantis/ucrop/view/TransformImageView.java
  com.yalantis.ucrop.view.TransformImageView$TransformImageListener
 com/luck/picture/lib/model/IBridgeMediaLoader.java
  com.luck.picture.lib.model.IBridgeMediaLoader
-com/luck/picture/lib/dialog/PictureLoadingDialog.java
- com.luck.picture.lib.dialog.PictureLoadingDialog
+com/luck/picture/lib/listener/OnVideoSelectedPlayCallback.java
+ com.luck.picture.lib.listener.OnVideoSelectedPlayCallback
 com/yalantis/ucrop/view/GestureCropImageView.java
  com.yalantis.ucrop.view.GestureCropImageView
  com.yalantis.ucrop.view.GestureCropImageView$1
@@ -264,45 +253,26 @@ com/luck/picture/lib/PictureSelectorExternalUtils.java
  com.luck.picture.lib.PictureSelectorExternalUtils
 com/luck/picture/lib/app/PictureAppMaster.java
  com.luck.picture.lib.app.PictureAppMaster
-com/luck/picture/lib/PicturePreviewActivity.java
- com.luck.picture.lib.PicturePreviewActivity
- com.luck.picture.lib.PicturePreviewActivity$1
- com.luck.picture.lib.PicturePreviewActivity$2
- com.luck.picture.lib.PicturePreviewActivity$3
- com.luck.picture.lib.PicturePreviewActivity$4
+com/yalantis/ucrop/model/CropParameters.java
+ com.yalantis.ucrop.model.CropParameters
 com/luck/picture/lib/listener/OnPermissionsObtainCallback.java
  com.luck.picture.lib.listener.OnPermissionsObtainCallback
-com/yalantis/ucrop/PictureMultiCuttingActivity.java
- com.yalantis.ucrop.PictureMultiCuttingActivity
- com.yalantis.ucrop.PictureMultiCuttingActivity$1
+com/luck/picture/lib/language/PictureLanguageUtils.java
+ com.luck.picture.lib.language.PictureLanguageUtils
 com/luck/picture/lib/tools/DebugUtil.java
  com.luck.picture.lib.tools.DebugUtil
 com/luck/picture/lib/widget/MScroller.java
  com.luck.picture.lib.widget.MScroller
-com/luck/picture/lib/PictureSelectorActivity.java
- com.luck.picture.lib.PictureSelectorActivity
- com.luck.picture.lib.PictureSelectorActivity$1
- com.luck.picture.lib.PictureSelectorActivity$10
- com.luck.picture.lib.PictureSelectorActivity$11
- com.luck.picture.lib.PictureSelectorActivity$2
- com.luck.picture.lib.PictureSelectorActivity$3
- com.luck.picture.lib.PictureSelectorActivity$4
- com.luck.picture.lib.PictureSelectorActivity$5
- com.luck.picture.lib.PictureSelectorActivity$6
- com.luck.picture.lib.PictureSelectorActivity$7
- com.luck.picture.lib.PictureSelectorActivity$8
- com.luck.picture.lib.PictureSelectorActivity$9
- com.luck.picture.lib.PictureSelectorActivity$onAudioOnClick
-com/luck/picture/lib/PicturePlayAudioActivity.java
- com.luck.picture.lib.PicturePlayAudioActivity
- com.luck.picture.lib.PicturePlayAudioActivity$1
- com.luck.picture.lib.PicturePlayAudioActivity$2
+com/luck/picture/lib/entity/MediaExtraInfo.java
+ com.luck.picture.lib.entity.MediaExtraInfo
+com/luck/picture/lib/immersive/NavBarUtils.java
+ com.luck.picture.lib.immersive.NavBarUtils
 com/luck/picture/lib/PictureContentResolver.java
  com.luck.picture.lib.PictureContentResolver
 com/luck/picture/lib/tools/PictureFileUtils.java
  com.luck.picture.lib.tools.PictureFileUtils
-com/luck/picture/lib/PictureSelectorCameraEmptyActivity.java
- com.luck.picture.lib.PictureSelectorCameraEmptyActivity
+com/luck/picture/lib/rxbus2/SubscriberMethod.java
+ com.luck.picture.lib.rxbus2.SubscriberMethod
 com/luck/picture/lib/camera/CheckPermission.java
  com.luck.picture.lib.camera.CheckPermission
 com/luck/picture/lib/language/LocaleTransform.java
@@ -313,8 +283,8 @@ com/luck/picture/lib/compress/InputStreamProvider.java
  com.luck.picture.lib.compress.InputStreamProvider
 com/luck/picture/lib/tools/MediaUtils.java
  com.luck.picture.lib.tools.MediaUtils
-com/luck/picture/lib/config/PictureMimeType.java
- com.luck.picture.lib.config.PictureMimeType
+com/luck/picture/lib/PictureFileProvider.java
+ com.luck.picture.lib.PictureFileProvider
 com/luck/picture/lib/compress/OnCompressListener.java
  com.luck.picture.lib.compress.OnCompressListener
 com/luck/picture/lib/widget/longimage/ImageSource.java
@@ -328,66 +298,53 @@ com/yalantis/ucrop/model/AspectRatio.java
  com.yalantis.ucrop.model.AspectRatio$1
 com/yalantis/ucrop/model/ExifInfo.java
  com.yalantis.ucrop.model.ExifInfo
-com/yalantis/ucrop/view/widget/HorizontalProgressWheelView.java
- com.yalantis.ucrop.view.widget.HorizontalProgressWheelView
- com.yalantis.ucrop.view.widget.HorizontalProgressWheelView$ScrollingListener
+com/luck/picture/lib/camera/listener/ClickListener.java
+ com.luck.picture.lib.camera.listener.ClickListener
 com/luck/picture/lib/listener/OnItemClickListener.java
  com.luck.picture.lib.listener.OnItemClickListener
 com/luck/picture/lib/listener/OnCustomImagePreviewCallback.java
  com.luck.picture.lib.listener.OnCustomImagePreviewCallback
 com/luck/picture/lib/decoration/GridSpacingItemDecoration.java
  com.luck.picture.lib.decoration.GridSpacingItemDecoration
-com/yalantis/ucrop/UCropActivity.java
- com.yalantis.ucrop.UCropActivity
- com.yalantis.ucrop.UCropActivity$1
- com.yalantis.ucrop.UCropActivity$2
- com.yalantis.ucrop.UCropActivity$3
- com.yalantis.ucrop.UCropActivity$4
- com.yalantis.ucrop.UCropActivity$5
- com.yalantis.ucrop.UCropActivity$6
- com.yalantis.ucrop.UCropActivity$7
- com.yalantis.ucrop.UCropActivity$8
- com.yalantis.ucrop.UCropActivity$GestureTypes
+com/luck/picture/lib/PictureMediaScannerConnection.java
+ com.luck.picture.lib.PictureMediaScannerConnection
+ com.luck.picture.lib.PictureMediaScannerConnection$ScanListener
 com/luck/picture/lib/tools/AndroidQTransformUtils.java
  com.luck.picture.lib.tools.AndroidQTransformUtils
 com/luck/picture/lib/decoration/WrapContentLinearLayoutManager.java
  com.luck.picture.lib.decoration.WrapContentLinearLayoutManager
-com/luck/picture/lib/dialog/PictureCustomDialog.java
- com.luck.picture.lib.dialog.PictureCustomDialog
+com/luck/picture/lib/immersive/LightStatusBarUtils.java
+ com.luck.picture.lib.immersive.LightStatusBarUtils
 com/luck/picture/lib/tools/SortUtils.java
  com.luck.picture.lib.tools.SortUtils
-com/luck/picture/lib/PictureSelectorWeChatStyleActivity.java
- com.luck.picture.lib.PictureSelectorWeChatStyleActivity
+com/yalantis/ucrop/util/ImageHeaderParser.java
+ com.yalantis.ucrop.util.ImageHeaderParser
+ com.yalantis.ucrop.util.ImageHeaderParser$RandomAccessReader
+ com.yalantis.ucrop.util.ImageHeaderParser$Reader
+ com.yalantis.ucrop.util.ImageHeaderParser$StreamReader
 com/luck/picture/lib/tools/BitmapUtils.java
  com.luck.picture.lib.tools.BitmapUtils
-com/luck/picture/lib/dialog/PictureDialog.java
- com.luck.picture.lib.dialog.PictureDialog
+com/luck/picture/lib/widget/SquareRelativeLayout.java
+ com.luck.picture.lib.widget.SquareRelativeLayout
 com/luck/picture/lib/tools/SPUtils.java
  com.luck.picture.lib.tools.SPUtils
-com/luck/picture/lib/config/PictureSelectionConfig.java
- com.luck.picture.lib.config.PictureSelectionConfig
- com.luck.picture.lib.config.PictureSelectionConfig$1
- com.luck.picture.lib.config.PictureSelectionConfig$InstanceHolder
+com/luck/picture/lib/tools/ScreenUtils.java
+ com.luck.picture.lib.tools.ScreenUtils
 com/luck/picture/lib/engine/PictureSelectorEngine.java
  com.luck.picture.lib.engine.PictureSelectorEngine
 com/luck/picture/lib/listener/OnAlbumItemClickListener.java
  com.luck.picture.lib.listener.OnAlbumItemClickListener
 com/yalantis/ucrop/util/BitmapLoadUtils.java
  com.yalantis.ucrop.util.BitmapLoadUtils
-com/luck/picture/lib/PictureExternalPreviewActivity.java
- com.luck.picture.lib.PictureExternalPreviewActivity
- com.luck.picture.lib.PictureExternalPreviewActivity$1
- com.luck.picture.lib.PictureExternalPreviewActivity$2
- com.luck.picture.lib.PictureExternalPreviewActivity$3
- com.luck.picture.lib.PictureExternalPreviewActivity$SimpleFragmentAdapter
- com.luck.picture.lib.PictureExternalPreviewActivity$SimpleFragmentAdapter$1
+com/yalantis/ucrop/model/ImageState.java
+ com.yalantis.ucrop.model.ImageState
 com/yalantis/ucrop/util/RectUtils.java
  com.yalantis.ucrop.util.RectUtils
-com/luck/picture/lib/dialog/PhotoItemSelectedDialog.java
- com.luck.picture.lib.dialog.PhotoItemSelectedDialog
-com/luck/picture/lib/style/PictureWindowAnimationStyle.java
- com.luck.picture.lib.style.PictureWindowAnimationStyle
- com.luck.picture.lib.style.PictureWindowAnimationStyle$1
+com/luck/picture/lib/compress/CompressInterface.java
+ com.luck.picture.lib.compress.CompressInterface
+ com.luck.picture.lib.compress.CompressInterface$CompressListener
+com/luck/picture/lib/decoration/RecycleViewDivider.java
+ com.luck.picture.lib.decoration.RecycleViewDivider
 com/luck/picture/lib/photoview/Util.java
  com.luck.picture.lib.photoview.Util
  com.luck.picture.lib.photoview.Util$1
@@ -395,10 +352,8 @@ com/yalantis/ucrop/util/RotationGestureDetector.java
  com.yalantis.ucrop.util.RotationGestureDetector
  com.yalantis.ucrop.util.RotationGestureDetector$OnRotationGestureListener
  com.yalantis.ucrop.util.RotationGestureDetector$SimpleOnRotationGestureListener
-com/yalantis/ucrop/view/UCropView.java
- com.yalantis.ucrop.view.UCropView
- com.yalantis.ucrop.view.UCropView$1
- com.yalantis.ucrop.view.UCropView$2
+com/luck/picture/lib/tools/JumpUtils.java
+ com.luck.picture.lib.tools.JumpUtils
 com/luck/picture/lib/listener/OnRecyclerViewPreloadMoreListener.java
  com.luck.picture.lib.listener.OnRecyclerViewPreloadMoreListener
 com/luck/picture/lib/photoview/OnOutsidePhotoTapListener.java
@@ -424,14 +379,10 @@ com/luck/picture/lib/photoview/OnGestureListener.java
 com/luck/picture/lib/entity/LocalMedia.java
  com.luck.picture.lib.entity.LocalMedia
  com.luck.picture.lib.entity.LocalMedia$1
-com/luck/picture/lib/adapter/PictureSimpleFragmentAdapter.java
- com.luck.picture.lib.adapter.PictureSimpleFragmentAdapter
- com.luck.picture.lib.adapter.PictureSimpleFragmentAdapter$OnCallBackActivity
-com/luck/picture/lib/PictureCustomCameraActivity.java
- com.luck.picture.lib.PictureCustomCameraActivity
- com.luck.picture.lib.PictureCustomCameraActivity$1
- com.luck.picture.lib.PictureCustomCameraActivity$2
- com.luck.picture.lib.PictureCustomCameraActivity$3
+com/luck/picture/lib/widget/longimage/ImageDecoder.java
+ com.luck.picture.lib.widget.longimage.ImageDecoder
+com/luck/picture/lib/photoview/OnPhotoTapListener.java
+ com.luck.picture.lib.photoview.OnPhotoTapListener
 com/luck/picture/lib/animators/BaseAnimationAdapter.java
  com.luck.picture.lib.animators.BaseAnimationAdapter
 com/luck/picture/lib/compress/InputStreamAdapter.java
@@ -440,8 +391,12 @@ com/luck/picture/lib/io/ArrayAdapterInterface.java
  com.luck.picture.lib.io.ArrayAdapterInterface
 com/luck/picture/lib/engine/CompressEngine.java
  com.luck.picture.lib.engine.CompressEngine
-com/luck/picture/lib/style/PictureParameterStyle.java
- com.luck.picture.lib.style.PictureParameterStyle
+com/luck/picture/lib/camera/view/CaptureButton.java
+ com.luck.picture.lib.camera.view.CaptureButton
+ com.luck.picture.lib.camera.view.CaptureButton$1
+ com.luck.picture.lib.camera.view.CaptureButton$2
+ com.luck.picture.lib.camera.view.CaptureButton$LongPressRunnable
+ com.luck.picture.lib.camera.view.CaptureButton$RecordCountDownTimer
 com/luck/picture/lib/style/PictureCropParameterStyle.java
  com.luck.picture.lib.style.PictureCropParameterStyle
  com.luck.picture.lib.style.PictureCropParameterStyle$1
@@ -451,44 +406,86 @@ com/luck/picture/lib/tools/ToastUtils.java
  com.luck.picture.lib.tools.ToastUtils
 com/yalantis/ucrop/task/BitmapCropTask.java
  com.yalantis.ucrop.task.BitmapCropTask
-com/luck/picture/lib/adapter/PictureAlbumDirectoryAdapter.java
- com.luck.picture.lib.adapter.PictureAlbumDirectoryAdapter
- com.luck.picture.lib.adapter.PictureAlbumDirectoryAdapter$ViewHolder
-com/luck/picture/lib/photoview/OnSingleFlingListener.java
- com.luck.picture.lib.photoview.OnSingleFlingListener
-com/yalantis/ucrop/model/ImageState.java
- com.yalantis.ucrop.model.ImageState
 com/luck/picture/lib/PictureContextWrapper.java
  com.luck.picture.lib.PictureContextWrapper
-com/luck/picture/lib/entity/LocalMediaFolder.java
- com.luck.picture.lib.entity.LocalMediaFolder
- com.luck.picture.lib.entity.LocalMediaFolder$1
-com/luck/picture/lib/PictureFileProvider.java
- com.luck.picture.lib.PictureFileProvider
-com/luck/picture/lib/camera/listener/CameraListener.java
- com.luck.picture.lib.camera.listener.CameraListener
+com/luck/picture/lib/photoview/OnSingleFlingListener.java
+ com.luck.picture.lib.photoview.OnSingleFlingListener
+com/luck/picture/lib/model/LocalMediaLoader.java
+ com.luck.picture.lib.model.LocalMediaLoader
+ com.luck.picture.lib.model.LocalMediaLoader$1
+ com.luck.picture.lib.model.LocalMediaLoader$2
+com/luck/picture/lib/widget/FolderPopWindow.java
+ com.luck.picture.lib.widget.FolderPopWindow
+com/luck/picture/lib/dialog/PictureSpinView.java
+ com.luck.picture.lib.dialog.PictureSpinView
+ com.luck.picture.lib.dialog.PictureSpinView$1
+com/luck/picture/lib/dialog/PhotoItemSelectedDialog.java
+ com.luck.picture.lib.dialog.PhotoItemSelectedDialog
+com/luck/picture/lib/style/PictureWindowAnimationStyle.java
+ com.luck.picture.lib.style.PictureWindowAnimationStyle
+ com.luck.picture.lib.style.PictureWindowAnimationStyle$1
 com/luck/picture/lib/PictureSelectionModel.java
  com.luck.picture.lib.PictureSelectionModel
+com/luck/picture/lib/widget/PhotoPopupWindow.java
+ com.luck.picture.lib.widget.PhotoPopupWindow
+ com.luck.picture.lib.widget.PhotoPopupWindow$1
+ com.luck.picture.lib.widget.PhotoPopupWindow$2
+ com.luck.picture.lib.widget.PhotoPopupWindow$OnItemClickListener
+com/yalantis/ucrop/view/UCropView.java
+ com.yalantis.ucrop.view.UCropView
+ com.yalantis.ucrop.view.UCropView$1
+ com.yalantis.ucrop.view.UCropView$2
 com/luck/picture/lib/tools/GlideEngine.java
  com.luck.picture.lib.tools.GlideEngine
  com.luck.picture.lib.tools.GlideEngine$1
  com.luck.picture.lib.tools.GlideEngine$2
-com/luck/picture/lib/tools/SdkVersionUtils.java
- com.luck.picture.lib.tools.SdkVersionUtils
 com/luck/picture/lib/PictureVideoPlayActivity.java
  com.luck.picture.lib.PictureVideoPlayActivity
  com.luck.picture.lib.PictureVideoPlayActivity$1
-com/luck/picture/lib/tools/ScreenUtils.java
- com.luck.picture.lib.tools.ScreenUtils
+com/luck/picture/lib/PictureSelector.java
+ com.luck.picture.lib.PictureSelector
+com/luck/picture/lib/PicturePreviewActivity.java
+ com.luck.picture.lib.PicturePreviewActivity
+ com.luck.picture.lib.PicturePreviewActivity$1
+ com.luck.picture.lib.PicturePreviewActivity$2
+ com.luck.picture.lib.PicturePreviewActivity$3
+ com.luck.picture.lib.PicturePreviewActivity$4
+com/luck/picture/lib/model/LocalMediaPageLoader.java
+ com.luck.picture.lib.model.LocalMediaPageLoader
+ com.luck.picture.lib.model.LocalMediaPageLoader$1
+ com.luck.picture.lib.model.LocalMediaPageLoader$2
+ com.luck.picture.lib.model.LocalMediaPageLoader$3
 com/luck/picture/lib/adapter/PictureImageGridAdapter.java
  com.luck.picture.lib.adapter.PictureImageGridAdapter
  com.luck.picture.lib.adapter.PictureImageGridAdapter$1
  com.luck.picture.lib.adapter.PictureImageGridAdapter$CameraViewHolder
  com.luck.picture.lib.adapter.PictureImageGridAdapter$ViewHolder
-com/luck/picture/lib/photoview/OnPhotoTapListener.java
- com.luck.picture.lib.photoview.OnPhotoTapListener
+com/yalantis/ucrop/PictureMultiCuttingActivity.java
+ com.yalantis.ucrop.PictureMultiCuttingActivity
+ com.yalantis.ucrop.PictureMultiCuttingActivity$1
+com/yalantis/ucrop/view/widget/HorizontalProgressWheelView.java
+ com.yalantis.ucrop.view.widget.HorizontalProgressWheelView
+ com.yalantis.ucrop.view.widget.HorizontalProgressWheelView$ScrollingListener
 com/luck/picture/lib/tools/VoiceUtils.java
  com.luck.picture.lib.tools.VoiceUtils
+com/luck/picture/lib/tools/StringUtils.java
+ com.luck.picture.lib.tools.StringUtils
+com/luck/picture/lib/PictureSelectorActivity.java
+ com.luck.picture.lib.PictureSelectorActivity
+ com.luck.picture.lib.PictureSelectorActivity$1
+ com.luck.picture.lib.PictureSelectorActivity$10
+ com.luck.picture.lib.PictureSelectorActivity$11
+ com.luck.picture.lib.PictureSelectorActivity$2
+ com.luck.picture.lib.PictureSelectorActivity$3
+ com.luck.picture.lib.PictureSelectorActivity$4
+ com.luck.picture.lib.PictureSelectorActivity$5
+ com.luck.picture.lib.PictureSelectorActivity$6
+ com.luck.picture.lib.PictureSelectorActivity$7
+ com.luck.picture.lib.PictureSelectorActivity$8
+ com.luck.picture.lib.PictureSelectorActivity$9
+ com.luck.picture.lib.PictureSelectorActivity$onAudioOnClick
+com/luck/picture/lib/PictureSelectorPreviewWeChatStyleActivity.java
+ com.luck.picture.lib.PictureSelectorPreviewWeChatStyleActivity
 com/luck/picture/lib/widget/longimage/SubsamplingScaleImageView.java
  com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView
  com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView$1
@@ -514,17 +511,30 @@ com/yalantis/ucrop/view/OverlayView.java
  com.yalantis.ucrop.view.OverlayView$3
  com.yalantis.ucrop.view.OverlayView$4
  com.yalantis.ucrop.view.OverlayView$FreestyleMode
-com/luck/picture/lib/dialog/PictureIndeterminate.java
- com.luck.picture.lib.dialog.PictureIndeterminate
-com/luck/picture/lib/listener/OnVideoSelectedPlayCallback.java
- com.luck.picture.lib.listener.OnVideoSelectedPlayCallback
-com/luck/picture/lib/rxbus2/SubscriberMethod.java
- com.luck.picture.lib.rxbus2.SubscriberMethod
-com/luck/picture/lib/io/GroupedLinkedMap.java
- com.luck.picture.lib.io.GroupedLinkedMap
- com.luck.picture.lib.io.GroupedLinkedMap$LinkedEntry
-com/luck/picture/lib/immersive/LightStatusBarUtils.java
- com.luck.picture.lib.immersive.LightStatusBarUtils
+com/yalantis/ucrop/UCrop.java
+ com.yalantis.ucrop.UCrop
+ com.yalantis.ucrop.UCrop$Options
+com/luck/picture/lib/PicturePlayAudioActivity.java
+ com.luck.picture.lib.PicturePlayAudioActivity
+ com.luck.picture.lib.PicturePlayAudioActivity$1
+ com.luck.picture.lib.PicturePlayAudioActivity$2
+com/yalantis/ucrop/UCropActivity.java
+ com.yalantis.ucrop.UCropActivity
+ com.yalantis.ucrop.UCropActivity$1
+ com.yalantis.ucrop.UCropActivity$2
+ com.yalantis.ucrop.UCropActivity$3
+ com.yalantis.ucrop.UCropActivity$4
+ com.yalantis.ucrop.UCropActivity$5
+ com.yalantis.ucrop.UCropActivity$6
+ com.yalantis.ucrop.UCropActivity$7
+ com.yalantis.ucrop.UCropActivity$8
+ com.yalantis.ucrop.UCropActivity$GestureTypes
+com/luck/picture/lib/PictureSelectorCameraEmptyActivity.java
+ com.luck.picture.lib.PictureSelectorCameraEmptyActivity
+com/luck/picture/lib/dialog/PictureCustomDialog.java
+ com.luck.picture.lib.dialog.PictureCustomDialog
+com/luck/picture/lib/manager/UCropManager.java
+ com.luck.picture.lib.manager.UCropManager
 com/luck/picture/lib/camera/CustomCameraView.java
  com.luck.picture.lib.camera.CustomCameraView
  com.luck.picture.lib.camera.CustomCameraView$1
@@ -537,73 +547,63 @@ com/luck/picture/lib/camera/CustomCameraView.java
  com.luck.picture.lib.camera.CustomCameraView$7
  com.luck.picture.lib.camera.CustomCameraView$8
  com.luck.picture.lib.camera.CustomCameraView$MyImageResultCallback
-com/luck/picture/lib/PictureMediaScannerConnection.java
- com.luck.picture.lib.PictureMediaScannerConnection
- com.luck.picture.lib.PictureMediaScannerConnection$ScanListener
-com/luck/picture/lib/immersive/NavBarUtils.java
- com.luck.picture.lib.immersive.NavBarUtils
-com/luck/picture/lib/permissions/Permission.java
- com.luck.picture.lib.permissions.Permission
-com/yalantis/ucrop/util/ImageHeaderParser.java
- com.yalantis.ucrop.util.ImageHeaderParser
- com.yalantis.ucrop.util.ImageHeaderParser$RandomAccessReader
- com.yalantis.ucrop.util.ImageHeaderParser$Reader
- com.yalantis.ucrop.util.ImageHeaderParser$StreamReader
-com/luck/picture/lib/widget/SquareRelativeLayout.java
- com.luck.picture.lib.widget.SquareRelativeLayout
-com/yalantis/ucrop/view/CropImageView.java
- com.yalantis.ucrop.view.CropImageView
- com.yalantis.ucrop.view.CropImageView$WrapCropBoundsRunnable
- com.yalantis.ucrop.view.CropImageView$ZoomImageToPosition
-com/luck/picture/lib/entity/MediaExtraInfo.java
- com.luck.picture.lib.entity.MediaExtraInfo
-com/luck/picture/lib/dialog/PictureSpinView.java
- com.luck.picture.lib.dialog.PictureSpinView
- com.luck.picture.lib.dialog.PictureSpinView$1
-com/luck/picture/lib/widget/longimage/ImageDecoder.java
- com.luck.picture.lib.widget.longimage.ImageDecoder
-com/luck/picture/lib/widget/PhotoPopupWindow.java
- com.luck.picture.lib.widget.PhotoPopupWindow
- com.luck.picture.lib.widget.PhotoPopupWindow$1
- com.luck.picture.lib.widget.PhotoPopupWindow$2
- com.luck.picture.lib.widget.PhotoPopupWindow$OnItemClickListener
-com/luck/picture/lib/language/PictureLanguageUtils.java
- com.luck.picture.lib.language.PictureLanguageUtils
-com/luck/picture/lib/decoration/RecycleViewDivider.java
- com.luck.picture.lib.decoration.RecycleViewDivider
-com/luck/picture/lib/compress/Preconditions.java
- com.luck.picture.lib.compress.Preconditions
-com/yalantis/ucrop/model/CropParameters.java
- com.yalantis.ucrop.model.CropParameters
-com/luck/picture/lib/tools/StringUtils.java
- com.luck.picture.lib.tools.StringUtils
-com/luck/picture/lib/PictureSelectorPreviewWeChatStyleActivity.java
- com.luck.picture.lib.PictureSelectorPreviewWeChatStyleActivity
-com/luck/picture/lib/camera/view/CaptureButton.java
- com.luck.picture.lib.camera.view.CaptureButton
- com.luck.picture.lib.camera.view.CaptureButton$1
- com.luck.picture.lib.camera.view.CaptureButton$2
- com.luck.picture.lib.camera.view.CaptureButton$LongPressRunnable
- com.luck.picture.lib.camera.view.CaptureButton$RecordCountDownTimer
-com/luck/picture/lib/tools/JumpUtils.java
- com.luck.picture.lib.tools.JumpUtils
-com/luck/picture/lib/camera/listener/ClickListener.java
- com.luck.picture.lib.camera.listener.ClickListener
 com/yalantis/ucrop/PicturePhotoGalleryAdapter.java
  com.yalantis.ucrop.PicturePhotoGalleryAdapter
  com.yalantis.ucrop.PicturePhotoGalleryAdapter$OnItemClickListener
  com.yalantis.ucrop.PicturePhotoGalleryAdapter$ViewHolder
+com/luck/picture/lib/PictureBaseActivity.java
+ com.luck.picture.lib.PictureBaseActivity
+ com.luck.picture.lib.PictureBaseActivity$1
+ com.luck.picture.lib.PictureBaseActivity$2
+ com.luck.picture.lib.PictureBaseActivity$3
+ com.luck.picture.lib.PictureBaseActivity$4
+ com.luck.picture.lib.PictureBaseActivity$5
+com/luck/picture/lib/PictureSelectorWeChatStyleActivity.java
+ com.luck.picture.lib.PictureSelectorWeChatStyleActivity
+com/luck/picture/lib/dialog/PictureDialog.java
+ com.luck.picture.lib.dialog.PictureDialog
+com/luck/picture/lib/adapter/PictureSimpleFragmentAdapter.java
+ com.luck.picture.lib.adapter.PictureSimpleFragmentAdapter
+ com.luck.picture.lib.adapter.PictureSimpleFragmentAdapter$OnCallBackActivity
+com/luck/picture/lib/PictureCustomCameraActivity.java
+ com.luck.picture.lib.PictureCustomCameraActivity
+ com.luck.picture.lib.PictureCustomCameraActivity$1
+ com.luck.picture.lib.PictureCustomCameraActivity$2
+ com.luck.picture.lib.PictureCustomCameraActivity$3
 com/luck/picture/lib/camera/view/CaptureLayout.java
  com.luck.picture.lib.camera.view.CaptureLayout
  com.luck.picture.lib.camera.view.CaptureLayout$1
  com.luck.picture.lib.camera.view.CaptureLayout$2
  com.luck.picture.lib.camera.view.CaptureLayout$3
-com/luck/picture/lib/compress/CompressInterface.java
- com.luck.picture.lib.compress.CompressInterface
- com.luck.picture.lib.compress.CompressInterface$CompressListener
-com/luck/picture/lib/io/ArrayPoolProvide.java
- com.luck.picture.lib.io.ArrayPoolProvide
-com/luck/picture/lib/observable/ImagesObservable.java
- com.luck.picture.lib.observable.ImagesObservable
+com/luck/picture/lib/config/PictureSelectionConfig.java
+ com.luck.picture.lib.config.PictureSelectionConfig
+ com.luck.picture.lib.config.PictureSelectionConfig$1
+ com.luck.picture.lib.config.PictureSelectionConfig$InstanceHolder
+com/luck/picture/lib/config/PictureMimeType.java
+ com.luck.picture.lib.config.PictureMimeType
+com/yalantis/ucrop/view/widget/AspectRatioTextView.java
+ com.yalantis.ucrop.view.widget.AspectRatioTextView
+com/luck/picture/lib/style/PictureParameterStyle.java
+ com.luck.picture.lib.style.PictureParameterStyle
+com/luck/picture/lib/dialog/PictureLoadingDialog.java
+ com.luck.picture.lib.dialog.PictureLoadingDialog
+com/luck/picture/lib/adapter/PictureWeChatPreviewGalleryAdapter.java
+ com.luck.picture.lib.adapter.PictureWeChatPreviewGalleryAdapter
+ com.luck.picture.lib.adapter.PictureWeChatPreviewGalleryAdapter$OnItemClickListener
+ com.luck.picture.lib.adapter.PictureWeChatPreviewGalleryAdapter$ViewHolder
+com/yalantis/ucrop/view/CropImageView.java
+ com.yalantis.ucrop.view.CropImageView
+ com.yalantis.ucrop.view.CropImageView$WrapCropBoundsRunnable
+ com.yalantis.ucrop.view.CropImageView$ZoomImageToPosition
 com/luck/picture/lib/style/PictureSelectorUIStyle.java
  com.luck.picture.lib.style.PictureSelectorUIStyle
+com/luck/picture/lib/adapter/PictureAlbumDirectoryAdapter.java
+ com.luck.picture.lib.adapter.PictureAlbumDirectoryAdapter
+ com.luck.picture.lib.adapter.PictureAlbumDirectoryAdapter$ViewHolder
+com/luck/picture/lib/PictureExternalPreviewActivity.java
+ com.luck.picture.lib.PictureExternalPreviewActivity
+ com.luck.picture.lib.PictureExternalPreviewActivity$1
+ com.luck.picture.lib.PictureExternalPreviewActivity$2
+ com.luck.picture.lib.PictureExternalPreviewActivity$3
+ com.luck.picture.lib.PictureExternalPreviewActivity$SimpleFragmentAdapter
+ com.luck.picture.lib.PictureExternalPreviewActivity$SimpleFragmentAdapter$1

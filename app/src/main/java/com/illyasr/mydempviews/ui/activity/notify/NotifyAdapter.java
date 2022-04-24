@@ -45,7 +45,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      *  删除
      * @param pos
      */
-    public void deleteBean(int pos) {
+    public void delete(int pos) {
         notifyItemRemoved(pos);
         list.remove(pos);
         notifyItemRangeChanged(pos,getItemCount()-pos);
@@ -62,6 +62,10 @@ public class NotifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public NotifyAdapter setList(List<NotifyBean> list) {
         this.list = list;
         return this;
+    }
+
+    public List<NotifyBean> getData() {
+        return list;
     }
 
     private OnCardClick onCardClick;
@@ -93,7 +97,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.binding.stvTitle.setText(bean.getTitle());
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(bean.getEndDate());
-        holder.binding.tvDate.setText(String.format("%d/%d/%d"));
+        holder.binding.tvDate.setText(String.format("%d/%d/%d",c.get(Calendar.YEAR),c.get(Calendar.MONTH)+1,c.get(Calendar.DAY_OF_MONTH)));
         holder.binding.tvS.setText(StringUtil.returnWeekString(c.get(Calendar.DAY_OF_WEEK)));
 
         long day = Math.abs(bean.getEndDate()-bean.getNowDate()) / oneDayMillion ;

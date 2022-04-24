@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@id/img_left"
                     android:layout_width="@dimen/x21"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/x25"

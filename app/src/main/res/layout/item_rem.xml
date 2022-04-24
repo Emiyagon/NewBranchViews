@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    <data>
 
-    >
+    </data>
 
+    <LinearLayout
 
-    <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_sp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:gravity="center"
-        android:text="10"
-        android:textColor="@color/textBlack"
-        android:padding="17dp"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:includeFontPadding="false"
 
-        app:stv_corner="15dp"
-        app:stv_solid="#0000"
-        app:stv_stroke_color="@color/colorAccent"
-        app:stv_stroke_width="3dp" />
+        >
 
 
-</LinearLayout>
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="10"
+            android:textColor="@color/textBlack"
+            android:padding="17dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+
+            app:stv_corner="15dp"
+            app:stv_solid="#0000"
+            app:stv_stroke_color="@color/colorAccent"
+            app:stv_stroke_width="3dp" />
+
+
+    </LinearLayout>
+</layout>

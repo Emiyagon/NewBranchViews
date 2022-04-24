@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="show"
+            type="Boolean" />
+        <variable
+            name="ViewK"
+            type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <include
+            layout="@layout/title_view"
+            android:id="@+id/title" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="15dp"
+            android:text="只计算天数"
+            android:checked="@={show}"
+            />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:text="开始日期"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:gravity="right|center_vertical"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_start"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:text=""
+                        android:hint="请选择时间"
+                        android:paddingLeft="20dp"
+                        android:background="@color/transparent"
+                        android:gravity="right|center_vertical"
+                        android:paddingRight="15dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="@{show?ViewK.VISIBLE:ViewK.GONE}"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:text="结束日期"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:gravity="right|center_vertical"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_end"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:text=""
+                        android:hint="请选择日期"
+                        android:paddingLeft="20dp"
+                        android:background="@color/transparent"
+                        android:gravity="right|center_vertical"
+                        android:paddingRight="15dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="@{show?ViewK.VISIBLE:ViewK.GONE}"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:text="结果"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:gravity="right|center_vertical"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvcancer"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/textBlack"
+                        android:textSize="27sp"
+                        android:text="0"
+                        android:paddingLeft="20dp"
+                        android:background="@color/transparent"
+                        android:gravity="right|center_vertical"
+                        android:paddingRight="1dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:text="天"
+                        android:paddingLeft="20dp"
+                        android:background="@color/transparent"
+                        android:gravity="right|center_vertical|end"
+                        android:paddingRight="15dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="@{show?ViewK.GONE:ViewK.VISIBLE}"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_d1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:text="之前"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:gravity="right|center_vertical"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_d1a"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:text=""
+                        android:paddingLeft="20dp"
+                        android:background="@color/transparent"
+                        android:gravity="right|center_vertical"
+                        android:paddingRight="15dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="@{show?ViewK.GONE:ViewK.VISIBLE}"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_d2"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:text="之后"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:gravity="right|center_vertical"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_d2a"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/textBlack"
+                        android:textSize="17sp"
+                        android:text=""
+                        android:paddingLeft="20dp"
+                        android:background="@color/transparent"
+                        android:gravity="right|center_vertical"
+                        android:paddingRight="15dp"
+                        />
+                </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>

@@ -18,11 +18,13 @@
             android:layout_height="match_parent"
             >
 
+<!--            第一个是中间的-->
             <FrameLayout
                 android:id="@+id/frame_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
+<!--            最多支持三个view,一个主显示,两个可以分别两边显示-->
             <FrameLayout
                 android:fitsSystemWindows="false"
                 android:id="@+id/frame_draw"
