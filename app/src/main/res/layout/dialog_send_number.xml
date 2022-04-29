@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_corners">
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/x15"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x120">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="请输入"
+                android:textSize="@dimen/x36"
+                android:textColor="@color/textBlack" />
+
+            <TextView
+                android:id="@+id/dismiss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/textGray"
+                android:text="取消"
+                android:layout_margin="@dimen/x25" />
+
+            <TextView
+                android:id="@+id/enter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/textBlack"
+                android:text="确认"
+                android:layout_margin="@dimen/x25" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_margin="@dimen/x20"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:text="0"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/x66"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:maxLength="10"
+                />
+
+            <TextView
+                android:id="@+id/tv_d"
+                android:text="cm"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/x36"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x10"
+                />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_keyboard"
+            android:paddingBottom="@dimen/x40"
+            android:paddingTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            android:scrollbars="none"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_key"
+            android:background="@color/ucrop_color_default_logo" />
+
+    </LinearLayout>
+</layout>

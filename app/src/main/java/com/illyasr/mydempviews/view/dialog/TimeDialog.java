@@ -47,10 +47,6 @@ public class TimeDialog extends Dialog {
     private boolean cancerAble = true;//是否响应返回键,true响应,false不响应
     private int styleAnim = R.style.AnimBottom;
     private Gson gson = new Gson();
-
-    private String areaStr,cityStr, provinceStr = "";
-
-    private int s1Pos,s2Pos,s3Pos = 0;
     private int year,month,day;
     private Calendar ca;
 

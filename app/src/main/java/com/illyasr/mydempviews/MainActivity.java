@@ -23,7 +23,9 @@ import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
 import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
 import com.illyasr.mydempviews.ui.activity.notify.NotifyActivity;
 import com.illyasr.mydempviews.ui.activity.vr.VRSActivity;
+import com.illyasr.mydempviews.util.GlideUtil;
 import com.illyasr.mydempviews.view.dialog.CityDialog;
+import com.illyasr.mydempviews.view.dialog.MyPasswordDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
     private List<TabBean> list = new ArrayList<>();
     private int tag;
 
+    private String wechatUrl = "https://mmbiz.qpic.cn/mmbiz_gif/Ljib4So7yuWjl1icpf1AEqjZBoBicMPk0N8ZYlSxh9NuBctGpGRsBTcWVHouxLvMg3IRRCby99mNMHa7O6SeHcqTA/640?wx_fmt=gif";
     @Override
     protected int setLayoutId() {
         return R.layout.activity_main;
@@ -52,6 +55,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
 
     @Override
     protected void initData() {
+        GlideUtil.putHttpImg(wechatUrl,mBindingView.img);
 
         String[] messions = new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -153,9 +157,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                            .show();
                         return;
                     }
-                    new CityDialog(this)
+                   /* new CityDialog(this)
                             .setGetFinger(false)
-                            .show();
+                            .show();*/
+                    new MyPasswordDialog(this).show();
                     break;
                 case 8://二维码相关
                     startActivity(new Intent(MainActivity.this, QrCodeActivity.class));

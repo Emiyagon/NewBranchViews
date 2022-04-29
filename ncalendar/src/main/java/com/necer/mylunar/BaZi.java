@@ -6,6 +6,7 @@ package com.necer.mylunar;
  
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,6 +25,10 @@ public class BaZi {
    public final static String[] Zhi = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
     public final static String[] Five_Element_G = {"阳木","阴木","阳火","阴火","阳土","阴土","阳金","阴金","阳水","阴水"};// 对应天干
     public final static String[] Five_Element_Z = {"阳水","阴土","阳木","阴木","阳土","阴火","阳火","阴土","阳金","阴金","阳土","阴水"};// 对应地支
+    //十灵日
+    public final static String[] Ten_Spirit_Day ={"甲辰","乙亥","丙辰","丁酉","戊午","庚戌","庚寅","辛亥","壬寅","癸未"};
+    //十灵时
+    public final static String[] Ten_Spirit_TIME={"乙亥","癸未","丁酉","庚戌","甲辰","丙辰","戊午","壬寅","庚寅","辛亥" };
     static SimpleDateFormat chineseDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     final static long[] lunarInfo = new long[]{0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
         0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
@@ -94,6 +99,79 @@ public class BaZi {
         "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
     };
     private Calendar cal;
+    public boolean isTenLDay() {
+        //1864年是甲子年，每隔六十年一个甲子
+        int idx = (year - 1864) % 60;
+        //没有过春节的话那么年还算上一年的，此处求的年份的干支
+        String y = jiazhi[idx];
+
+        String m="";
+        String d="";
+        String h="";
+        idx = idx % 5;
+        int idxm=0;
+        /**
+         * 年上起月
+         * 甲己之年丙作首，乙庚之岁戊为头，
+         * 丙辛必定寻庚起，丁壬壬位顺行流，
+         * 更有戊癸何方觅，甲寅之上好追求。
+         */
+        idxm=(idx+1)*2;
+        if(idxm==10) idxm=0;
+        //求的月份的干支
+        m=Gan[(idxm+month-1)%10]+Zhi[(month+2-1)%12];
+
+
+        /*求出和1900年1月31日甲辰日相差的天数
+         * 甲辰日是第四十天
+         */
+        int offset = (int) ((cal.getTime().getTime() - baseDate.getTime()) / 86400000L);
+        offset=(offset+40)%60;
+        //求的日的干支
+        d=jiazhi[offset];
+        return Arrays.asList(Ten_Spirit_Day).contains(d);
+    }
+
+    public boolean isTenLHour(int hour) {
+        //1864年是甲子年，每隔六十年一个甲子
+        int idx = (year - 1864) % 60;
+        //没有过春节的话那么年还算上一年的，此处求的年份的干支
+        String y = jiazhi[idx];
+
+        String m="";
+        String d="";
+        String h="";
+        idx = idx % 5;
+        int idxm=0;
+        /**
+         * 年上起月
+         * 甲己之年丙作首，乙庚之岁戊为头，
+         * 丙辛必定寻庚起，丁壬壬位顺行流，
+         * 更有戊癸何方觅，甲寅之上好追求。
+         */
+        idxm=(idx+1)*2;
+        if(idxm==10) idxm=0;
+        //求的月份的干支
+        /*求出和1900年1月31日甲辰日相差的天数
+         * 甲辰日是第四十天
+         */
+        int offset = (int) ((cal.getTime().getTime() - baseDate.getTime()) / 86400000L);
+        offset=(offset+40)%60;
+        //求的日的干支
+        d=jiazhi[offset];
+
+        /**
+         * 日上起时
+         * 甲己还生甲，乙庚丙作初，
+         * 丙辛从戊起，丁壬庚子居，
+         * 戊癸何方发，壬子是真途。
+         */
+
+        offset=(offset % 5 )*2;
+        //求得时辰的干支
+        h=Gan[(offset+hour)%10]+Zhi[hour];
+        return Arrays.asList(Ten_Spirit_TIME).contains(h);
+    }
     /**
      * @param hour 这里的时间范围是1-12，具体几点到几点是子时、丑时请参考相关文档
      * 具体的选择如下 "子：1", "丑：2", "寅：3", "卯：4", "辰：5", "巳：6", "午：7", "未：8", "申：9", "酉：10", "戌：11", "亥：12" 
@@ -144,6 +222,50 @@ public class BaZi {
         return y+","+m+","+d+","+h;
     }
 
+    public String getFive(int hour,int tag) {
+        //1864年是甲子年，每隔六十年一个甲子
+        int idx = (year - 1864) % 60;
+        //没有过春节的话那么年还算上一年的，此处求的年份的干支
+        String yw = Five_Element_G[idx%10]+Five_Element_Z[idx%12];
+        String mw = "";
+        String dw="";
+        String hw="";
+
+        idx = idx % 5;
+        int idxm=0;
+        /**
+         * 年上起月
+         * 甲己之年丙作首，乙庚之岁戊为头，
+         * 丙辛必定寻庚起，丁壬壬位顺行流，
+         * 更有戊癸何方觅，甲寅之上好追求。
+         */
+        idxm=(idx+1)*2;
+        if(idxm==10) idxm=0;
+        //求的月份的干支
+        mw= Five_Element_G[(idxm+month-1)%10]+Five_Element_Z[(month+2-1)%12];
+
+        /*求出和1900年1月31日甲辰日相差的天数
+         * 甲辰日是第四十天
+         */
+        int offset = (int) ((cal.getTime().getTime() - baseDate.getTime()) / 86400000L);
+        offset=(offset+40)%60;
+        //求的日的干支
+        // 已知d=甲子 ,1和11都是甲  dw=
+        dw= Five_Element_G[offset%10]+Five_Element_Z[offset%12];
+
+        /**
+         * 日上起时
+         * 甲己还生甲，乙庚丙作初，
+         * 丙辛从戊起，丁壬庚子居，
+         * 戊癸何方发，壬子是真途。
+         */
+
+        offset=(offset % 5 )*2;
+        //求得时辰的干支
+        hw = Five_Element_G[(offset + hour) % 10] + Five_Element_Z[hour];
+        //在此处输出我们的年月日时的五行
+        return yw+","+mw+","+dw+"";
+    }
     public String getFive(int hour) {
         //1864年是甲子年，每隔六十年一个甲子
         int idx = (year - 1864) % 60;

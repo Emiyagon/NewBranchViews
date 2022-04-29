@@ -16,6 +16,7 @@ import com.illyasr.mydempviews.ui.activity.canender.CalenderActivity;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO
@@ -27,6 +28,7 @@ import java.util.List;
 public class DrawableTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<String> list = Arrays.asList("日期计算器","日历");
+    private Map<String, Map<String, Object>> map;
 
     public DrawableTableAdapter(Context context) {
         this.context = context;

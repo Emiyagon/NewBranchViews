@@ -3,7 +3,7 @@ package com.necer.mylunar;
 
 import java.util.Calendar;
 
-class BaiziRecord {
+public class BaiziRecord {
 
     public Lunar lunaryue;
 
@@ -13,6 +13,7 @@ class BaiziRecord {
     private String ganziday;
     private String ganzitime;
     private String wuxing;
+    private String wuxingShop;
     private String[] ganzhiString;
 
     public BaiziRecord(Calendar cal) {
@@ -22,6 +23,7 @@ class BaiziRecord {
         String GanZhi = lunar.getYearGanZhi(time);//取八字
         String fiveP = lunar.getFive(time);//取八字
         wuxing=fiveP;
+        wuxingShop = lunar.getFive(time,1);
         String[] tempchar = GanZhi.split(",");
         //我修改原来的，用,分割
         ganziyear = lunaryue.getCyclicaYear();//年柱
@@ -70,6 +72,38 @@ class BaiziRecord {
 
     public String getGanzitime() {
         return ganzitime;
+    }
+
+    public Lunar getLunaryue() {
+        return lunaryue;
+    }
+
+    public void setLunaryue(Lunar lunaryue) {
+        this.lunaryue = lunaryue;
+    }
+
+    public BaZi getLunar() {
+        return lunar;
+    }
+
+    public void setLunar(BaZi lunar) {
+        this.lunar = lunar;
+    }
+
+    public void setWuxing(String wuxing) {
+        this.wuxing = wuxing;
+    }
+
+    public String getWuxingShop() {
+        return wuxingShop;
+    }
+
+    public void setWuxingShop(String wuxingShop) {
+        this.wuxingShop = wuxingShop;
+    }
+
+    public String[] getGanzhiString() {
+        return ganzhiString;
     }
 
     public void setGanzitime(String ganzitime) {

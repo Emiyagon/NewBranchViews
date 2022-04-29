@@ -1,5 +1,6 @@
 package com.illyasr.mydempviews.ui.activity.canender;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.illyasr.mydempviews.MainPresent;
@@ -11,12 +12,13 @@ import com.necer.calendar.BaseCalendar;
 import com.necer.entity.CalendarDate;
 import com.necer.entity.Lunar;
 import com.necer.enumeration.CalendarState;
-import com.necer.enumeration.DateChangeBehavior;
-import com.necer.listener.OnCalendarChangedListener;
+import com.necer.mylunar.BaiziRecord;
 import com.necer.mylunar.MyXuanri;
 import com.necer.utils.CalendarUtil;
 
 import org.joda.time.LocalDate;
+
+import java.util.Calendar;
 
 /**
  * TODO
@@ -31,6 +33,7 @@ public class MIUI10CalenderFragment extends BaseFragment<FragmentBaseMiui10Calen
         return R.layout.fragment_base_miui10_calender;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initView() {
 //        mBindingView.miui9Calendar.setScrollEnable(false);//这个方法是禁止左右滑动改变日期的
@@ -45,11 +48,15 @@ public class MIUI10CalenderFragment extends BaseFragment<FragmentBaseMiui10Calen
             if (localDate != null) {
                 CalendarDate calendarDate = CalendarUtil.getCalendarDate(localDate);
                 Lunar lunar = calendarDate.lunar;
-                //  这里增加了五行,不然下面很挤
-                mBindingView.tvData.setText(localDate.toString("yyyy年MM月dd日")+"--"+new MyXuanri().getDateBaZiString(year,month,localDate.getDayOfMonth()));
+               MyXuanri xuan= new MyXuanri();
+//                mBindingView.tvData.setText(localDate.toString("yyyy年MM月dd日")+"--"+new MyXuanri().getDateBaZiString(year,month,localDate.getDayOfMonth()));
+                mBindingView.tvData.setText(localDate.toString("yyyy年MM月dd日")+"--\n"
+                        +  xuan.getFiveSing(year,month,localDate.getDayOfMonth(),0)+"--\n"+
+                         xuan.getDateBaZiString(year,month,localDate.getDayOfMonth(),0));
+
                 mBindingView.tvDesc.setText(lunar.chineseEra+
                         "年" + lunar.lunarMonthStr +
-                        lunar.lunarDayStr+new MyXuanri().getDateBaZiString(year,month,localDate.getDayOfMonth()));
+                        lunar.lunarDayStr);
             } else {
                 mBindingView.tvData.setText("");
                 mBindingView.tvDesc.setText("");

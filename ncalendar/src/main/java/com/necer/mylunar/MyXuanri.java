@@ -1472,12 +1472,31 @@ public class MyXuanri {
         return returnvalue;
 
     }
+
+    public String getFiveSing(int year,int month,int day,int hour){
+        Calendar calendar =  Calendar.getInstance();
+        calendar.set(year, month-1, day);
+        BaiziRecord value = new BaiziRecord(calendar);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(hour>0?value.getWuxing():value.getWuxingShop());
+//        stringBuilder.append(  String.format(" %s时", value.getGanzitime()) );
+        return stringBuilder.toString();
+    }
     public String getDateBaZiString(int year,int month,int day) {
         Calendar calendar =  Calendar.getInstance();
         calendar.set(year, month-1, day);
         BaiziRecord value = new BaiziRecord(calendar);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(  String.format("%s年 %s月 %s日 ",value.getGanziyear(),value.getGanzimonth(),value.getGanziday()) );
+//        stringBuilder.append(  String.format(" %s时", value.getGanzitime()) );
+        return stringBuilder.toString();
+    }
+    public String getDateBaZiString(int year,int month,int day,int hour) {
+        Calendar calendar =  Calendar.getInstance();
+        calendar.set(year, month-1, day);
+        BaiziRecord value = new BaiziRecord(calendar);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(  String.format("%s年 %s月 %s日 %s时",value.getGanziyear(),value.getGanzimonth(),value.getGanziday(),value.getGanzitime()) );
 //        stringBuilder.append(  String.format(" %s时", value.getGanzitime()) );
         return stringBuilder.toString();
     }
