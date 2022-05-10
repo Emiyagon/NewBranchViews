@@ -3,6 +3,8 @@ package com.illyasr.mydempviews.ui.activity.canender;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import androidx.slidingpanelayout.widget.SlidingPaneLayout;
+
 import com.illyasr.mydempviews.MainPresent;
 import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.base.BaseFragment;
@@ -36,6 +38,7 @@ public class MIUI10CalenderFragment extends BaseFragment<FragmentBaseMiui10Calen
     @SuppressLint("SetTextI18n")
     @Override
     protected void initView() {
+
 //        mBindingView.miui9Calendar.setScrollEnable(false);//这个方法是禁止左右滑动改变日期的
 // 目前没有发现哪个方法可以设置禁止手势然后让其禁止上下波动
 
