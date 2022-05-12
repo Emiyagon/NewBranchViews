@@ -1,2 +1,2 @@
-include ':app', ':biliplayer', ':supertextview','imageselector','ncalendar'
+include ':app', ':biliplayer', ':supertextview','imageselector','ncalendar','videolibrary'
 rootProject.name='MyDempViews'
