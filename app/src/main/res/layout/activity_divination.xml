@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.guaxiang.DivinationActivity">
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="40dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/textBlack"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="请点击下方按钮开始模拟六次投币"
+                />
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_tz"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="开始投掷"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:stv_corner="40dp"
+                app:stv_solid="#85219E" />
+
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/textBlack"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="结果是"
+                />
+<!--            010101  这样子表示的   -->
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:gravity="center"
+                android:text=""
+                android:textSize="18sp"
+                app:stv_solid="#D9B0E2"
+                app:stv_text_fill_color="@color/white"
+                app:stv_text_stroke="true"
+                app:stv_text_stroke_color="#461B50"
+                app:stv_text_stroke_width="1dp" />
+
+            <com.illyasr.mydempviews.view.DashView
+                android:id="@+id/dash"
+                android:visibility="gone"
+                android:layout_margin="30dp"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/t1"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="30sp"
+                android:textColor="@color/ucrop_color_toolbar"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                />
+            <TextView
+                android:id="@+id/t2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="17sp"
+                android:textColor="@color/ucrop_color_default_logo"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="，，，，，，。"
+                />
+            <TextView
+                android:id="@+id/t3"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/bg_ali_title"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                />
+            <TextView
+                android:id="@+id/t4"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="17sp"
+                android:textColor="@color/load_purple"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

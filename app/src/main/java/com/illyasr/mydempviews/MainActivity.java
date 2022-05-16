@@ -21,6 +21,7 @@ import com.illyasr.mydempviews.ui.activity.MyLocationActivity;
 import com.illyasr.mydempviews.ui.activity.PlayActivity;
 import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
 import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
+import com.illyasr.mydempviews.ui.activity.guaxiang.DivinationActivity;
 import com.illyasr.mydempviews.ui.activity.notify.NotifyActivity;
 import com.illyasr.mydempviews.ui.activity.vr.VRSActivity;
 import com.illyasr.mydempviews.util.GlideUtil;
@@ -90,6 +91,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("VR/图片选择器(相册+拍照+视频)",10));
         list.add(new TabBean("各种日历",11));
         list.add(new TabBean("倒计时",12));
+        list.add(new TabBean("卜卦",13));
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
         adapter = new MainAdapter(this,list);
         mBindingView.rvAlbums.setAdapter(adapter);
@@ -212,6 +214,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     break;
                 case 12://通知
                     startActivity(new Intent(MainActivity.this, NotifyActivity.class));
+                    break;
+                case 13://卜卦
+                    startActivity(new Intent(MainActivity.this, DivinationActivity.class));
                     break;
                 default:
                     break;

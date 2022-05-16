@@ -43,6 +43,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".ui.activity.guaxiang.DivinationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.notify.JSActivity"
             android:exported="false" />
         <activity

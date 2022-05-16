@@ -281,5 +281,13 @@ textView.setText(spannableString);
     }
 
 
+    public static String ListToString(String[] st) {
+        StringBuilder sb = new StringBuilder();
+        for (String s: st) {
+            sb.append(s);
+        }
+        return sb.toString();
+
+    }
 
 }
