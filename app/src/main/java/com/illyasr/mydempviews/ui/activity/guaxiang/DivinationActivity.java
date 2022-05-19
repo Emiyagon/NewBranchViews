@@ -23,6 +23,7 @@ public class DivinationActivity extends BaseActivity<ActivityDivinationBinding,D
         mBindingView.stvTz.setOnClickListener(v -> {
             showDialog("");
             for (int i = 0; i < 6; i++) {
+              
                 strs[5 - i] = ((int) (Math.random() * 2) + "");
                 handler.sendEmptyMessageAtTime(20, 2000);
             }

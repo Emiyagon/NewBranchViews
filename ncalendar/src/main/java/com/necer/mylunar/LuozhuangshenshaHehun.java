@@ -168,7 +168,6 @@ public class LuozhuangshenshaHehun {
          * 子时24.00－2.00,丑时2.00－4.00,寅时4.00－6.00,卯时6.00－8.00,
          * 辰时8.00－10.00,巳时10.00－12.00,午时12.00－14.00,未时14.00－16.00
          * 申时16.00－18.00,酉时18.00－20.00,戌时20.00－22.00,亥时22.00－24.00
-         *
          */
         int time =cal.get(Calendar.HOUR_OF_DAY)/2;
         System.out.println("此人八字【" + lunar.getYearGanZhi(time) + "】"); //获取生肖
