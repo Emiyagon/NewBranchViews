@@ -33,7 +33,7 @@ import java.util.List;
 public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, MainPresent> {
 
 
-    private  String[] strs = {"单纯月历","单纯周历","MIUI9日历","MIUI10日历","EMIUI日历","日历自定义显示选中图形","测试拉伸","仿钉钉(自定义)"};
+    private  String[] strs = {"单纯月历","单纯周历","MIUI9日历","MIUI10日历","EMIUI日历","日历自定义显示选中图形","测试拉伸"};
     private List<Fragment> fragments = new ArrayList<>();
     @Override
     protected void initData() {
@@ -46,7 +46,6 @@ public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, Main
         fragments.add(new MyCalenderFragment());//
         mBindingView.vp.setAdapter(new SelectorAdapter(getSupportFragmentManager(),fragments));
 
-
         mBindingView.tabLayout.setupWithViewPager(mBindingView.vp);
 
         mBindingView.tv1.setOnClickListener(v -> {
@@ -56,9 +55,6 @@ public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, Main
                             "猜测博主写这个其实是参照了scrollview\n具体写法源码可见,网站已经写在注释里面了\n" +
                             "官方demo里面还有拉伸和模仿钉钉的,意义不大,就只是单纯的修改了选中样式,所以在此不再赘述")
                     .setPositiveButton("我明白了", v13 -> {
-
-
-
                     }).show();
         });
 
@@ -67,12 +63,10 @@ public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, Main
         mBindingView.spinMenu.setHintTextStrList(Arrays.asList(strs));
         //设置启动手势开启菜单
         mBindingView.spinMenu.setEnableGesture(true);
-
         //设置页面适配器
         mBindingView.spinMenu.setFragmentAdapter(new SelectorAdapter(getSupportFragmentManager(),fragments));
-
         //设置菜单改变时的监听器
-        mBindingView.spinMenu.setOnSpinMenuStateChangeListener(new OnSpinMenuStateChangeListener() {
+       mBindingView.spinMenu.setOnSpinMenuStateChangeListener(new OnSpinMenuStateChangeListener() {
             @Override
             public void onMenuOpened() {
                 // 打开时
@@ -113,6 +107,7 @@ public class CalenderActivity extends BaseActivity<ActivityCalenderBinding, Main
         @Override
         public CharSequence getPageTitle(int i) {
 //            return super.getPageTitle(position);
+//            mBindingView.tv1.setText(strs[i]);
             return strs[i];
         }
     }
