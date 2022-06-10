@@ -13,6 +13,7 @@ import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.bean.TabBean;
 import com.illyasr.mydempviews.databinding.ActivityMainBinding;
 import com.illyasr.mydempviews.phone.PhoneActivity;
+import com.illyasr.mydempviews.ui.activity.WebActivity;
 import com.illyasr.mydempviews.ui.activity.canender.CalenderActivity;
 import com.illyasr.mydempviews.ui.activity.GetVideoActivity;
 import com.illyasr.mydempviews.ui.activity.HealthyActivity;
@@ -92,6 +93,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("各种日历",11));
         list.add(new TabBean("倒计时",12));
         list.add(new TabBean("卜卦",13));
+        list.add(new TabBean("视频源",14));
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
         adapter = new MainAdapter(this,list);
         mBindingView.rvAlbums.setAdapter(adapter);
@@ -217,6 +219,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     break;
                 case 13://卜卦
                     startActivity(new Intent(MainActivity.this, DivinationActivity.class));
+                    break;
+                case 14://web 视频
+                    WebActivity.GoTo(MainActivity.this,"http://120.25.241.57/");
                     break;
                 default:
                     break;

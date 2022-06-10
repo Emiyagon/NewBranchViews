@@ -6,28 +6,40 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.illyasr.mydempviews.MainPresent;
 import com.illyasr.mydempviews.R;
+import com.illyasr.mydempviews.base.BaseActivity;
+import com.illyasr.mydempviews.databinding.ActivityWebBinding;
 
-public class WebActivity extends AppCompatActivity {
+public class WebActivity extends BaseActivity<ActivityWebBinding, MainPresent> {
 
     private String url;
-    private WebView webView;
+    private String TAG ="TAG";
 
     public static void GoTo(Context context, String url) {
         context.startActivity(new Intent(context,WebActivity.class).putExtra("url",url));
     }
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
+    protected void initData() {
         url = getIntent().getStringExtra("url");
-        webView = findViewById(R.id.webview);
+        initDete(mBindingView.webview);
+    }
+
+    @Override
+    protected int setLayoutId() {
+        return R.layout.activity_web;
+    }
+
+    private void initDete(WebView webView) {
 
         //是否可以后退
         webView.canGoBack();
@@ -78,11 +90,13 @@ public class WebActivity extends AppCompatActivity {
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
+                Log.e(TAG, "start url = " + url);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                Log.e(TAG, "finish url = " + url);
+                mBindingView.lLayoutBg.setBackgroundColor(url.contains("member")? 0xffe9bd2e:0xff000000);
 //                writeData(view);
               /*  String js = "localStorage.setItem('" + Url.key + "','" + MApplication.mCache.getAsString(CoServiceConnectionnstant.TOKEN) + "');";
                 String jsUrl = "javascript:(function({ var localStorage = window.localStorage; localStorage.setItem('" + Url.key + "','" + MApplication.mCache.getAsString(Constant.TOKEN) + "')})()";
@@ -103,5 +117,15 @@ public class WebActivity extends AppCompatActivity {
 //        webView.getSettings().setUserAgentString(ua.replace("Android","ChaoQiClient"));//替换
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if (mBindingView.webview.canGoBack()) {
+            mBindingView.webview.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
