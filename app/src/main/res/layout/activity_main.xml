@@ -34,6 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp" />
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"
+            android:background="@color/white"
+            android:visibility="gone"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_albums"
             android:layout_width="match_parent"

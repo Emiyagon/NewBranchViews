@@ -163,8 +163,8 @@ dependencies {
     implementation project(path: ':imageselector')
     api 'com.zhouyou:rxeasyhttp:2.1.5'
     // 高德定位
-    implementation 'com.amap.api:3dmap:latest.integration' //定位功能
-    implementation 'com.amap.api:location:latest.integration' //搜索功能
+    implementation 'com.amap.api:3dmap:6.1.0' //定位功能
+    implementation 'com.amap.api:location:6.1.0' //搜索功能
     implementation 'com.bigkoo:svprogresshud:1.0.6'
 
     //微信分享

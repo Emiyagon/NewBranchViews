@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,6 +41,7 @@ import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -79,6 +83,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         fragmentTransaction.add(R.id.frameLayout,  TestFragment.instantiate(MainActivity.this,TestFragment.class.getName()));
 
 
+//        list.add(new TabBean("原初",-1));
         list.add(new TabBean("获取定位",0));
         list.add(new TabBean("撩妹神器",1));
         list.add(new TabBean("SpView",2));
@@ -224,28 +229,49 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     WebActivity.GoTo(MainActivity.this,"http://120.25.241.57/");
                     break;
                 default:
+
                     break;
             }
 
         });
+
+        onPit();
+    }
+
+    private void onPit() {
+        //数据源
+        ArrayList<String> spinners = new ArrayList<>();
+        spinners.add("今日");
+        spinners.add("昨日");
+        spinners.add("本周");
+        spinners.add("上周");
+        spinners.add("本月");
+        spinners.add("上月");
+        //设置ArrayAdapter内置的item样式-这里是单行显示样式
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, new ArrayList<>());
+        //这里设置的是Spinner的样式 ， 输入 simple_之后会提示有4人，如果专属spinner的话应该是俩种，在特殊情况可自己定义样式
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        //如果元素改变可以先clear然后再addall()
+        adapter.clear();
+//        adapter.addAll(spinners);
+        adapter.addAll(Arrays.asList("今天","明天","后天"));
+        //设置Adapter了
+        mBindingView.spinner.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
+        mBindingView.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                showToast(adapter.getItem(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private long time = 0;
-/*    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (System.currentTimeMillis() - time > 2000) {
-            time = System.currentTimeMillis();
-            showToast("再点击一次退出程序");
-        } else {
-//                Intent intent = new Intent(BASE_ADDRESS);
-            String application = AppUtils.getPackageName(MyApplication.getInstance())+".base.BaseActivity";
-            Intent intent = new Intent(application);
-            intent.putExtra(CLOSE_ALL, 1);
-            //发送广播 ActivityCollector.java
-            sendBroadcast(intent);
-        }
-    }*/
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
