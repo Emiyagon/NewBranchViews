@@ -4,7 +4,6 @@ this is my all views tools
 
 里面有一些小控件
 -----------------
-<font face="逐浪新宋">我是逐浪新宋</font><font face="逐浪圆体">我是逐浪圆体</font> 作者：字库大师程序员发哥 https://www.bilibili.com/read/cv5975926 出处：bilibili
 
 暂停更新
 ----------
