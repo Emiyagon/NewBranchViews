@@ -13,6 +13,7 @@ import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.databinding.ActivityDivinationBinding;
 import com.illyasr.mydempviews.util.StringUtil;
+import com.illyasr.mydempviews.view.dialog.InputDialog;
 
 public class DivinationActivity extends BaseActivity<ActivityDivinationBinding,DivinationPresent> {
 
@@ -23,12 +24,30 @@ public class DivinationActivity extends BaseActivity<ActivityDivinationBinding,D
         mBindingView.stvTz.setOnClickListener(v -> {
             showDialog("");
             for (int i = 0; i < 6; i++) {
-              
                 strs[5 - i] = ((int) (Math.random() * 2) + "");
                 handler.sendEmptyMessageAtTime(20, 2000);
             }
-
         });
+
+        mBindingView.stvTz.setOnLongClickListener(v -> {
+            new InputDialog(DivinationActivity.this, 2)
+//                        .setTitle("")
+            .setOnDialogListener(new InputDialog.OnDialogListener() {
+                @Override
+                public void onEnter(String s) {
+                    strs = new String[]{};
+                    strs=s.split("");
+                    handler.sendEmptyMessageAtTime(20, 2000);
+                }
+
+                @Override
+                public void onDismiss() {
+
+                }
+            }).show();
+            return true;
+        });
+
     }
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){

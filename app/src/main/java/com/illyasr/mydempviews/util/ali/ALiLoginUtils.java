@@ -154,20 +154,16 @@ public class ALiLoginUtils {
 //        String sign = OrderInfoUtil2_0.getSign(authInfoMap, privateKey, rsa2);
 ////        final String authInfo = info + "&" + sign;
 //        Log.e("ALiLoginActivity", "=====authInfo=====" + authInfo);
-        Runnable authRunnable = new Runnable() {
+        Runnable authRunnable = () -> {
+            // 构造AuthTask 对象
+            AuthTask authTask = new AuthTask(activity);
+            // 调用授权接口，获取授权结果
+            Map<String, String> result = authTask.authV2(authInfo, true);
 
-            @Override
-            public void run() {
-                // 构造AuthTask 对象
-                AuthTask authTask = new AuthTask(activity);
-                // 调用授权接口，获取授权结果
-                Map<String, String> result = authTask.authV2(authInfo, true);
-
-                Message msg = new Message();
-                msg.what = SDK_AUTH_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
+            Message msg = new Message();
+            msg.what = SDK_AUTH_FLAG;
+            msg.obj = result;
+            mHandler.sendMessage(msg);
         };
 
         // 必须异步调用
