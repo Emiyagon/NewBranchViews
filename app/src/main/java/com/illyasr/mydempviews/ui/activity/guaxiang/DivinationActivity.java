@@ -15,6 +15,9 @@ import com.illyasr.mydempviews.databinding.ActivityDivinationBinding;
 import com.illyasr.mydempviews.util.StringUtil;
 import com.illyasr.mydempviews.view.dialog.InputDialog;
 
+/**
+ * 
+ */
 public class DivinationActivity extends BaseActivity<ActivityDivinationBinding,DivinationPresent> {
 
     private String[] strs = new String[6];

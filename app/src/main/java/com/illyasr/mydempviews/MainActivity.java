@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     startActivity(new Intent(MainActivity.this, DivinationActivity.class));
                     break;
                 case 14://web 视频
-                    WebActivity.GoTo(MainActivity.this,"http://120.25.241.57/");
+                    WebActivity.GoTo(MainActivity.this,"http://120.25.241.57/");//fdjknvjk
 //                    WebActivity.GoTo(MainActivity.this,"http://10.1.7.193:8081/#/login");
                     break;
                 default:
