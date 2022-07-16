@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                 Manifest.permission.CAMERA,
         };
         if (EasyPermissions.hasPermissions(this, messions)) {
-//            GetLoc();
+//            GetLoc();有句话叫号VG局就一个
         } else {
             EasyPermissions.requestPermissions(this, getResources().getString(R.string.toast_1), 100, messions);
         }
