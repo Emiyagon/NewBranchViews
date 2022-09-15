@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="20dp"
+        android:fitsSystemWindows="true"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,6 +59,14 @@
                 app:awv_itemsVisibleCount="6"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="炸弹数字"
+                android:layout_margin="@dimen/x20"
+                />
+
             <com.coorchice.library.SuperTextView
                 android:id="@+id/stv_1"
                 android:layout_width="match_parent"
@@ -71,7 +80,13 @@
                 app:stv_solid="#f00"
                 app:stv_stroke_color="#5166ED"
                 app:stv_stroke_width="5dp" />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="安全数字"
+                android:layout_margin="@dimen/x20"
+                />
             <com.coorchice.library.SuperTextView
                 android:id="@+id/stv_22"
                 android:layout_width="match_parent"

@@ -84,7 +84,7 @@ public class TimeDialog extends Dialog {
 
         binding.wleel1.setInitPosition(ca.get(Calendar.YEAR)-1900);
         binding.wleel2.setInitPosition(ca.get(Calendar.MONTH));
-        binding.wleel3.setInitPosition(ca.get(Calendar.DATE));
+        binding.wleel3.setInitPosition(ca.get(Calendar.DATE)-1);
 
         binding.wleel1.setListener((index,s) -> {
             year = index+1900;

@@ -252,17 +252,21 @@ public class BitmapUtil {
 
     /**
      *添加文字水印
-     * @param src
-     * @param content
+     * @param src 本来图片
+     * @param content 水印文字
      * @param textSize
-     * @param color
+     * @param color 文字颜色,这可以做到文字颜色很浅然后隐性水印
      * @param x
      * @param y
      * @param recycle
      * @return
      */
     public static Bitmap addTextWatermark(final Bitmap src,
-                                          final String content, final float textSize, @ColorInt final int color, final float x, final float y, final boolean recycle) {
+                                          final String content,
+                                          final float textSize,
+                                          @ColorInt final int color,
+                                          final float x, final float y,
+                                          final boolean recycle) {
         if (isEmptyBitmap(src) || content == null) return null;
         Bitmap ret = src.copy(src.getConfig(), true);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -278,8 +282,8 @@ public class BitmapUtil {
 
     /**
      *添加图片水印
-     * @param src
-     * @param watermark
+     * @param src 本来图片
+     * @param watermark 水印图片
      * @param x
      * @param y
      * @param alpha
@@ -546,6 +550,34 @@ public static void saveBitmapL(View view, String filePath){
         // 最后通知图库更新
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
         saveGallery.saveComplete();
+    }
+
+
+    /**
+     *  保存gif调用这个方法
+     * @param bytes
+     */
+    public static void saveGif(byte[] bytes) {
+        String GIF_FILE_NAME = "screen_shot.gif";
+       String imgPath = Environment.getExternalStorageDirectory() + "/"
+                + GIF_FILE_NAME;  //也是根目录
+        File file = new File(imgPath);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bytes, 0, bytes.length);
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 其次把文件插入到系统图库
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/gif");
+        Uri uri = MyApplication.getInstance().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        // 最后通知图库更新
+        MyApplication.getInstance().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
+//        saveGallery.saveComplete();
     }
 
 

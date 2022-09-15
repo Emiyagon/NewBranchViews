@@ -15,6 +15,7 @@ import com.illyasr.mydempviews.adapter.MainAdapter;
 import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.bean.TabBean;
 import com.illyasr.mydempviews.databinding.ActivityMainBinding;
+import com.illyasr.mydempviews.gif.GIFActivity;
 import com.illyasr.mydempviews.phone.PhoneActivity;
 import com.illyasr.mydempviews.ui.activity.WebActivity;
 import com.illyasr.mydempviews.ui.activity.canender.CalenderActivity;
@@ -99,6 +100,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("倒计时",12));
         list.add(new TabBean("卜卦",13));
         list.add(new TabBean("视频源",14));
+//        list.add(new TabBean("视频/图片转gif",15));
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
         adapter = new MainAdapter(this,list);
         mBindingView.rvAlbums.setAdapter(adapter);
@@ -228,6 +230,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                 case 14://web 视频
                     WebActivity.GoTo(MainActivity.this,"http://120.25.241.57/");//fdjknvjk
 //                    WebActivity.GoTo(MainActivity.this,"http://10.1.7.193:8081/#/login");
+                    break;
+                case 15:
+                    startActivity(new Intent(MainActivity.this, GIFActivity.class));
                     break;
                 default:
 

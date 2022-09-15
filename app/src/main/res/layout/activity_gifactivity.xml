@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:gravity="center_horizontal"
+      >
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="20dp"
+            android:gravity="center"
+            android:text="选择"
+            android:textSize="19sp"
+            app:stv_solid="#EEF3E2"
+            app:stv_text_fill_color="@color/transparent"
+            app:stv_text_stroke="true"
+            app:stv_text_stroke_color="#811D99"
+            app:stv_text_stroke_width="1.5dp" />
+
+        <TextView
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/textBlack"
+            android:padding="20dp"
+            />
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

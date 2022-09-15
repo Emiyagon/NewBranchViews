@@ -41,7 +41,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="android:theme">
+        tools:replace="android:theme"
+        >
+        <activity
+            android:name=".gif.GIFActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.guaxiang.DivinationActivity"
             android:exported="false" />

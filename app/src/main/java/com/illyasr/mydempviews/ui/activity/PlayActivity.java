@@ -24,6 +24,8 @@ public class PlayActivity extends BaseActivity<ActivityPlayBinding, MainPresent>
         });
     }
 
+
+
     private String MinesNum(int cun) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < 500; i++) {
