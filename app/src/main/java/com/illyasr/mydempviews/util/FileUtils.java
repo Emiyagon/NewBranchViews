@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -17,6 +19,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.UUID;
 
+/**
+ *  文件操作工具类
+ */
 public class FileUtils {
     private String path = Environment.getExternalStorageDirectory().toString() + "/chaoqi";
     /**
@@ -155,4 +160,61 @@ public class FileUtils {
 
 
 
+    /**
+     *   获取本地内存地址(兼容Android Q)
+     * @param context
+     * @return
+     */
+    public static String getAbsultPath(Context context) {
+        return context.getFilesDir().getAbsolutePath();
+    }
+
+    /**
+     *  单个文件
+     * @param assetsName
+     * @param sdEndFileName
+     * @throws Exception
+     */
+    public void sendAssetFileToSDCard(Context context,String assetsName,String sdEndFileName) throws Exception{
+//        String fileName = "show.mp4"; //assets目录下的资源名及后缀
+        String fileName = assetsName; //assets目录下的资源名及后缀
+        InputStream inputStream = context.getAssets().open(fileName);
+        //"/storage/emulated/0/ResProvider/video"(需要复制到那个目录下)
+//        File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/ResProvider/video");
+        File file = new File(getAbsultPath(context)  + sdEndFileName);
+        Log.e("TAG","end path ="+file.getPath());
+        if (!file.exists()) { //判断一下文件夹是否存在了，避免重复复制了
+            Log.d("TAG", "file do not exists");
+            file.mkdirs(); //不存在，创建一个新的文件夹
+        }
+        //最终文件路径为："/storage/emulated/0/ResProvider/video/show.mp4"
+        FileOutputStream fileOutputStream = new FileOutputStream(file + File.separator + fileName);//File.separator就是"/"
+        //这里开始拷贝
+        int len = -1;
+        byte[] buffer = new byte[1024];
+        while ((len = inputStream.read(buffer)) != -1) {
+            fileOutputStream.write(buffer, 0, len);
+        }
+        fileOutputStream.close();//用完了，记得关闭
+        inputStream.close();
+    }
+
+    /**
+     *  把所有assets文件都放入本地
+     * @param assetsFilePath
+     * @param sdEndFileName
+     * @throws Exception
+     */
+    public void sendAllFilesToSDCard(Context context,String assetsFilePath,String sdEndFileName)
+            throws Exception{
+        String fileNames[] = context.getAssets().list(assetsFilePath);
+        if (fileNames.length==0 ||  TextUtils.isEmpty(sdEndFileName)){
+            throw new NullPointerException("文件素材错误");
+//            return;
+        }
+        for ( String s:fileNames ) {
+            sendAssetFileToSDCard(context,s, sdEndFileName);
+        }
+
+    }
 }
