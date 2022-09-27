@@ -105,22 +105,6 @@ public class CityDialog extends Dialog {
         try {
             String cityJson = getString(context.getAssets().open("city.json"));
             dataModelList = gson.fromJson(cityJson, new TypeToken<List<CityDataModel>>() {}.getType());
-          /*  for (int i = 0; i < dataModelList.size(); i++) {// 第一次循环
-                options1Items.add(dataModelList.get(i).areaName);
-                ArrayList<String> secondList = new ArrayList<>();
-                  ArrayList<String> item3 = new ArrayList<>();
-                 ArrayList<ArrayList<String>> item3_item = new ArrayList<>();
-                for (int j = 0 ; j < dataModelList.get(i).cities.size();j++){//第二次循环
-                    secondList.add(dataModelList.get(i).cities.get(j).areaName);
-                    for (int k = 0 ; k < dataModelList.get(i).cities.get(j).counties.size();k++){//第三次循环
-                        item3.add(dataModelList.get(i).cities.get(j).counties.get(k).areaName);
-                    }
-                    item3_item.add(item3);
-                }
-                options2Items.add(secondList);
-                options3Items.add(item3_item);
-            }
-            */
             for (int i = 0; i < dataModelList.size(); i++) {
                 options1Items.add(dataModelList.get(i).areaName);//省
                 ArrayList<String> options2Items_item = new ArrayList<>();

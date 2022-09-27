@@ -119,9 +119,6 @@ public class FileUtils {
             }
         }.start();
     }
-
-
-
     public static File getFileFromServer(String path, ProgressDialog pd) throws Exception {
         // 如果相等的话表示当前的sdcard挂载在手机上并且是可用的
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -157,8 +154,6 @@ public class FileUtils {
             return null;
         }
     }
-
-
 
     /**
      *   获取本地内存地址(兼容Android Q)
