@@ -3,6 +3,7 @@ package com.illyasr.mydempviews;
 
 import static android.hardware.Sensor.TYPE_ACCELEROMETER;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -32,6 +33,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,MainPrese
     private int               musicStreamId;  //通过SoundPool加载得到的音频id
     private float             playVolume;   //音量比率值
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

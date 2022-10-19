@@ -1,19 +1,27 @@
 <resources>
-    <string name="app_name">MyDempViews</string>
+    <string name="app_name" translatable="false">MyDempViews</string>
 
-    <string name="toast_1">请打开相关权限,以保证您可以正常使用app!</string>
-    <string name="popup_title">选择封面</string>
-    <string name="popup_item1">拍照</string>
-    <string name="popup_item2">从相册选择</string>
-    <string name="save_picture">保存图片</string>
-    <string name="save_picture_failed">保存失败</string>
-    <string name="save_picture_success">图片成功保存至%s目录</string>
-    <string name="network_load">loading...</string>
-    <string name="longer">
+    <string name="toast_1" translatable="false">请打开相关权限,以保证您可以正常使用app!</string>
+    <string name="toast_2" translatable="false">请先设置内容之后再尝试!</string>
+    <string name="toast_3" translatable="false">复制成功!</string>
+    <string name="popup_title" translatable="false">选择封面</string>
+    <string name="popup_item1" translatable="false">拍照</string>
+    <string name="popup_item2" translatable="false">从相册选择</string>
+    <string name="save_picture" translatable="false">保存图片</string>
+    <string name="save_picture_failed" translatable="false">保存失败</string>
+    <string name="save_picture_success" translatable="false">图片成功保存至%s目录</string>
+    <string name="save_picture_successed" translatable="false">图片保存成功</string>
+    <string name="network_load" translatable="false">loading...</string>
+    <string name="longer" translatable="false">
         现在暂时只支持好看小视频,等后面规则完全之后就可以全部解析了.
         如果遇到无法解析,可能是官方的返回格式出现问题了,请安心等待新的解析方式更新!
         长按这段话可以打开网页链接然后去别的页面获取视频和下载
     </string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="dummy_button" translatable="false">Dummy Button</string>
+    <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
+
+    <string name="tts_start" translatable="false">大家一起喜洋洋</string>
+
+    <string name="enter" translatable="false">确定</string>
+    <string name="cancel" translatable="false">取消</string>
 </resources>

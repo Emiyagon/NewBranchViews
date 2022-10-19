@@ -36,12 +36,9 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.stvSp.setText(list.get(position).getName());
         holder.stvSp.setTextColor(list.get(position).getTextColor()> 0 ? list.get(position).getTextColor():0xff333333 );
 
-        holder.stvSp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onRem != null) {
-                    onRem.OnTo(position,list.get(position).getClickId());
-                }
+        holder.stvSp.setOnClickListener(view -> {
+            if (onRem != null) {
+                onRem.OnTo(view,position,list.get(position).getClickId());
             }
         });
 
@@ -55,7 +52,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public interface OnRem {
-        void OnTo(int clickPos,int type);
+        void OnTo(View view,int clickPos,int type);
     }
 
     @Override

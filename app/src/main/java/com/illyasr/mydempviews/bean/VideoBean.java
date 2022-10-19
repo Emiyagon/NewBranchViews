@@ -22,6 +22,16 @@ public class VideoBean {
     private String desc;
     private String author;
     private String coverPic;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
     /**
      * originalUrl : https://upos-sz-mirrorcos.bilivideo.com/upgcxcode/98/29/359472998/359472998-1-208.mp4?e=ig8euxZM2rNcNbRznwdVhwdlhWh3hwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1625311692&gen=playurlv2&os=cosbv&oi=1386025869&trid=1c0bc95789e543938aeb97a9833b1033T&platform=html5&upsig=e08d6647a87dc67b790fd2dc104551a6&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,platform&mid=0&bvc=vod&orderid=0,1&logo=80000000
      * duration : 02:34
@@ -30,6 +40,7 @@ public class VideoBean {
      * type : VIDEO
      * ratio : 高清 1080P
      */
+
 
     private List<ResourcesBean> resources;
 

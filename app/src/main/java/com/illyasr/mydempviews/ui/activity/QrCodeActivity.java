@@ -115,13 +115,13 @@ public class QrCodeActivity extends BaseActivity<ActivityQrCodeBinding, MainPres
 //                startPhotoCode();
                 openAlbum();
             }else{
-                EasyPermissions.requestPermissions(this,"App需要用到读写权限", RC_READ_PHOTO, perms);
+                EasyPermissions.requestPermissions(this,getResources().getString(R.string.toast_1), RC_READ_PHOTO, perms);//
             }
         });
         //生成  不带logo二维码
         mBindingView.stv3.setOnClickListener(v -> {
             if (TextUtils.isEmpty(mBindingView.et.getText().toString())){
-                showToast("请先设置内容之后再尝试");
+                showToast(R.string.toast_2);
                 return;
             }
             GlideUtil.putHttpImg(CodeUtils.createQRCode(mBindingView.et.getText().toString(),
@@ -130,7 +130,7 @@ public class QrCodeActivity extends BaseActivity<ActivityQrCodeBinding, MainPres
         //带logo二维码
         mBindingView.stv4.setOnClickListener(v -> {
             if (TextUtils.isEmpty(mBindingView.et.getText().toString())){
-                showToast("请先设置内容之后再尝试");
+                showToast(R.string.toast_2);
                 return;
             }
             GlideUtil.putHttpImg(CodeUtils.createQRCode(mBindingView.et.getText().toString(),
@@ -140,19 +140,20 @@ public class QrCodeActivity extends BaseActivity<ActivityQrCodeBinding, MainPres
             //获取剪贴板管理器：
             cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             // 创建普通字符型ClipData
-            mClipData = ClipData.newPlainText("Label", mBindingView.stv13.getText().toString().replace("结果=",""));
+            mClipData = ClipData.newPlainText("Label", mBindingView.stv13.getText().toString().replace("result =",""));
             // 将ClipData内容放到系统剪贴板里。
             cm.setPrimaryClip(mClipData);
-            showToast("复制成功");
+            showToast(R.string.toast_3);
         });
 
         mBindingView.imgQr.setOnLongClickListener(v -> {
             new MyAlertDialog(QrCodeActivity.this).builder()
-                    .setTitle("提示")
+                    .setTitle("tips")
                     .setMsg("保存到相册?")
-                    .setPositiveButton("取消", v13 -> {
+                    .setPositiveButton(getResources().getString(R.string.cancel), v13 -> {
 
-                    }).setNegativeButton("确定", v14 -> {
+                    }).setNegativeButton(getResources().getString(R.string.enter), v14 -> {
+                        // rxjava Flowable ,支持背压，何为背压，就是上游发送事件的速度大于下游处理事件的速度所产生的现象。
                 Flowable.create((FlowableOnSubscribe<Bitmap>) e -> {
                     Bitmap bitmap =  BitmapUtil.drawable2Bitmap(mBindingView.imgQr.getDrawable());
                     e.onNext(bitmap);
@@ -164,7 +165,7 @@ public class QrCodeActivity extends BaseActivity<ActivityQrCodeBinding, MainPres
                         .subscribe(bitmap -> {
                             BitmapUtil.saveImageToGallery(getApplicationContext(), bitmap, () -> {
 //                                    Toasty.success(getApplicationContext(), "保存成功").show();
-                                showToast("保存成功");
+                                showToast(R.string.save_picture_successed);
                             });
                         });
 

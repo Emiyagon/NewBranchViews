@@ -101,6 +101,8 @@ public class ScreenUtil {
                 .getHeight();
 
         //二维码图片
+        //后面自己生成就行
+        //CodeUtils.createQRCode("", width,null,codeColor)
         Bitmap erweima = BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
         erweima = Bitmap.createScaledBitmap(erweima, width, width / 5, true);
 
@@ -134,7 +136,7 @@ public class ScreenUtil {
 
 
     /**
-     * 获取状?栏高?
+     * 获取状态栏高度
      *
      * @param context
      * @return
@@ -148,20 +150,9 @@ public class ScreenUtil {
             int i5 = Integer.parseInt(localClass.getField("status_bar_height").get(localObject)
                     .toString());
             statusHeight = context.getResources().getDimensionPixelSize(i5);
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            statusHeight = 120;
         }
 
         return statusHeight;

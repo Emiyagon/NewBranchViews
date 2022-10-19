@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/ocbg"
+        >
+
+        <com.illyasr.mydempviews.view.consource.OclockView
+            android:id="@+id/oclock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextClock
+            android:id="@+id/timeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_toStartOf="@+id/dataView"
+            android:format24Hour ="HH:mm:ss"
+            android:format12Hour ="hh:mm:ss"
+            android:textColor="#FF8C00"
+            android:textSize="17sp"
+            android:layout_margin="10dp"
+            />
+
+    </LinearLayout>
+</layout>

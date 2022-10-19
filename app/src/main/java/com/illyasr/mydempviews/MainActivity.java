@@ -3,6 +3,8 @@ package com.illyasr.mydempviews;
 import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +19,7 @@ import com.illyasr.mydempviews.bean.TabBean;
 import com.illyasr.mydempviews.databinding.ActivityMainBinding;
 import com.illyasr.mydempviews.gif.GIFActivity;
 import com.illyasr.mydempviews.phone.PhoneActivity;
+import com.illyasr.mydempviews.ui.activity.CuteActivity;
 import com.illyasr.mydempviews.ui.activity.WebActivity;
 import com.illyasr.mydempviews.ui.activity.canender.CalenderActivity;
 import com.illyasr.mydempviews.ui.activity.GetVideoActivity;
@@ -28,8 +31,11 @@ import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
 import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
 import com.illyasr.mydempviews.ui.activity.guaxiang.DivinationActivity;
 import com.illyasr.mydempviews.ui.activity.notify.NotifyActivity;
+import com.illyasr.mydempviews.ui.activity.tts.TTSActivity;
 import com.illyasr.mydempviews.ui.activity.vr.VRSActivity;
 import com.illyasr.mydempviews.util.GlideUtil;
+import com.illyasr.mydempviews.view.FlipShareView;
+import com.illyasr.mydempviews.view.MyAlertDialog;
 import com.illyasr.mydempviews.view.dialog.CityDialog;
 import com.illyasr.mydempviews.view.dialog.MyPasswordDialog;
 import com.luck.picture.lib.PictureSelector;
@@ -99,12 +105,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("各种日历",11));
         list.add(new TabBean("倒计时",12));
         list.add(new TabBean("卜卦",13));
-        list.add(new TabBean("视频源",14));
-//        list.add(new TabBean("视频/图片转gif",15));
+//        list.add(new TabBean("视频源",14));
+        list.add(new TabBean("MUI控件模拟",15));
+        list.add(new TabBean("截图测试",16));
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
         adapter = new MainAdapter(this,list);
         mBindingView.rvAlbums.setAdapter(adapter);
-        adapter.setOnRem((pos, type) -> {
+        adapter.setOnRem((view,pos, type) -> {
             switch (type) {
                 case 0:// 获取定位
                     startActivity(new Intent(MainActivity.this, MyLocationActivity.class));
@@ -146,32 +153,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     startActivity(new Intent(MainActivity.this, PlayActivity.class));
                     break;
                 case 7://
-                    tag++;
-                    if (tag%2==0){
-                       new XPopup.Builder(getContext())
-//                        .hasNavigationBar(false)
-//                        .hasStatusBar(false)
-//                                .isDestroyOnDismiss(true)
-//                                .isTouchThrough(true)
-//                        .dismissOnBackPressed(false)
-//                        .isViewMode(true)
-//                        .hasBlurBg(true)
-//                         .autoDismiss(false)
-//                        .popupAnimation(PopupAnimation.NoAnimation)
-                                .asConfirm("哈哈", "床前明月光，疑是地上霜；举头望明月，低头思故乡。",
-                                        "取消", "确定",
-                                        new OnConfirmListener() {
-                                            @Override
-                                            public void onConfirm() {
-                                            }
-                                        }, null, false)
-                           .show();
-                        return;
-                    }
-                   /* new CityDialog(this)
-                            .setGetFinger(false)
-                            .show();*/
-                    new MyPasswordDialog(this).show();
+//                    tag++;
+
+                    onFlipView(view);
+
+
                     break;
                 case 8://二维码相关
                     startActivity(new Intent(MainActivity.this, QrCodeActivity.class));
@@ -232,7 +218,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
 //                    WebActivity.GoTo(MainActivity.this,"http://10.1.7.193:8081/#/login");
                     break;
                 case 15:
-                    startActivity(new Intent(MainActivity.this, GIFActivity.class));
+                    startActivity(new Intent(MainActivity.this, TTSActivity.class));
+                    break;
+                case 16:
+                    startActivity(new Intent(MainActivity.this, CuteActivity.class));
                     break;
                 default:
 
@@ -242,6 +231,101 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         });
 
         onPit();
+    }
+
+    private String[] items = new String[]{"xpopup", "自定义城市列表选择器", "仿iOS", "密码弹窗", "Twitter"};
+    private int[] colors = new int[]{0xffFFD700, 0xff43549C, 0xff4999F0, 0xffD9392D, 0xff57708A, 0xffFFD700};
+    private int[] ints = new int[]{
+            R.mipmap.qq,
+            R.mipmap.wechat,
+            R.mipmap.e,
+            R.mipmap.fasebook,
+            R.mipmap.twitter,
+    };
+    private static final int duration = 150;
+    private void onFlipView(View view) {
+        // 第一种,事先写一个list展示
+        List<FlipShareView.ShareItem>   shareItemList = new ArrayList<>();
+        for (int i = 0; i < items.length; i++) {
+            FlipShareView.ShareItem shareItem = new FlipShareView.ShareItem(items[i], Color.WHITE, colors[i%6],
+                    BitmapFactory.decodeResource(getResources(), ints[i]));
+            shareItemList.add(shareItem);
+        }
+        //第二种,直接一个个加进去
+        new FlipShareView.Builder(MainActivity.this, view)
+                // .addItem(new ShareItem("Facebook", Color.WHITE, 0xff43549C, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_facebook)))
+//                        .addItem(new ShareItem("qq分享", Color.WHITE, 0xff43549C, BitmapFactory.decodeResource(getResources(),R.mipmap.qq)))
+//                        .addItem(new ShareItem("微信分享", Color.WHITE, 0xff4999F0, BitmapFactory.decodeResource(getResources(),R.mipmap.wechat)))
+                .addItems(shareItemList)
+                //  上方都是添加item的样式和左侧图标的,下面是整体样式
+                //呼出时背景色,有的是透明有的是灰色,看需求设置
+                .setBackgroundColor(0x60000000)
+                //每个item出现所用时间
+                .setItemDuration(duration)
+                //item分割线颜色
+                .setSeparateLineColor(0x30000000)
+//               .setAnimType(FlipShareView.TYPE_HORIZONTAL)//三种样式,挨个测试一下(   TYPE_HORIZONTAL TYPE_SLIDE   TYPE_VERTICLE     )
+                // 方向
+                .setAnimType(FlipShareView.TYPE_SLIDE)
+
+                .create()
+                .setOnFlipClickListener(new FlipShareView.OnFlipClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        switch (position) {
+                            default:
+                                break;
+                            case 0:
+                                new XPopup.Builder(getContext())
+//                        .hasNavigationBar(false)
+//                        .hasStatusBar(false)
+//                                .isDestroyOnDismiss(true)
+//                                .isTouchThrough(true)
+//                        .dismissOnBackPressed(false)
+//                        .isViewMode(true)
+//                        .hasBlurBg(true)
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                                        .asConfirm("哈哈", "床前明月光，疑是地上霜；举头望明月，低头思故乡。",
+                                                "取消", "确定",
+                                                new OnConfirmListener() {
+                                                    @Override
+                                                    public void onConfirm() {
+                                                    }
+                                                }, null, false)
+                                        .show();
+                                break;
+                            case 1:
+                                new CityDialog(MainActivity.this)
+                                        .setGetFinger(false)
+                                        .show();
+                                break;
+                            case 2:
+                                new MyAlertDialog(MainActivity.this).builder()
+                                        .setTitle("我是提示")
+                                        .setMsg("我是内容")
+                                        .setPositiveButton("了解", v13 -> {
+
+                                        })
+                                        .setNegativeButton("好的!", v14 -> {
+
+                                        }).show();
+                                break;
+                            case 3:
+                                new MyPasswordDialog(MainActivity.this).show();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void dismiss() {
+
+                    }
+                });
+
+
+
+
     }
 
     private void onPit() {

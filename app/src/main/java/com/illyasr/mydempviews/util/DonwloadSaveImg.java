@@ -1,5 +1,6 @@
 package com.illyasr.mydempviews.util;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +62,7 @@ public class DonwloadSaveImg {
             }
         };
 
+        @SuppressLint("HandlerLeak")
         private static Handler messageHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -87,7 +89,7 @@ public class DonwloadSaveImg {
             bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
             bos.flush();
             bos.close();
-//把图片保存后声明这个广播事件通知系统相册有新图片到来
+            //把图片保存后声明这个广播事件通知系统相册有新图片到来
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             Uri uri = Uri.fromFile(myCaptureFile);
             intent.setData(uri);

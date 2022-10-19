@@ -1,6 +1,7 @@
 package com.illyasr.mydempviews.ui.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -17,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -47,6 +49,7 @@ import com.illyasr.mydempviews.util.GlideUtil;
 import com.illyasr.mydempviews.util.ImageUtil;
 import com.illyasr.mydempviews.util.ImgDonwload;
 import com.illyasr.mydempviews.util.UrlUtil;
+import com.illyasr.mydempviews.util.aesencryption.MyAESUtil;
 import com.illyasr.mydempviews.view.ActionSheetDialog;
 import com.illyasr.mydempviews.view.ComClickDialog;
 import com.illyasr.mydempviews.view.MyAlertDialog;
@@ -74,6 +77,11 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
     private VideoBean bean;
     private Dialog comClickDialog;
     private static int REQUEST_PERMISSION_CODE = 1;
+    public static final String oldPath = "https://parse.bqrdh.com/#/";
+
+//    public static final String test = "https://www.bilibili.com/video/BV1KV411x7y1";
+    public static final String test = "https://v.douyin.com/MU9r2tV/";
+
     private void checkPermission() {
             //检查权限（NEED_PERMISSION）是否被授权 PackageManager.PERMISSION_GRANTED表示同意授权
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -116,11 +124,11 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
 
         mBindingView.imgFmt.setOnLongClickListener(v -> false);
 
-        mBindingView.etHine.setText("https://www.bilibili.com/video/BV1KV411x7y1");
+        mBindingView.etHine.setText(test);
         mBindingView.tvClean.setOnClickListener(v -> mBindingView.etHine.setText(""));
         mBindingView.stv0.setOnLongClickListener(v -> {
             new MyAlertDialog(this).builder()
-                    .setTitle("tips")
+                    .setTitle("tips(可以点击外部取消)")
                     .setMsg("现在支持的解析链接有【B站】\t" +
                             "【微博】\t" +
                             "【知乎】\t" +
@@ -129,12 +137,16 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                             "【西瓜视频】\t" +
                             "【今日头条】\t" +
                             "【美拍】\t" +
-                            "【微视】,后续链接升级的话可能会增加,请关注官方通知\n(ps:所有链接最好都是网页上的视频哦,单独分享的链接是打不开的!)")
+                            "【微视】,后续链接升级的话可能会增加,请关注官方通知\n(ps:所有链接最好都是网页上的视频哦,单独分享的链接是打不开的!)" +
+                            "\n目前发现手机端的都没办法,尝试过去解析也找不到逻辑,等我重新找找他到底怎么加密之后再去尝试吧,现在就先直接去电脑端下载比较安全\n" +
+                            "(而且现在...叔叔也实在是恶心了...首页清一色手机视频,真恶心...)")
                     .setPositiveButton("我知道了", v13 -> {
+//                            WebActivity.GoTo(GetVideoActivity.this,oldPath);
 
+//                        startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(oldPath)));
                     }).setNegativeButton("复制原本网站链接", v14 -> {
                 //
-                String oldPath = "https://parse.bqrdh.com/#/";
+
                 //获取剪贴板管理器：
                 ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 // 创建普通字符型ClipData
@@ -167,10 +179,6 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
                 bean = null;
                 return;
             }
-//            if ( ! mBindingView.etHine.getText().toString().replace(" ","").startsWith("http")){
-//                Toast.makeText(MyApplication.getInstance(),"请输入正确的链接!",Toast.LENGTH_SHORT).show();
-//                return;
-//            }
 
 
             if (comClickDialog != null && bean != null) {
@@ -208,12 +216,38 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onNext(@NonNull VideoBean it) {
                 dismissDialog();
-//                    bean = gson.fromJson(it.getData(), VideoBean.class);
-                bean = it;
-                if (bean.isSuccess() || bean.getCode() == 0) {
+                if (it.isSuccess() || it.getCode() == 0) {
+                    bean = it;
+                    GlideUtil.putHttpImg(bean.getCoverPic(), mBindingView.imgFmt);
+                    comClickDialog = new ComClickDialog(GetVideoActivity.this, R.layout.dialog_show) {
+                        DialogShowBinding showBinding;
+
+                        @Override
+                        public void initView() {
+                            showBinding = DataBindingUtil.bind(getContentView());
+                        }
+
+                        @Override
+                        public void initEvent() {
+                            showBinding.dismiss.setOnClickListener(v1 -> dismiss());
+                            showBinding.download.setOnClickListener(v12 -> {
+                                dismiss();
+                                OnList(bean);
+                            });
+                        }
+                    };
+                    if (!comClickDialog.isShowing()) {
+                        comClickDialog.show();
+                    }
+                }else if (it.getCode() == 20003){//新版加密之后
+                    String res = it.getData();
+                    String newJson = MyAESUtil.OnRes64(res);
+                    //这是逼站解析
+                    bean = gson.fromJson(newJson, VideoBean.class);
                     GlideUtil.putHttpImg(bean.getCoverPic(), mBindingView.imgFmt);
                     comClickDialog = new ComClickDialog(GetVideoActivity.this, R.layout.dialog_show) {
                         DialogShowBinding showBinding;

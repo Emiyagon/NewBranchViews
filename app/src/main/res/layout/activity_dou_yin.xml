@@ -43,6 +43,20 @@
             />
 
         <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_x"
+            android:layout_width="@dimen/x400"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x20"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="粘贴剪切板"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x40"
+            app:stv_corner="10dp"
+            app:stv_solid="#062d3a"
+            app:stv_stroke_color="#FE4926"
+            app:stv_stroke_width="5dp" />
+        <com.coorchice.library.SuperTextView
             android:id="@+id/stv_2"
             android:layout_width="@dimen/x400"
             android:layout_height="@dimen/x200"

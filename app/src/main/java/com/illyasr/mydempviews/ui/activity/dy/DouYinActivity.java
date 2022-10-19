@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.illyasr.mydempviews.MainPresent;
+import com.illyasr.mydempviews.MyApplication;
 import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.bean.VideoBean;
@@ -53,6 +54,22 @@ public class DouYinActivity extends BaseActivity<ActivityDouYinBinding, MainPres
 
         mBindingView.tvClean.setOnClickListener(v -> {
             mBindingView.etInput.setText("");
+        });
+        mBindingView.stvX.setOnClickListener(v -> {
+            ClipboardManager manager = (ClipboardManager) MyApplication.getInstance().
+                    getSystemService(Context.CLIPBOARD_SERVICE);
+            if (manager != null) {
+                if (manager.hasPrimaryClip() && manager.getPrimaryClip().getItemCount() > 0) {
+                    CharSequence addedText = manager.getPrimaryClip().getItemAt(0).getText();
+                    String addedTextString = String.valueOf(addedText);
+                    if (!TextUtils.isEmpty(addedTextString)) {
+//                        return addedTextString;
+                        mBindingView.etInput.setText(addedTextString);
+                    }
+
+                }
+
+            }
         });
     }
 

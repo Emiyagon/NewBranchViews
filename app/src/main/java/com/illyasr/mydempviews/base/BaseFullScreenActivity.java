@@ -185,7 +185,7 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
         sb.append("手机系统版本号 : "+ PhoneUtil.getSystemVersion()+"\n");
         sb.append("手机厂商 : "+ PhoneUtil.getDeviceBrand()+"\n");
 //        sb.append("手机网络状态 : "+ getNetworkTypeName(MyApplication.getInstance()) +"\n");
-//        Log.e(TAG, ""+sb.toString());
+        Log.e(TAG, ""+sb.toString());
 
     }
 

@@ -30,6 +30,7 @@ import com.illyasr.mydempviews.receiver.NetWorkStateReceiver;
 import com.illyasr.mydempviews.util.AppUtils;
 import com.illyasr.mydempviews.util.ClickUtils;
 import com.illyasr.mydempviews.util.GlideCacheUtil;
+import com.illyasr.mydempviews.util.PhoneUtil;
 import com.illyasr.mydempviews.util.SoftInputUtils;
 import com.illyasr.mydempviews.util.StatusBarUtil;
 import com.illyasr.mydempviews.util.StatusUtils;
@@ -99,6 +100,13 @@ public interface OnClickText {
         }
 
         initData();
+        StringBuffer sb = new StringBuffer();
+        sb.append("手机型号 : "+ PhoneUtil.getSystemModel()+"\n");
+        sb.append("手机系统语言 : "+ PhoneUtil.getSystemLanguage()+"\n");
+        sb.append("手机系统版本号 : "+ PhoneUtil.getSystemVersion()+"\n");
+        sb.append("手机厂商 : "+ PhoneUtil.getDeviceBrand()+"\n");
+//        sb.append("手机网络状态 : "+ getNetworkTypeName(MyApplication.getInstance()) +"\n");
+        Log.e(TAG, ""+sb.toString());
     }
 
     /**
@@ -463,6 +471,10 @@ public interface OnClickText {
      */
     public void showToast(String text) {
         Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(int res) {
+        Toast.makeText(MyApplication.getInstance(),getResources().getString(res),Toast.LENGTH_SHORT).show();
     }
 
     /**
