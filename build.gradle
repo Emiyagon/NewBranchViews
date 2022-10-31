@@ -4,8 +4,13 @@ buildscript {
     repositories {
         maven { url "https://jitpack.io" }
         google()
-        maven{url"https://jcenter.bintray.com"}
-        maven{ url'http://maven.aliyun.com/nexus/content/groups/public/'}
+//        maven{url"https://jcenter.bintray.com"}
+//        maven{ url'https://maven.aliyun.com/nexus/content/groups/public/'}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven { url 'https://maven.google.com' }
         jcenter() // 或者 mavenCentral()
         mavenCentral()
     }
@@ -21,11 +26,15 @@ allprojects {
     repositories {
         maven { url "https://jitpack.io" }
         google()
-        maven{
-
-            url"https://jcenter.bintray.com"}
-        maven{ url'http://maven.aliyun.com/nexus/content/groups/public/'}
+//        maven{url"https://jcenter.bintray.com"}
+//        maven{ url'https://maven.aliyun.com/nexus/content/groups/public/'}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven { url 'https://maven.google.com' }
         jcenter() // 或者 mavenCentral()
+        mavenCentral()
     }
 }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MyDempViews</string>
+    <string name="app_name" translatable="false">爱因兹贝伦</string>
 
     <string name="toast_1" translatable="false">请打开相关权限,以保证您可以正常使用app!</string>
     <string name="toast_2" translatable="false">请先设置内容之后再尝试!</string>
