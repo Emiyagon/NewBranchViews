@@ -79,8 +79,8 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
     private static int REQUEST_PERMISSION_CODE = 1;
     public static final String oldPath = "https://parse.bqrdh.com/#/";
 
-//    public static final String test = "https://www.bilibili.com/video/BV1KV411x7y1";
-    public static final String test = "https://v.douyin.com/MU9r2tV/";
+    public static final String test = "https://www.bilibili.com/video/BV1KV411x7y1";
+//    public static final String test = "https://v.douyin.com/MU9r2tV/";
 
     private void checkPermission() {
             //检查权限（NEED_PERMISSION）是否被授权 PackageManager.PERMISSION_GRANTED表示同意授权
@@ -275,8 +275,8 @@ public class GetVideoActivity extends BaseActivity<ActivityGetVideoBinding, Main
             @Override
             public void onError(@NonNull Throwable e) {
                 dismissDialog();
-
                 showToast("出现错误,信息="+e.getMessage());
+                Log.e("TAG","出现错误,信息="+e.getMessage());
             }
 
             @Override

@@ -39,9 +39,6 @@ public class HeartActivity extends BaseActivity<ActivityHeartBinding, MainPresen
     @Override
     protected void initData() {
 
-        RxTimerUtil.interval(10 * 60 * 1000, number -> {
-            LiveEventBus.get().with("Login").post(true);
-        });
 
 
         RecyclerView rv = new RecyclerView(this);

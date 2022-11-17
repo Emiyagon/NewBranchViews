@@ -1,6 +1,7 @@
 package com.illyasr.mydempviews.base;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -31,6 +32,7 @@ import androidx.databinding.ViewDataBinding;
 
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.illyasr.mydempviews.MyApplication;
 import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.databinding.ActivityBaseFullscreenBinding;
@@ -76,6 +78,7 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
     @NonNull
     protected ActivityBaseFullscreenBinding mBaseBinding;
     protected static String TAG = "TAG";
+    @SuppressLint("CheckResult")
     @Override
     public void setContentView(int layoutResID) {
         StatusUtils.transparentStatusBar(this,true);
@@ -102,6 +105,28 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
 //            }
         });
 
+        ReactiveNetwork.observeNetworkConnectivity(this)
+                .subscribe(conn -> {
+            Log.e(TAG, "网络情况 - "+conn.toString());
+                    mBaseBinding.tvNet.setVisibility(conn.getState() == NetworkInfo.State.CONNECTED&&ping() ?View.GONE:View.VISIBLE);
+            if (conn.getState() == NetworkInfo.State.CONNECTED) {
+//                    conn.getTypeName();
+                if (conn.getTypeName().equals("MOBILE")){
+                    showToast(R.string.network_mobile);
+                } else if (conn.getTypeName().equals("WIFI")) {// 会出现极端情况,ping一下比较好
+                    showToast(String.format("%s网络,且%s", getResources().getString(R.string.network_wifi), ping() ? "可用,请放心使用" : "不可用,请更换网络!"));
+
+                } else {
+                }
+
+            } else {
+                showToast(R.string.network_unconnect);
+            }
+        });
+
+        mBaseBinding.tvNet.setOnClickListener(v -> {
+            startActivity(new Intent(this,NetErrorActivity.class));
+        });
 
     }
 
@@ -139,7 +164,7 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
         });
     }
 
-    public void setRightText(String title, BaseActivity.OnClickText onClickIt) {
+    public void setRightText(String title, OnClickText onClickIt) {
         mBaseBinding.commonTitle.tvRight.setVisibility(TextUtils.isEmpty(title)?View.GONE:View.VISIBLE);
         mBaseBinding.commonTitle.tvRight.setText(title+"");
         // OnClickText
@@ -254,7 +279,7 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
     protected abstract void onBackClick();
 
 
-    BaseActivity.CheckPermissionsListener mListener;
+    CheckPermissionsListener mListener;
     interface CheckPermissionsListener {
         void onGranted();
         void onDenied(List<String> permissions);
@@ -558,6 +583,9 @@ public abstract class BaseFullScreenActivity<SV extends ViewDataBinding,T extend
             Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT).show();
         }
         toastTime = System.currentTimeMillis();
+    }
+    public void showToast(int res) {
+        Toast.makeText(MyApplication.getInstance(),getResources().getString(res),Toast.LENGTH_SHORT).show();
     }
 
     /**

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
+<!--      loading  -->
         <shape>
             <gradient android:startColor="#fffbed"
                 android:endColor="#fff3c2"
                 android:angle="270"
                 />
+
         </shape>
     </item>
-    <item android:bottom="90dp">
+    <item android:bottom="90dp" android:top="90dp" android:left="30dp" android:right="30dp">
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/applogo"
             >
 
         </bitmap>

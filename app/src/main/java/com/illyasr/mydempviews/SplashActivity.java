@@ -17,6 +17,8 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.databinding.ActivitySplashBinding;
 import com.illyasr.mydempviews.util.RxTimerUtil;
@@ -65,8 +67,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,MainPrese
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         if(sensorManager ==null) return;
         sensor = (sensorManager.getDefaultSensor(TYPE_ACCELEROMETER));
-
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);   //传感器管理器
         sensor = sensorManager.getDefaultSensor(TYPE_ACCELEROMETER);     //此处传入1 也可以，Sensor中加速度传感器对应的int值为1
 
@@ -79,12 +79,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,MainPrese
         playVolume = (float) (curVolume * 1.0 / maxVolume);   //音量比率值
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);          //振动器
-
-//        RxTimerUtil.timer(2000, number -> {
-//            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//            finish();
-//        });
-
 
         mBindingView.bar.setCountdownTime(10);
         mBindingView.bar.startCountDown();
@@ -101,46 +95,75 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,MainPrese
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sensorManager.registerListener(new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                int type = event.sensor.getType();  //获取传感器类型
-                if (type == 1) {   //等价于  type==TYPE_ACCELEROMETER
-                    float x = event.values[0];
-                    float y = event.values[1];
-                    float z = event.values[2];
-                    //摇动灵敏度取决于后面的常量值，这里定义了15
-                    if (Math.abs(x) > 15 && Math.abs(y) > 15 && Math.abs(z) > 15) {
+    private boolean isSend = false;
+    private SensorEventListener listener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            int type = event.sensor.getType();  //获取传感器类型
+            if (type == 1) {   //等价于  type==TYPE_ACCELEROMETER
+                float x = event.values[0];
+                float y = event.values[1];
+                float z = event.values[2];
+                //摇动灵敏度取决于后面的常量值，这里定义了15
+                if (Math.abs(x) > 15 && Math.abs(y) > 15 && Math.abs(z) > 15) {
 
-                       // playShakeAudio();//播放摇一摇的音频
-                        // vibratorPhone();//开启手机震动
+                    // playShakeAudio();//播放摇一摇的音频
+                    // vibratorPhone();//开启手机震动
+                    if (vibrator != null) {
                         vibrator.vibrate(300);  //振动时长300ms
-                       // showCusDialog();//展示dialog
-                        // 这里理论上就是那些憨批厂商们做的一些骚操作,比如下载别的应用啊,跳转自家app啊,这里我就偷个懒,直接跳转到首页并且杀死这个页面
-                      showToast("回到首页");
+                    }
+                    // showCusDialog();//展示dialog
+                    // 这里理论上就是那些憨批厂商们做的一些骚操作,比如下载别的应用啊,跳转自家app啊,这里我就偷个懒,直接跳转到首页并且杀死这个页面
 
-                        RxTimerUtil.timer(550, number -> {
-                            if (!mBindingView.bar.isIsend()){
+                    handler.postDelayed(() -> {
+                        if (!isSend) {
+                            showToast("回到首页");
+                            if (!mBindingView.bar.isIsend()) {
                                 mBindingView.bar.stopCountDown();
                             }
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                            vibrator.cancel();
+                            if (vibrator != null) {
+                                vibrator.cancel();
+                                vibrator = null;
+                            }
+                            if (sensorManager != null) {
+                                sensorManager.unregisterListener(this);
+                            }
                             finish();
-                        });
+                            isSend = true;
+                        }
 
+                    }, 500);
 
-
-                    }
                 }
             }
+        }
 
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                //灵敏度变化时调用。灵敏度级别参考：SensorManager.SENSOR_DELAY_GAME
-            }
-        }, sensor, SensorManager.SENSOR_DELAY_GAME);
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            //灵敏度变化时调用。灵敏度级别参考：SensorManager.SENSOR_DELAY_GAME
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (sensorManager != null) {
+            sensorManager.unregisterListener(listener);
+            sensorManager = null;
+        }
+        if (sensor != null) {
+            sensor = null;
+        }
+
     }
 }

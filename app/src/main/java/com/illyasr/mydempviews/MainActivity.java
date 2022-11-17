@@ -5,13 +5,17 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import com.illyasr.mydempviews.adapter.MainAdapter;
 import com.illyasr.mydempviews.base.BaseActivity;
@@ -38,6 +42,7 @@ import com.illyasr.mydempviews.view.FlipShareView;
 import com.illyasr.mydempviews.view.MyAlertDialog;
 import com.illyasr.mydempviews.view.dialog.CityDialog;
 import com.illyasr.mydempviews.view.dialog.MyPasswordDialog;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -66,12 +71,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         return R.layout.activity_main;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initData() {
         GlideUtil.putHttpImg(wechatUrl,mBindingView.img);
 
+        /**
+         华为申请了  call / camera / location / storage / 设备信息(通话状态和移动网络)
+         10以上(不包括10) ACCESS_FINE_LOCATION 和 ACCESS_BACKGROUND_LOCATION 一起请求,是无效的
+         要请求ACCESS_BACKGROUND_LOCATION,必须先有 ACCESS_FINE_LOCATION
+         */
         String[] messions = new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
                 Manifest.permission.READ_PHONE_STATE,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CALL_PHONE,
@@ -112,6 +124,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         adapter = new MainAdapter(this,list);
         mBindingView.rvAlbums.setAdapter(adapter);
         adapter.setOnRem((view,pos, type) -> {
+            Log.e(TAG, "click"+pos);
             switch (type) {
                 case 0:// 获取定位
                     startActivity(new Intent(MainActivity.this, MyLocationActivity.class));
@@ -231,6 +244,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         });
 
         onPit();
+        onNet();
+
+        LiveEventBus.get().with("network",Boolean.class).observe(this, aBoolean -> {
+            mBindingView.tvNet.setVisibility(aBoolean?View.GONE:View.VISIBLE);
+        });
     }
 
     private String[] items = new String[]{"xpopup", "自定义城市列表选择器", "仿iOS", "密码弹窗", "Twitter"};

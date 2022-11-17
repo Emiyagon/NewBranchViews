@@ -86,7 +86,6 @@ public class OkHttp3Utils {
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .writeTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
-//                    .cache(cache)//设置缓存
                     .addInterceptor(new ChuckInterceptor(MyApplication.getInstance()))//chuck
                     .retryOnConnectionFailure(true)//自动重试(TODO 要是想重新请求上一个接口，这里设置成true)
                     .build();

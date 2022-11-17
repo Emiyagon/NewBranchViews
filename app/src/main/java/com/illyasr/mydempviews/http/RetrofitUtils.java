@@ -88,7 +88,6 @@ public abstract class RetrofitUtils {
                         .retryOnConnectionFailure(false)//  好像是禁止重复请求的方法
                         .addInterceptor(new ChuckInterceptor(MyApplication.getInstance()))//chuck
                         .hostnameVerifier(new TrustAllCerts.TrustAllHostnameVerifier())
-//                        .addInterceptor(new ReceivedCookiesInterceptor())
                         .connectTimeout(10, TimeUnit.SECONDS).build();
                 mOkHttpClient = okHttp3Utils.getOkHttpClient();
             }
@@ -99,7 +98,6 @@ public abstract class RetrofitUtils {
                     .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    // .addInterceptor(new ChuckInterceptor(MyApplication.getInstance()))//chuck
                     .client(mOkHttpClient)
                     .build();
         }

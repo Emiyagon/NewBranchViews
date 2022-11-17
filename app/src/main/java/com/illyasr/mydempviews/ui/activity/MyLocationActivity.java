@@ -75,23 +75,6 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
 
     }
 
-    private void GetLoc(double  longitude,double latitude){
-        sb = new StringBuffer();
-        sb.append("私人信息\n");
-        sb.append("手机型号 : "+ PhoneUtil.getSystemModel()+"\n");
-        sb.append("手机系统语言 : "+ PhoneUtil.getSystemLanguage()+"\n");
-        sb.append("手机系统版本号 : "+ PhoneUtil.getSystemVersion()+"\n");
-        sb.append("手机厂商 : "+ PhoneUtil.getDeviceBrand()+"\n");
-        sb.append("手机网络状态 : "+ NetWorkUtils.getNetworkTypeName(MyApplication.getInstance()) +"\n");
-        sb.append("网络可用状态 : "+
-                (isNetworkConnected(MyApplication.getInstance())||isWifiConnected(MyApplication.getInstance())||isMobileConnected(MyApplication.getInstance())||ping())
-                +"\n");
-
-        sb.append("当前纬度  lat = " +latitude +"\n");
-        sb.append("当前经度  log = " + longitude +"\n");
-        sb.append(getAddress(latitude,longitude));
-        mBindingView.  tvMsg.setText(sb.toString());
-    }
 
     //放入经纬度就可以了
     public String getAddress(double latitude, double longitude) {
@@ -156,16 +139,13 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
             sb.append("网络可用状态 : "+
                     (isNetworkConnected(MyApplication.getInstance())||isWifiConnected(MyApplication.getInstance())||isMobileConnected(MyApplication.getInstance())||ping())
                     +"\n");
-
             sb.append("当前纬度  lat = " +latitude +"\n");
             sb.append("当前经度  log = " + longitude +"\n");
             sb.append("当前位置   "+getAddress(latitude,longitude) +"\n");
 //            sb.append("当前位置   "+aMapLocationListener.);
 
             mBindingView. tvMsg.setText(sb.toString());
-
 //            Log.i("获取经纬度", "定位方式： " + providerName + "  维度：" + latitude + "  经度：" + longitude);
-
         } else {
             Toast.makeText(this, "1.请检查网络连接 \n2.请打开我的位置", Toast.LENGTH_SHORT).show();
             sb = new StringBuffer();

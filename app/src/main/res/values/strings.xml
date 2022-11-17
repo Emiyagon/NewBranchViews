@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">爱因兹贝伦</string>
+    <string name="app_name" translatable="false">PlayIpod</string>
 
     <string name="toast_1" translatable="false">请打开相关权限,以保证您可以正常使用app!</string>
     <string name="toast_2" translatable="false">请先设置内容之后再尝试!</string>
@@ -24,4 +24,9 @@
 
     <string name="enter" translatable="false">确定</string>
     <string name="cancel" translatable="false">取消</string>
+
+    <string name="network_connect" translatable="false">网络已连接</string>
+    <string name="network_mobile" translatable="false">当前为3g/4g/5g网络,请注意流量!</string>
+    <string name="network_wifi" translatable="false">当前为wifi</string>
+    <string name="network_unconnect" translatable="false">网络链接已断开!请检查网络</string>
 </resources>

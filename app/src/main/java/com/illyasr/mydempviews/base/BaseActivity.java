@@ -25,23 +25,31 @@ import androidx.databinding.ViewDataBinding;
 
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
+import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity;
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.illyasr.mydempviews.MyApplication;
+import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.receiver.NetWorkStateReceiver;
 import com.illyasr.mydempviews.util.AppUtils;
 import com.illyasr.mydempviews.util.ClickUtils;
 import com.illyasr.mydempviews.util.GlideCacheUtil;
 import com.illyasr.mydempviews.util.PhoneUtil;
+import com.illyasr.mydempviews.util.RxTimerUtil;
 import com.illyasr.mydempviews.util.SoftInputUtils;
 import com.illyasr.mydempviews.util.StatusBarUtil;
 import com.illyasr.mydempviews.util.StatusUtils;
 import com.illyasr.mydempviews.util.TUtil;
 import com.illyasr.mydempviews.view.MProgressDialog;
+import com.jeremyliao.liveeventbus.LiveEventBus;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 /**
  *
@@ -95,9 +103,11 @@ public interface OnClickText {
             mPresenter.mContext = this;
         }
         //view_title
-        if (!isNetworkAvailable(this)) {
-            showToast("网络连接不可用,请检查您的网络!");
-        }
+//        if (!isNetworkAvailable(this)) {
+//            showToast("网络连接不可用,请检查您的网络!");
+//        }
+
+
 
         initData();
         StringBuffer sb = new StringBuffer();
@@ -107,6 +117,26 @@ public interface OnClickText {
         sb.append("手机厂商 : "+ PhoneUtil.getDeviceBrand()+"\n");
 //        sb.append("手机网络状态 : "+ getNetworkTypeName(MyApplication.getInstance()) +"\n");
         Log.e(TAG, ""+sb.toString());
+
+//        onNet();
+    }
+
+    @SuppressLint("CheckResult")
+    public void onNet() {
+        ReactiveNetwork.observeNetworkConnectivity(this).subscribe(conn -> {
+            Log.e(TAG, "网络情况 - "+conn.toString());
+            LiveEventBus.get().with("network").post(conn.getState() == NetworkInfo.State.CONNECTED&&ping());
+            if (conn.getState() == NetworkInfo.State.CONNECTED) {
+//                    conn.getTypeName();
+                if (conn.getTypeName().equals("MOBILE")){
+//                    showToast(R.string.network_mobile);
+                } else if (conn.getTypeName().equals("WIFI")) {// 会出现极端情况,ping一下比较好
+//                    showToast(String.format("%s网络,且%s",getResources().getString(R.string.network_wifi),ping()?"可用,请放心使用":"不可用,请更换网络!"));
+                }
+            } else {
+                showToast(R.string.network_unconnect);
+            }
+        });
     }
 
     /**
@@ -398,6 +428,7 @@ public interface OnClickText {
             mPresenter.unDisposable();
             mPresenter.onDestroy();
         }
+        RxTimerUtil.cancel();
 
     }
 

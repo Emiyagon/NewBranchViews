@@ -42,6 +42,19 @@
             android:visibility="gone"
             />
 
+        <TextView
+            android:id="@+id/tv_net"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x70"
+            android:background="#f7c5c5"
+            android:text="@string/network_unconnect"
+            android:gravity="center_vertical"
+            android:textColor="@color/textGray"
+            android:paddingLeft="@dimen/x25"
+            app:drawableLeftCompat="@drawable/ic_red_warnning"
+            android:drawablePadding="@dimen/x25"
+            android:visibility="gone"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_albums"
             android:layout_width="match_parent"

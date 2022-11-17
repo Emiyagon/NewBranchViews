@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
 
         android:id="@+id/rl_root_view"
@@ -13,6 +14,18 @@
             android:id="@+id/common_title"
             layout="@layout/title_view" />
 
+        <TextView
+            android:id="@+id/tv_net"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x70"
+            android:background="#f7c5c5"
+            android:text="@string/network_unconnect"
+            android:gravity="center_vertical"
+            android:textColor="@color/textGray"
+            android:paddingLeft="@dimen/x25"
+            app:drawableLeftCompat="@drawable/ic_red_warnning"
+            android:drawablePadding="@dimen/x25"
+            />
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"

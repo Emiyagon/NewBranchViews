@@ -1,9 +1,15 @@
 package com.illyasr.mydempviews.util;
 
 
+import android.app.Activity;
+import android.content.Context;
+
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import cn.nekocode.rxlifecycle.RxLifecycle;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -28,9 +34,10 @@ public class RxTimerUtil {
      * @param milliseconds
      * @param next
      */
-    public static void timer(long milliseconds,final IRxNext next) {
+    public static void timer( long milliseconds, final IRxNext next) {
         Observable.timer(milliseconds, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
+//                .compose(context.<Long>bindUntilEvent(ActivityEvent.PAUSE))
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable disposable) {
