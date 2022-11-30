@@ -3,14 +3,16 @@
     <item>
 <!--      loading  -->
         <shape>
-            <gradient android:startColor="#fffbed"
-                android:endColor="#fff3c2"
-                android:angle="270"
+            <gradient
+                android:startColor="#0c7bb3"
+
+                android:endColor="#f2bae8"
+                android:angle="135"
                 />
 
         </shape>
     </item>
-    <item android:bottom="90dp" android:top="90dp" android:left="30dp" android:right="30dp">
+    <item android:bottom="90dp" android:top="90dp" android:left="20dp" android:right="20dp">
         <bitmap
             android:gravity="center"
             android:src="@mipmap/applogo"

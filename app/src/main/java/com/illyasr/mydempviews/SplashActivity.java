@@ -95,8 +95,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,MainPrese
 
     }
 
+    private static final int sensorTag = 15*1000*1000;
     private boolean isSend = false;
-    private SensorEventListener listener = new SensorEventListener() {
+    private final SensorEventListener listener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
             int type = event.sensor.getType();  //获取传感器类型
@@ -105,7 +106,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,MainPrese
                 float y = event.values[1];
                 float z = event.values[2];
                 //摇动灵敏度取决于后面的常量值，这里定义了15
-                if (Math.abs(x) > 15 && Math.abs(y) > 15 && Math.abs(z) > 15) {
+                if (Math.abs(x) > sensorTag && Math.abs(y) > sensorTag && Math.abs(z) > sensorTag) {
 
                     // playShakeAudio();//播放摇一摇的音频
                     // vibratorPhone();//开启手机震动
