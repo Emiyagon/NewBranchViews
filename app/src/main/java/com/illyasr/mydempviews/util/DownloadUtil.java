@@ -123,8 +123,6 @@ public class DownloadUtil{
                     pd.dismiss(); // 结束掉进度条对话框
                     File sd1 = Environment.getExternalStorageDirectory();
                     String path1 = sd1.getPath() + "/"+context.getResources().getString(R.string.app_name);
-//                    Toast.makeText(MyApplication.getInstance(),"下载完成!文件保存在"+path1+"文件夹下!",Toast.LENGTH_SHORT).show();
-//                    LiveEventBus.get().with("download").post("下载完成!文件保存在"+path1+"文件夹下!");
                     onDownloadListener.onSuccess("下载完成!文件保存在"+path1+"文件夹下!");
                 } catch (Exception e) {
                     e.printStackTrace();

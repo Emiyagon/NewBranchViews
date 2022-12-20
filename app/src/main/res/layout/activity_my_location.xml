@@ -28,6 +28,16 @@
                 android:text="kdsakjncfjdehakc"
                 android:gravity="center" />
 
+
+            <TextView
+                android:id="@+id/tv_step"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="步数:0"
+                android:gravity="center" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

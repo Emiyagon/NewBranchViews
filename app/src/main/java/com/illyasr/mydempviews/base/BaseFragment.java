@@ -35,6 +35,8 @@ import com.illyasr.mydempviews.util.SpannableUtil;
 import com.illyasr.mydempviews.util.TUtil;
 import com.illyasr.mydempviews.view.MProgressDialog;
 
+import java.util.Calendar;
+
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -59,6 +61,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding,T extends BasePres
 
   protected View mRootView;
   protected Activity mActivity;
+  public Calendar mCalendar = Calendar.getInstance();
   /**
    * 是否对用户可见
    */

@@ -1,9 +1,12 @@
 package com.illyasr.mydempviews.base;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.widget.Toast;
 
+
+import androidx.lifecycle.ViewModel;
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.illyasr.mydempviews.MyApplication;
@@ -11,8 +14,10 @@ import com.illyasr.mydempviews.MyApplication;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BasePresenter  {
+public class BasePresenter extends ViewModel {
+    @SuppressLint("StaticFieldLeak")
     public Context mContext;
+    @SuppressLint("StaticFieldLeak")
     public View mView;
     /**
      //这是示例数据

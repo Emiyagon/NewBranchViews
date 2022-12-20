@@ -2,15 +2,25 @@ package com.illyasr.mydempviews.ui.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -25,12 +35,16 @@ import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.databinding.ActivityMyLocationBinding;
 import com.illyasr.mydempviews.util.GpsUtil;
 import com.illyasr.mydempviews.util.PhoneUtil;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -40,6 +54,11 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
 
 
     private Location location;
+    //动态申请健康运动权限
+    private static final String[] ACTIVITY_RECOGNITION_PERMISSION = {Manifest.permission.ACTIVITY_RECOGNITION};
+    private double latitude;
+    private double longitude;
+
 
     @Override
     protected int setLayoutId() {
@@ -47,13 +66,34 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
     }
 
     private StringBuffer sb = new StringBuffer();
+
+
+    private SensorManager mSensorManager;
+    private MySensorEventListener mListener;
+    private int mStepDetector = 0;  // 自应用运行以来STEP_DETECTOR检测到的步数
+    private int mStepCounter = 0;   // 自系统开机以来STEP_COUNTER检测到的步数
     @Override
     protected void initData() {
+
+        //  监听器注册
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mListener = new MySensorEventListener();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // 检查该权限是否已经获取
+            int get = ContextCompat.checkSelfPermission(this, ACTIVITY_RECOGNITION_PERMISSION[0]);
+            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+            if (get != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求自动开启权限
+                ActivityCompat.requestPermissions(this, ACTIVITY_RECOGNITION_PERMISSION, 321);
+            }
+        }
 
         String[] messions = new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION
         };
         if (EasyPermissions.hasPermissions(this, messions)) {
+            // 获取到了权限
             GetLoc();
          /*
             startLocation(this, new OnLocationListenter() {
@@ -72,7 +112,55 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
             EasyPermissions.requestPermissions(this, getResources().getString(R.string.toast_1), 100, messions);
         }
 
+        mBindingView.tvStep.setOnClickListener(v -> {
+            LiveEventBus
+                    .get("some_key")
+                    .post("some_value");
+        });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mSensorManager.registerListener(mListener, mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(mListener, mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(mListener);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 321) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    //提示用户手动开启权限
+                    new AlertDialog.Builder(this)
+                            .setTitle("健康运动权限")
+                            .setMessage("健康运动权限不可用")
+                            .setPositiveButton("立即开启", (dialog12, which) -> {
+                                // 跳转到应用设置界面
+                                Intent intent = new Intent();
+                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                intent.setData(uri);
+                                startActivityForResult(intent, 123);
+                            })
+                            .setNegativeButton("取消", (dialog1, which) -> {
+                                Toast.makeText(getApplicationContext(), "没有获得权限，应用无法运行！", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }).setCancelable(false).show();
+                }
+            }
+        }
     }
 
 
@@ -102,6 +190,20 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
     private void GetLoc() {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+
+        // 如果不确定哪些位置提供器可用，可以用下面方法判断 。获取所有可用的位置提供器
+        List<String> providerList = lm.getProviders(true);
+        String provider;
+        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+            provider = LocationManager.GPS_PROVIDER;
+        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)){
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else{
+            // 当没有可用的位置提供器时，弹出Toash提示用户
+            Toast.makeText(this, "No Location provider to use", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Criteria criteria = new Criteria();
         // 设置查询条件
         criteria.setAccuracy(Criteria.ACCURACY_FINE); // 设置准确而非粗糙的精度
@@ -121,13 +223,19 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
                 return;
             }
 
-            location = lm.getLastKnownLocation(providerName);
+
+            //通过provider获得Location的对象
+             location = lm.getLastKnownLocation(provider);
+//            location = lm.getLastKnownLocation(providerName);
 //            location = lm.getCurrentLocation(providerName);
 
-            //获取维度信息
-            double latitude = location.getLatitude();
-            //获取经度信息
-            double longitude = location.getLongitude();
+            if (location != null) {
+                //获取维度信息
+                latitude = location.getLatitude();
+                //获取经度信息
+                longitude = location.getLongitude();
+            }
+
 
             sb = new StringBuffer();
             sb.append("私人信息\n");
@@ -168,6 +276,32 @@ public class MyLocationActivity extends BaseActivity<ActivityMyLocationBinding, 
 
 
 
+    }
+
+    private class MySensorEventListener implements SensorEventListener {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                System.out.println("@@@:" + event.sensor.getType() + "--" + Sensor.TYPE_STEP_DETECTOR + "--" + Sensor.TYPE_STEP_COUNTER);
+
+                if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+                    if (event.values[0] == 1.0f) {
+                        mStepDetector++;
+                    }
+                } else if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+                    mStepCounter = (int) event.values[0];
+                }
+
+               String desc = String.format(Locale.CHINESE, "设备检测到您当前走了%d步，自开机以来总数为%d步",
+                       mStepDetector,//今天的步数,正常来说华为小米拿到的数据是对的
+                       mStepCounter);//历史总步数,关机会清零(正常操作),但是红魔拿到的这个却不对,所以最终还是需要去健康里面获取数据
+                mBindingView.tvStep.setText(desc);
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
     }
 
 

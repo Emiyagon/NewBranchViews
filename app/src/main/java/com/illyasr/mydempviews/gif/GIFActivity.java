@@ -1,27 +1,20 @@
 package com.illyasr.mydempviews.gif;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.solver.state.State;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.illyasr.mydempviews.MainPresent;
 import com.illyasr.mydempviews.R;
 import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.databinding.ActivityGifactivityBinding;
 import com.illyasr.mydempviews.util.BitmapUtil;
-import com.illyasr.mydempviews.util.RxTimerUtil;
 import com.illyasr.mydempviews.view.ActionSheetDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;

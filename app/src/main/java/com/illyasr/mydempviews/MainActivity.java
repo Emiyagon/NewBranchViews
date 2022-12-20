@@ -21,7 +21,6 @@ import com.illyasr.mydempviews.adapter.MainAdapter;
 import com.illyasr.mydempviews.base.BaseActivity;
 import com.illyasr.mydempviews.bean.TabBean;
 import com.illyasr.mydempviews.databinding.ActivityMainBinding;
-import com.illyasr.mydempviews.gif.GIFActivity;
 import com.illyasr.mydempviews.phone.PhoneActivity;
 import com.illyasr.mydempviews.ui.activity.CuteActivity;
 import com.illyasr.mydempviews.ui.activity.WebActivity;
@@ -34,9 +33,9 @@ import com.illyasr.mydempviews.ui.activity.PlayActivity;
 import com.illyasr.mydempviews.ui.activity.QrCodeActivity;
 import com.illyasr.mydempviews.ui.activity.dy.DouYinActivity;
 import com.illyasr.mydempviews.ui.activity.guaxiang.DivinationActivity;
+import com.illyasr.mydempviews.ui.activity.mlkit.MLKITActivity;
 import com.illyasr.mydempviews.ui.activity.notify.NotifyActivity;
 import com.illyasr.mydempviews.ui.activity.tts.TTSActivity;
-import com.illyasr.mydempviews.ui.activity.vr.VRSActivity;
 import com.illyasr.mydempviews.util.GlideUtil;
 import com.illyasr.mydempviews.view.FlipShareView;
 import com.illyasr.mydempviews.view.MyAlertDialog;
@@ -48,7 +47,6 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
-import com.luck.picture.lib.tools.GlideEngine;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 
@@ -61,11 +59,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 //广告业
 public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> {
 
-    private MainAdapter adapter;
-    private List<TabBean> list = new ArrayList<>();
-    private int tag;
+    private final List<TabBean> list = new ArrayList<>();
 
-    private String wechatUrl = "https://mmbiz.qpic.cn/mmbiz_gif/Ljib4So7yuWjl1icpf1AEqjZBoBicMPk0N8ZYlSxh9NuBctGpGRsBTcWVHouxLvMg3IRRCby99mNMHa7O6SeHcqTA/640?wx_fmt=gif";
+    private static final String wechatUrl = "https://mmbiz.qpic.cn/mmbiz_gif/Ljib4So7yuWjl1icpf1AEqjZBoBicMPk0N8ZYlSxh9NuBctGpGRsBTcWVHouxLvMg3IRRCby99mNMHa7O6SeHcqTA/640?wx_fmt=gif";
     @Override
     protected int setLayoutId() {
         return R.layout.activity_main;
@@ -75,7 +71,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
     @Override
     protected void initData() {
         GlideUtil.putHttpImg(wechatUrl,mBindingView.img);
-
+        LiveEventBus
+                .get("some_key", String.class)
+                .observeForever(this::showToast);
         /**
          华为申请了  call / camera / location / storage / 设备信息(通话状态和移动网络)
          10以上(不包括10) ACCESS_FINE_LOCATION 和 ACCESS_BACKGROUND_LOCATION 一起请求,是无效的
@@ -83,14 +81,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
          */
         String[] messions = new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
                 Manifest.permission.READ_PHONE_STATE,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CALL_PHONE,
                 Manifest.permission.CAMERA,
         };
         if (EasyPermissions.hasPermissions(this, messions)) {
-//            GetLoc();有句话叫号VG局就一个
+//            GetLoc();//有句话叫号VG局就一个
         } else {
             EasyPermissions.requestPermissions(this, getResources().getString(R.string.toast_1), 100, messions);
         }
@@ -119,11 +116,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         list.add(new TabBean("卜卦",13));
 //        list.add(new TabBean("视频源",14));
         list.add(new TabBean("MUI控件模拟",15));
-        list.add(new TabBean("截图测试",16));
+//        list.add(new TabBean("截图测试",16));
+//        list.add(new TabBean("MLKIT",17));
 //        rvAlbums.setLayoutManager(new GridLayoutManager(this,3));
-        adapter = new MainAdapter(this,list);
+        MainAdapter adapter = new MainAdapter(this, list);
         mBindingView.rvAlbums.setAdapter(adapter);
-        adapter.setOnRem((view,pos, type) -> {
+        adapter.setOnRem((view, pos, type) -> {
             Log.e(TAG, "click"+pos);
             switch (type) {
                 case 0:// 获取定位
@@ -166,11 +164,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     startActivity(new Intent(MainActivity.this, PlayActivity.class));
                     break;
                 case 7://
-//                    tag++;
-
                     onFlipView(view);
-
-
                     break;
                 case 8://二维码相关
                     startActivity(new Intent(MainActivity.this, QrCodeActivity.class));
@@ -179,7 +173,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     startActivity(new Intent(MainActivity.this, HealthyActivity.class));
                     break;
                 case 10://VR/图片选择器
-//                    startActivity(new Intent(MainActivity.this, VRSActivity.class));
                     int maxSelecNum = 9;
                     PictureSelector
                             .create(this)
@@ -192,7 +185,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                             .isMaxSelectEnabledMask(true)// 选择数到了最大阀值列表是否启用蒙层效果
                             .isCamera(true)//是否显示拍照
                             .isCompress(true)//打开压缩
-                            .isEnableCrop(maxSelecNum==1)// 是否裁剪,单独时需要裁减,其他时候不用
+                            .isEnableCrop(false)// 是否裁剪,单独时需要裁减,其他时候不用
                             .circleDimmedLayer(true)// 是否圆形裁剪
                             .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
                             .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
@@ -200,7 +193,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                             //.basicUCropConfig()//对外提供所有UCropOptions参数配制，但如果PictureSelector原本支持设置的还是会使用原有的设置
                             .compressQuality(50)// 图片压缩后输出质量 0~ 100
                             .synOrAsy(false)//同步true或异步false 压缩 默认同步
-                            .minimumCompressSize(1*1024)// 小于100kb的图片不压缩
+                            .minimumCompressSize(10*1024)// 小于100kb的图片不压缩
 //                    .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项,但是这块有点不友好,所以我就设置了默认引擎,不传也没事
                             .isGif(true)
 //                            .selectionData(list)
@@ -228,7 +221,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                     break;
                 case 14://web 视频
                     WebActivity.GoTo(MainActivity.this,"http://120.25.241.57/");//fdjknvjk
-//                    WebActivity.GoTo(MainActivity.this,"http://10.1.7.193:8081/#/login");
                     break;
                 case 15:
                     startActivity(new Intent(MainActivity.this, TTSActivity.class));
@@ -236,24 +228,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
                 case 16:
                     startActivity(new Intent(MainActivity.this, CuteActivity.class));
                     break;
+                case 17:
+                    startActivity(new Intent(MainActivity.this, MLKITActivity.class));
+                    break;
                 default:
-
                     break;
             }
 
         });
 
         onPit();
-        onNet();
 
-        LiveEventBus.get().with("network",Boolean.class).observe(this, aBoolean -> {
+        LiveEventBus.get("network",Boolean.class).observe(this, aBoolean -> {
             mBindingView.tvNet.setVisibility(aBoolean?View.GONE:View.VISIBLE);
         });
     }
 
-    private String[] items = new String[]{"xpopup", "自定义城市列表选择器", "仿iOS", "密码弹窗", "Twitter"};
-    private int[] colors = new int[]{0xffFFD700, 0xff43549C, 0xff4999F0, 0xffD9392D, 0xff57708A, 0xffFFD700};
-    private int[] ints = new int[]{
+    private final String[] items = new String[]{"xpopup", "自定义城市列表选择器", "仿iOS", "密码弹窗", "Twitter"};
+    private final int[] colors = new int[]{0xffFFD700, 0xff43549C, 0xff4999F0, 0xffD9392D, 0xff57708A, 0xffFFD700};
+    private final int[] ints = new int[]{
             R.mipmap.qq,
             R.mipmap.wechat,
             R.mipmap.e,
@@ -272,8 +265,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
         //第二种,直接一个个加进去
         new FlipShareView.Builder(MainActivity.this, view)
                 // .addItem(new ShareItem("Facebook", Color.WHITE, 0xff43549C, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_facebook)))
-//                        .addItem(new ShareItem("qq分享", Color.WHITE, 0xff43549C, BitmapFactory.decodeResource(getResources(),R.mipmap.qq)))
-//                        .addItem(new ShareItem("微信分享", Color.WHITE, 0xff4999F0, BitmapFactory.decodeResource(getResources(),R.mipmap.wechat)))
+//              .addItem(new ShareItem("qq分享", Color.WHITE, 0xff43549C, BitmapFactory.decodeResource(getResources(),R.mipmap.qq)))
+//               .addItem(new ShareItem("微信分享", Color.WHITE, 0xff4999F0, BitmapFactory.decodeResource(getResources(),R.mipmap.wechat)))
                 .addItems(shareItemList)
                 //  上方都是添加item的样式和左侧图标的,下面是整体样式
                 //呼出时背景色,有的是透明有的是灰色,看需求设置
@@ -285,7 +278,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
 //               .setAnimType(FlipShareView.TYPE_HORIZONTAL)//三种样式,挨个测试一下(   TYPE_HORIZONTAL TYPE_SLIDE   TYPE_VERTICLE     )
                 // 方向
                 .setAnimType(FlipShareView.TYPE_SLIDE)
-
                 .create()
                 .setOnFlipClickListener(new FlipShareView.OnFlipClickListener() {
                     @Override
@@ -347,6 +339,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresent> 
     }
 
     private void onPit() {
+        mBindingView.spinner.setVisibility(View.GONE);
         //数据源
         ArrayList<String> spinners = new ArrayList<>();
         spinners.add("今日");
